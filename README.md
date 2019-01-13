@@ -41,14 +41,37 @@ This project use [bigtable-client-core](https://mvnrepository.com/artifact/com.g
 | connector.class        		  | BigtableSinkConnector       | String	       |                 								|
 | tasks.max        				  | 1 							| Number 	   | Numbers of tasks								|
 | topics							  | demo-topic					| String		   | Comma separated list of topics 					|
-| topics.config.files.location    | kafka_home/config    		| String		   |	 There should be one yml file per topic	   		|	
+| topics.config.files.location    | kafka_home/config    		| String		   |	 There should be one yml file per topic names  	|	
 
 ### topic-name.yml
 
-| Property      					  | Value       				    | Data Type    | Description     								|       
-|---------------------------------|-----------------------------|--------------|------------------------------------------------|
-| keyFile						  | GCP Connect Key File			| String	 	   | This is a topic level config because you could subscribe from multiple topics and messages from one topic may go to a table in instance A and messages from another topic may go to a table in instance B|
-
+| Property      					  														   | Description       				   		 |     
+|------------------------------------------------------------------------------------------|-------------------------------------------|
+|<code> 
+	keyFile: /Users/sanjuthomas/keys/demo-instance-key.json
+	project: demo-project
+	instance: demo-instance
+	table: demo-table
+	transformer: kafka.connect.gcp.transform.JsonEventTransformer
+	keyQualifiers:
+	- exchange
+	- symbol
+	keyDelimiter: _
+	families:
+	- data
+	- metadata
+	familyQualifiers:
+	- data:
+	  - exchange
+	  - symbol
+	  - name
+	  - sector
+	- metadata:
+	  - event_time
+	  - create_time
+	  - processing_time
+	  - topic
+  </code> | test|
 
 ## How to deploy the connector?
 
