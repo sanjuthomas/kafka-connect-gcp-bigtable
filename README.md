@@ -45,31 +45,16 @@ This project use [bigtable-client-core](https://mvnrepository.com/artifact/com.g
 
 ### demo-topic.yml
 
-| Property      					  								   | Description       				   		 						 |     
+| Property      					| Value  								   | Description       				   		 						 |     
 |------------------------------------------------------------------|------------------------------------------------------------------|
-| keyFile: /home/keys/demo-instance-key.json		   				   |	 GCP Connect Key File. This is a topic level configuration because you could subscribe from multiple topics and messages from one topic may go to a table in instance A and messages from another topic may go to a table in instance B |		
-| project: demo-project											   | Name of the GCP Project
-| instance: demo-instance										   | Name of GCP Bigtable instance
-| table: demo-table												   | Name of GCP Bigtable table
-| transformer: kafka.connect.gcp.transform.JsonEventTransformer	   | Transformer to transform the message to Bigtable writable row. You may provide your own implementation.
-| <pre>keyQualifiers:								| Bigtable row key qualifier. Configured element names would be used to construct the row keys.
-	- exchange										
-	- symbol	</pre>											   
-| keyDelimiter: _									    | Delimiter to use if there are more than one element to construct row key |
-| families:												| Column families in the Bigtable table. This configuration will be used by the transformer.		   
-	- data												
-	- metadata											
-| familyQualifiers:									    | Column family to columns mapping.
-	- data:																
-	  - exchange
-	  - symbol
-	  - name
-	  - sector
-	- metadata:
-	  - event_time
-	  - create_time
-	  - processing_time
-	  - topic
+| keyFile	   				   |	 /home/keys/demo-instance-key.json	 | GCP Connect Key File. This is a topic level configuration because you could subscribe from multiple topics and messages from one topic may go to a table in instance A and messages from another topic may go to a table in instance B |		
+| project | demo-project|											   | Name of the GCP Project | 
+| instance | demo-instance	| 									   | Name of GCP Bigtable instance | 
+| table | demo-table| 												   | Name of GCP Bigtable table | 
+| transformer | kafka.connect.gcp.transform.JsonEventTransformer	   | Transformer to transform the message to Bigtable writable row. You may provide your own implementation. | 
+| keyQualifiers | 		<code> - exchange										
+	- symbol	 </code>					| Bigtable row key qualifier. Configured element names would be used to construct the row keys. | 
+												   
 
 
 ## How to deploy the connector?
