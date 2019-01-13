@@ -27,8 +27,27 @@ This project use [bigtable-client-core](https://mvnrepository.com/artifact/com.g
 | Java          | 1.8.0_161     | 
 | Kafka         | 2.11-2.1.0    |
 | Zookeeper     | 3.4.13        |
+| bigtable-client-core | 1.8.0  |
+| Kafka connect-api | 2.1.0     |
+| grpc-netty-shaded | 1.16.1    |
 
 ## Configurations
+
+### bigtable-sink.properties
+
+| Property      					  | Value       				    | Data Type    | Description     								|       
+|---------------------------------|-----------------------------|--------------|------------------------------------------------	|
+| name          					  | bigtable-sink    		 	| String		   |                 								|
+| connector.class        		  | BigtableSinkConnector       | String	       |                 								|
+| tasks.max        				  | 1 							| Number 	   | Numbers of tasks								|
+| topics							  | demo-topic					| String		   | Comma separated list of topics 					|
+| topics.config.files.location    | kafka_home/config    		| String		   |	 There should be one yml file per topic	   		|	
+
+### topic-name.yml
+
+| Property      					  | Value       				    | Data Type    | Description     								|       
+|---------------------------------|-----------------------------|--------------|------------------------------------------------|
+| keyFile						  | GCP Connect Key File			| String	 	   | This is a topic level config because you could subscribe from multiple topics and messages from one topic may go to a table in instance A and messages from another topic may go to a table in instance B|
 
 
 ## How to deploy the connector?

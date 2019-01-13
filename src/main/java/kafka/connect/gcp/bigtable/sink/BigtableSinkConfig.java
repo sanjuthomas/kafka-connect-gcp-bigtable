@@ -24,7 +24,7 @@ public class BigtableSinkConfig extends AbstractConfig {
 
   public static final String TOPICS = "topics";
 
-  public static final String CONFIG_FILE_LOCATION = "config.files.location";
+  public static final String CONFIG_FILE_LOCATION = "topics.config.files.location";
   private static final String CONFIG_FILE_LOCATION_DOC =
       "the folder in which the bigtable config files are located";
   private static final String CONFIG_FILE_LOCATION_DEFAULT = "config";
