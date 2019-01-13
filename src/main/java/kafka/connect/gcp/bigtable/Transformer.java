@@ -9,4 +9,5 @@ package kafka.connect.gcp.bigtable;
 public interface Transformer<T, R> {
 
   R transform(T t);
+
 }

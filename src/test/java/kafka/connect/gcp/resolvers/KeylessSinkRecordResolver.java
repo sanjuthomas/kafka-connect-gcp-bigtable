@@ -1,4 +1,4 @@
-package kafka.connect.config.gcp.resolvers;
+package kafka.connect.gcp.resolvers;
 
 import org.apache.kafka.connect.sink.SinkRecord;
 import org.junit.jupiter.api.extension.ExtensionContext;

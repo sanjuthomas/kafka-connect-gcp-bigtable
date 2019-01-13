@@ -13,7 +13,7 @@ import com.google.auth.oauth2.ServiceAccountCredentials;
  */
 public class AuthConfig {
 
-  public static ServiceAccountCredentials of(final String keyFile)
+  public static ServiceAccountCredentials from(final String keyFile)
       throws FileNotFoundException, IOException {
     final File credentialFile = new File(keyFile);
     try (FileInputStream seviceAccountStream = new FileInputStream(credentialFile)) {

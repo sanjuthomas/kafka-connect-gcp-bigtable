@@ -57,7 +57,7 @@ public class Config {
   }
 
   public String getKeyDelimiter() {
-    return MoreObjects.firstNonNull(this.keyDelimiter, "_");
+    return MoreObjects.firstNonNull(this.keyDelimiter, "");
   }
 
   public List<String> getFamilies() {

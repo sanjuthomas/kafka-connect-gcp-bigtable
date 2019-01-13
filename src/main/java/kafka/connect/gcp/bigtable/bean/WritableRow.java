@@ -34,6 +34,4 @@ public class WritableRow {
   public String toString() {
     return "WritableRow [rowKey=" + this.rowKey + ", cells=" + this.cells + "]";
   }
-
-
 }

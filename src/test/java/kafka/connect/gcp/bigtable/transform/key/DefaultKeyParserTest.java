@@ -13,9 +13,8 @@ import org.junit.jupiter.api.extension.ExtendWith;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
-
-import kafka.connect.config.gcp.resolvers.KeylessSinkRecordResolver;
-import kafka.connect.config.gcp.resolvers.SinkRecordResolver;
+import kafka.connect.gcp.resolvers.KeylessSinkRecordResolver;
+import kafka.connect.gcp.resolvers.SinkRecordResolver;
 
 public class DefaultKeyParserTest {
 

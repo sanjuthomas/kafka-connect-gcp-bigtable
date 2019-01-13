@@ -9,4 +9,5 @@ package kafka.connect.gcp.bigtable;
 public interface Parser<T, R> {
 
   public R parse(T t);
+
 }

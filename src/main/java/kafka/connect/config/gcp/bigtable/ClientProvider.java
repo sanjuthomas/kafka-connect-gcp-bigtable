@@ -21,5 +21,4 @@ public class ClientProvider {
             .setCredentialsProvider(FixedCredentialsProvider.create(credentials)).build();
     return BigtableDataClient.create(settings);
   }
-
 }

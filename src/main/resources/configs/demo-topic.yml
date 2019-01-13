@@ -1,9 +1,9 @@
 ---
-keyFile: /Users/sanjuthomas/Documents/tools/primeval-jet-227401-72c90a18987f.json
+keyFile: /Users/sanjuthomas/keys/demo-instance-key.json
 project: demo-project
 instance: demo-instance
 table: demo-table
-transformer: kafka.connect.gcp.transform.DefaultTransformer
+transformer: kafka.connect.gcp.transform.JsonEventTransformer
 keyQualifiers:
 - exchange
 - symbol
@@ -22,5 +22,3 @@ familyQualifiers:
   - create_time
   - processing_time
   - topic
-
-#data.eng.training.2018

@@ -14,9 +14,9 @@ import org.junit.jupiter.api.extension.ExtendWith;
 
 import kafka.connect.config.gcp.bigtable.TransformerConfig;
 import kafka.connect.config.gcp.bigtable.WriterConfig;
-import kafka.connect.config.gcp.resolvers.SinkRecordResolver;
 import kafka.connect.gcp.bigtable.bean.WritableRow;
 import kafka.connect.gcp.bigtable.transform.JsonEventTransformer;
+import kafka.connect.gcp.resolvers.SinkRecordResolver;
 
 public class BigtableWriterTest {
 

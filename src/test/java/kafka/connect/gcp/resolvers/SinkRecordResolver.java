@@ -1,37 +1,31 @@
-package kafka.connect.config.gcp.resolvers;
+package kafka.connect.gcp.resolvers;
 
-import java.util.HashMap;
 import java.util.Map;
+import org.apache.kafka.common.record.TimestampType;
+import org.apache.kafka.connect.sink.SinkRecord;
 import org.junit.jupiter.api.extension.ExtensionContext;
 import org.junit.jupiter.api.extension.ParameterContext;
 import org.junit.jupiter.api.extension.ParameterResolutionException;
-import org.junit.jupiter.api.extension.ParameterResolver;
 
 /**
  *
  * @author Sanju Thomas
  *
  */
-public class MapEventResolver implements ParameterResolver {
+public class SinkRecordResolver extends MapEventResolver {
 
   @Override
   public boolean supportsParameter(final ParameterContext parameterContext,
       final ExtensionContext extensionContext) throws ParameterResolutionException {
-    return parameterContext.getParameter().getType() == Map.class;
+    return parameterContext.getParameter().getType() == SinkRecord.class;
   }
 
   @Override
   public Object resolveParameter(final ParameterContext parameterContext,
       final ExtensionContext extensionContext) throws ParameterResolutionException {
-    return this.createData();
+    final Map<String, String> symbol = this.createData();
+    return new SinkRecord("demo-topic", 0, null, "MMM", null, symbol, -1,
+        System.currentTimeMillis(), TimestampType.CREATE_TIME);
   }
 
-  protected Map<String, String> createData() {
-    final Map<String, String> symbol = new HashMap<>();
-    symbol.put("symbol", "MMM");
-    symbol.put("name", "3MCompany");
-    symbol.put("sector", "Industrials");
-    symbol.put("exchange", "NYQ");
-    return symbol;
-  }
 }
