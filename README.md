@@ -49,8 +49,8 @@ This project use [bigtable-client-core](https://mvnrepository.com/artifact/com.g
 |-------------------------------|--------------------|--------------|------------------------------------------------------------------|
 | keyFile	   				    |	 /home/keys/demo-instance-key.json | String	 | GCP Connect Key File. This is a topic level configuration because you could subscribe from multiple topics and messages from one topic may go to a table in instance A and messages from another topic may go to a table in instance B |		
 | project 					    | demo-projec	| String |					    Name of the GCP Project | 
-| instance 					    | demo-instance	 | String |				   | Name of GCP Bigtable instance | 
-| table 							| demo-table| 	| String |				     Name of GCP Bigtable table | 
+| instance 					    | demo-instance	 | String |				    Name of GCP Bigtable instance | 
+| table 							| demo-table| 	 String |				     Name of GCP Bigtable table | 
 | transformer 					| kafka.connect.gcp.transform.JsonEventTransformer | String|	   | Transformer to transform the message to Bigtable writable row. You may provide your own implementation. | 
 | keyQualifiers | 		 - exchange	<br/> - symbol| Array| Bigtable row key qualifier. Configured element names would be used to construct the row keys. | 		
 						 	 
