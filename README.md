@@ -43,11 +43,11 @@ This project use [bigtable-client-core](https://mvnrepository.com/artifact/com.g
 | topics							  | demo-topic					| String		   | Comma separated list of topics 					|
 | topics.config.files.location    | kafka_home/config    		| String		   |	 There should be one yml file per topic names  	|	
 
-### topic-name.yml
+### demo-topic.yml
 
 | Property      					  														   | Description       				   		 |     
 |------------------------------------------------------------------------------------------|-------------------------------------------|
-|<code> 
+| <code> 
 	keyFile: /Users/sanjuthomas/keys/demo-instance-key.json
 	project: demo-project
 	instance: demo-instance
