@@ -22,7 +22,11 @@ This project use [bigtable-client-core](https://mvnrepository.com/artifact/com.g
 
 ### Tested Software Versions
 
-
+| Software      | Version       |           
+| ------------- |---------------| 
+| Java          | 1.8.0_161     | 
+| Kafka         | 2.11-2.1.0    |
+| Zookeeper     | 3.4.13        |
 
 ## Configurations
 
@@ -49,11 +53,9 @@ bin/connect-standalone.sh config/bigtable-connect-standalone.properties config/b
 
 ## How to start connector in distribute mode?
 
-Open a shell prompt, move to kafka_home and execute the following.
+Open a shell prompt, change your working directory to kafka_home and execute the following.
 
 ```
 bin/connect-distributed.sh config/bigtable-connect-distributed.properties config/bigtable-sink.properties
 ```
-
-
 
