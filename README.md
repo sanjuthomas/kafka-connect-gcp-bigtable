@@ -1,6 +1,6 @@
 # Kafka Sink Connect GCP Bigtable
 
-Apache Kafka Sink only Connect to stream messages from Apache Kafka to Google Cloud Platform (GCP) wide column store Bigtable.
+Apache Kafka Sink only Connect can be used to stream messages from Apache Kafka to Google Cloud Platform (GCP) wide column store Bigtable.
 
 ## What is Apache Kafka?
 
@@ -12,15 +12,48 @@ Bigtable is a compressed, high performance, proprietary data storage system buil
 
 ## High Level Architecture
 
-This project use [bigtable-client-core](https://mvnrepository.com/artifact/com.google.cloud.bigtable/bigtable-client-core) library to stream data to GCP Bigtable. [bigtable-client-core](https://mvnrepository.com/artifact/com.google.cloud.bigtable/bigtable-client-core) internally use the [gRPC](https://grpc.io/) protocol to talk to GCP Bigtable.
+This project use [bigtable-client-core](https://mvnrepository.com/artifact/com.google.cloud.bigtable/bigtable-client-core) library to stream data to GCP Bigtable. [bigtable-client-core](https://mvnrepository.com/artifact/com.google.cloud.bigtable/bigtable-client-core) internally use the [gRPC](https://grpc.io/) framework to talk to GCP Bigtable.
 
 ![Kafka Connect GCP Bigtable](kafka-connect-bigtable.png)
 
 ## Prerequisites
-1. Java 8 or greater
-2. Apache Zookeeper 
-3. Apache Kafka 
+
+[Apache ZooKeeper](https://zookeeper.apache.org) and [Apache Kafka](https://kafka.apache.org) installed and running in your machine. Please refer to respective sites to download and start ZooKeeper and Kafka. You would also need Java version 8 or above.
+
+### Tested Software Versions
+
+
 
 ## Configurations
+
+
+## How to deploy the connector?
+
+This is maven project. To create an [uber](https://maven.apache.org/plugins/maven-shade-plugin/index.html) jar, execute the following maven goals.
+
+```mvn clean compile package shade:shade install```
+
+Copy the artifact ```kafka-connect-gcp-bigtable-1.0.0.jar``` to kakfa_home/lib folder.
+
+Copy the [bigtable-sink.properties](https://github.com/sanjuthomas/kafka-connect-gcp-bigtable/blob/master/config/bigtable-sink.properties) file into kafka_home/config folder. Update the content of the property file according to your environment.
+
+Alternatively, you may keep the ```kafka-connect-gcp-bigtable-1.0.jar``` in another directory and export that directory into Kafka class path before starting the connector.
+
+## How to start connector in stand-alone mode?
+
+Open a shell prompt, move to kafka_home and execute the following.
+
+```
+bin/connect-standalone.sh config/bigtable-connect-standalone.properties config/bigtable-sink.properties
+```
+
+## How to start connector in distribute mode?
+
+Open a shell prompt, move to kafka_home and execute the following.
+
+```
+bin/connect-distributed.sh config/bigtable-connect-distributed.properties config/bigtable-sink.properties
+```
+
 
 
