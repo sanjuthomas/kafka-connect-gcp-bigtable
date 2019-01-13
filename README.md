@@ -52,8 +52,8 @@ This project use [bigtable-client-core](https://mvnrepository.com/artifact/com.g
 | instance 					    | demo-instance	 				   | Name of GCP Bigtable instance | 
 | table 							| demo-table| 					     Name of GCP Bigtable table | 
 | transformer 					| kafka.connect.gcp.transform.JsonEventTransformer	   | Transformer to transform the message to Bigtable writable row. You may provide your own implementation. | 
-| keyQualifiers | 		 - exchange	<br/>		| Bigtable row key qualifier. Configured element names would be used to construct the row keys. | 		
-						 - symbol	 
+| keyQualifiers | 		 - exchange	<br/> - symbol	| Bigtable row key qualifier. Configured element names would be used to construct the row keys. | 		
+						 	 
 												   
 
 
