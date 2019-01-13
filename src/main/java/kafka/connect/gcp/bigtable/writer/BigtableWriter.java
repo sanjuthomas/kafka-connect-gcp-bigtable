@@ -4,15 +4,14 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-
+import java.util.concurrent.ExecutionException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
+import com.google.api.core.ApiFuture;
 import com.google.cloud.bigtable.data.v2.BigtableDataClient;
 import com.google.cloud.bigtable.data.v2.models.BulkMutation;
 import com.google.cloud.bigtable.data.v2.models.Mutation;
 import com.google.common.annotations.VisibleForTesting;
-
 import kafka.connect.config.gcp.bigtable.AuthConfig;
 import kafka.connect.config.gcp.bigtable.ClientProvider;
 import kafka.connect.config.gcp.bigtable.WriterConfig;
@@ -29,60 +28,64 @@ import kafka.connect.gcp.bigtable.bean.WritableRow;
  */
 public class BigtableWriter implements Writer<WritableRow, Boolean> {
 
-	private static final Logger logger = LoggerFactory.getLogger(BigtableWriter.class);
+  private static final Logger logger = LoggerFactory.getLogger(BigtableWriter.class);
 
-	private final List<WritableRow> rows;
-	private final BigtableDataClient client;
-	private final WriterConfig config;
+  private final List<WritableRow> rows;
+  private final BigtableDataClient client;
+  private final WriterConfig config;
 
-	public BigtableWriter(final WriterConfig config) throws FileNotFoundException, IOException {
-		this.config = config;
-		this.rows = new ArrayList<>();
-		this.client = ClientProvider.provideUsing(AuthConfig.of(config.keyFile()), config.project(), config.instance());
-	}
+  public BigtableWriter(final WriterConfig config) throws FileNotFoundException, IOException {
+    this.config = config;
+    this.rows = new ArrayList<>();
+    this.client = ClientProvider.provideUsing(AuthConfig.from(config.keyFile()), config.project(),
+        config.instance());
+  }
 
-	@Override
-	public Result<Boolean> flush() {
-		BulkMutation batch = null;
-		batch = BulkMutation.create(this.config.table());
-		for (final WritableRow row : this.rows) {
-			for (final WritableCells cells : row.cells()) {
-				this.addMutation(batch, row.rowKey(), cells.family(), cells.cells());
-			}
-		}
-		final boolean executeAsync = this.executeAsync(batch);
-		this.rows.clear();
-		return () -> executeAsync;
-	}
+  @Override
+  public Result<Boolean> flush() {
+    BulkMutation batch = null;
+    batch = BulkMutation.create(this.config.table());
+    for (final WritableRow row : this.rows) {
+      for (final WritableCells cells : row.cells()) {
+        this.addMutation(batch, row.rowKey(), cells.family(), cells.cells());
+      }
+    }
+    final boolean executeAsync = this.executeAsync(batch);
+    this.rows.clear();
+    return () -> executeAsync;
+  }
 
-	@VisibleForTesting
-	boolean executeAsync(final BulkMutation batchMutation) {
-		logger.info("executeAsync is called");
-		this.client.bulkMutateRows(batchMutation);
-		logger.info("executeAsync is done");
-		return true;
-	}
+  @VisibleForTesting
+  boolean executeAsync(final BulkMutation batchMutation) {
+    final ApiFuture<Void> result = this.client.bulkMutateRowsAsync(batchMutation);
+    try {
+      result.get();
+    } catch (InterruptedException | ExecutionException e) {
+      logger.error(e.getMessage(), e);
+      return false;
+    }
+    return result.isDone();
+  }
 
-	private void addMutation(final BulkMutation batch, final String rowKey, final String family,
-			final List<WritableCell> cells) {
-		for (WritableCell cell : cells) {
-			batch.add(rowKey, Mutation.create().setCell(family, cell.qualifier(), cell.value()));
-		}
-	}
+  private void addMutation(final BulkMutation batch, final String rowKey, final String family,
+      final List<WritableCell> cells) {
+    for (final WritableCell cell : cells) {
+      batch.add(rowKey, Mutation.create().setCell(family, cell.qualifier(), cell.value()));
+    }
+  }
 
-	@Override
-	public int buffer(final WritableRow row) {
-		logger.info("buffered row is {}", row.rowKey());
-		this.rows.add(row);
-		return this.rows.size();
-	}
+  @Override
+  public int buffer(final WritableRow row) {
+    this.rows.add(row);
+    return this.rows.size();
+  }
 
-	@Override
-	public void close() {
-		try {
-			this.client.close();
-		} catch (final Exception e) {
-			logger.error(e.getMessage(), e);
-		}
-	}
+  @Override
+  public void close() {
+    try {
+      this.client.close();
+    } catch (final Exception e) {
+      logger.error(e.getMessage(), e);
+    }
+  }
 }

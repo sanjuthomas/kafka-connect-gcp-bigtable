@@ -41,7 +41,7 @@ public class BigtableSinkTask extends SinkTask {
 
   @Override
   public void start(final Map<String, String> config) {
-    logger.info("Bigtable Sink started with config {}", config);
+    logger.info("{} started with config {}", this, config);
     final String topic = config.get(BigtableSinkConfig.TOPICS);
     final String configFileLocation = config.get(BigtableSinkConfig.CONFIG_FILE_LOCATION);
     Preconditions.checkNotNull(topic,
@@ -59,7 +59,7 @@ public class BigtableSinkTask extends SinkTask {
 
   @Override
   public void stop() {
-
+    logger.info("{} stopped", this);
   }
 
 }

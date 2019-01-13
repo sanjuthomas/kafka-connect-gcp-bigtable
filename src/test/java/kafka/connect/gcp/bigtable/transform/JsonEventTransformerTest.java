@@ -13,12 +13,12 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import kafka.connect.config.gcp.bigtable.TransformerConfig;
-import kafka.connect.config.gcp.resolvers.KeylessSinkRecordResolver;
-import kafka.connect.config.gcp.resolvers.MapEventResolver;
-import kafka.connect.config.gcp.resolvers.SinkRecordResolver;
 import kafka.connect.gcp.bigtable.bean.WritableCells;
 import kafka.connect.gcp.bigtable.bean.WritableRow;
 import kafka.connect.gcp.bigtable.exception.RowKeyNotFoundException;
+import kafka.connect.gcp.resolvers.KeylessSinkRecordResolver;
+import kafka.connect.gcp.resolvers.MapEventResolver;
+import kafka.connect.gcp.resolvers.SinkRecordResolver;
 
 class JsonEventTransformerTest {
 
