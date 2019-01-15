@@ -12,14 +12,15 @@ import com.google.cloud.bigtable.data.v2.BigtableDataClient;
 import com.google.cloud.bigtable.data.v2.models.BulkMutation;
 import com.google.cloud.bigtable.data.v2.models.Mutation;
 import com.google.common.annotations.VisibleForTesting;
-import kafka.connect.config.gcp.bigtable.AuthConfig;
-import kafka.connect.config.gcp.bigtable.ClientProvider;
-import kafka.connect.config.gcp.bigtable.WriterConfig;
+
 import kafka.connect.gcp.bigtable.Result;
 import kafka.connect.gcp.bigtable.Writer;
 import kafka.connect.gcp.bigtable.bean.WritableCell;
 import kafka.connect.gcp.bigtable.bean.WritableCells;
 import kafka.connect.gcp.bigtable.bean.WritableRow;
+import kafka.connect.gcp.bigtable.config.AuthConfig;
+import kafka.connect.gcp.bigtable.config.ClientProvider;
+import kafka.connect.gcp.bigtable.config.WriterConfig;
 
 /**
  *
@@ -61,7 +62,7 @@ public class BigtableWriter implements Writer<WritableRow, Boolean> {
     try {
       result.get();
     } catch (InterruptedException | ExecutionException e) {
-      logger.error(e.getMessage(), e);
+      logger.error(e.getMessage(), e.getCause());
       return false;
     }
     return result.isDone();

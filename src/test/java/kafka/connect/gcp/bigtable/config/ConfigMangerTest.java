@@ -1,4 +1,4 @@
-package kafka.connect.config.gcp.bigtable;
+package kafka.connect.gcp.bigtable.config;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
@@ -14,6 +14,7 @@ import kafka.connect.gcp.bigtable.Transformer;
 import kafka.connect.gcp.bigtable.Writer;
 import kafka.connect.gcp.bigtable.bean.WritableCells;
 import kafka.connect.gcp.bigtable.bean.WritableRow;
+import kafka.connect.gcp.bigtable.config.ConfigManger;
 import kafka.connect.gcp.resolvers.SinkRecordResolver;
 
 public class ConfigMangerTest {

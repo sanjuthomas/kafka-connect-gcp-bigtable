@@ -9,9 +9,10 @@ import org.apache.kafka.connect.sink.SinkTask;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import com.google.api.client.util.Preconditions;
-import kafka.connect.config.gcp.bigtable.ConfigManger;
+
 import kafka.connect.gcp.bigtable.Writer;
 import kafka.connect.gcp.bigtable.bean.WritableRow;
+import kafka.connect.gcp.bigtable.config.ConfigManger;
 
 /**
  *
@@ -47,7 +48,7 @@ public class BigtableSinkTask extends SinkTask {
     Preconditions.checkNotNull(topic,
         "topics is a mandatory config in the bigtable-sink.properties");
     Preconditions.checkNotNull(configFileLocation,
-        "config.files.location is a mandatory config in the bigtable-sink.properties");
+        "topics.config.files.location is a mandatory config in the bigtable-sink.properties");
     ConfigManger.load(configFileLocation, topic);
   }
 

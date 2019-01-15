@@ -12,9 +12,9 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 
-import kafka.connect.config.gcp.bigtable.TransformerConfig;
-import kafka.connect.config.gcp.bigtable.WriterConfig;
 import kafka.connect.gcp.bigtable.bean.WritableRow;
+import kafka.connect.gcp.bigtable.config.TransformerConfig;
+import kafka.connect.gcp.bigtable.config.WriterConfig;
 import kafka.connect.gcp.bigtable.transform.JsonEventTransformer;
 import kafka.connect.gcp.resolvers.SinkRecordResolver;
 

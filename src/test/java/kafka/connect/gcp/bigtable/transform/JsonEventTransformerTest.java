@@ -12,9 +12,10 @@ import org.apache.kafka.connect.sink.SinkRecord;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import kafka.connect.config.gcp.bigtable.TransformerConfig;
+
 import kafka.connect.gcp.bigtable.bean.WritableCells;
 import kafka.connect.gcp.bigtable.bean.WritableRow;
+import kafka.connect.gcp.bigtable.config.TransformerConfig;
 import kafka.connect.gcp.bigtable.exception.RowKeyNotFoundException;
 import kafka.connect.gcp.resolvers.KeylessSinkRecordResolver;
 import kafka.connect.gcp.resolvers.MapEventResolver;
