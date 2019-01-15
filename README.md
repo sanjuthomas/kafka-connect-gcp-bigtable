@@ -43,7 +43,7 @@ This project leverage [bigtable-client-core](https://mvnrepository.com/artifact/
 | topics							  | demo-topic					| String		   | Comma separated list of topics. 				|
 | topics.config.files.location    | kafka_home/config    		| String		   |	 There should be one yml file per topic names.  	|	
 
-### demo-topic.yml
+### demo-topic.yml (one yml file per topic)
 
 | Property      					| Value  			| Data Type |					   Description       				   		 						 |     
 |-------------------------------|--------------------|--------------|------------------------------------------------------------------|
@@ -57,8 +57,11 @@ This project leverage [bigtable-client-core](https://mvnrepository.com/artifact/
 | families:  	| - data	 <br/> - metadata | Array | Column families in the Bigtable table. This configuration will be used by the transformer. | 
 | familyQualifiers: | - data:	 <br> &nbsp;- exchange <br> &nbsp;- symbol <br> &nbsp;- name <br> &nbsp;- sector	 <br/> - metadata:	 <br> &nbsp;- event_time <br> &nbsp;- create_time <br> &nbsp;- processing_time <br> &nbsp;- topic| Array | Column family to columns mapping. | 
 						 	 
-												   
+### Constraints
 
+The current configuration system supports streaming messages from a given topic to a given table. You can subscribe any number of topics, but a topic can be pointed to one and only table. Say for example, if you subscribed to topic named demo-topic, you should have yml file named demo-topic.yml. That yml file contains all the configuration requires to transform and write data into Bigtable.										
+
+As of today, we have transformer support for JSON Messages. I'm planning to add the Avro Messages transformer in the next version.
 
 ## How to deploy the connector?
 
@@ -87,4 +90,6 @@ Open a shell prompt, change your working directory to kafka_home and execute the
 ```
 bin/connect-distributed.sh config/bigtable-connect-distributed.properties config/bigtable-sink.properties
 ```
+## Question? 
 
+Either create an issues in this project or send me a note to bt@sanju.org. 
