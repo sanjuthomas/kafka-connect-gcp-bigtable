@@ -1,4 +1,4 @@
-package kafka.connect.config.gcp.bigtable;
+package kafka.connect.gcp.bigtable.config;
 
 import java.util.ArrayList;
 import java.util.Collections;

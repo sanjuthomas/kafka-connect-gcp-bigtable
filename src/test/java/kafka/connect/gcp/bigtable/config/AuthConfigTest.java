@@ -1,4 +1,4 @@
-package kafka.connect.config.gcp.bigtable;
+package kafka.connect.gcp.bigtable.config;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import java.io.FileNotFoundException;
@@ -6,6 +6,7 @@ import java.io.IOException;
 import org.junit.jupiter.api.Test;
 import com.google.auth.oauth2.ServiceAccountCredentials;
 import kafka.connect.gcp.bigtable.Integration;
+import kafka.connect.gcp.bigtable.config.AuthConfig;
 
 @Integration
 public class AuthConfigTest {

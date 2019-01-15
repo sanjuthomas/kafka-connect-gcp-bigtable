@@ -7,12 +7,13 @@ import org.apache.kafka.connect.sink.SinkRecord;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.common.annotations.VisibleForTesting;
-import kafka.connect.config.gcp.bigtable.TransformerConfig;
+
 import kafka.connect.gcp.bigtable.Parser;
 import kafka.connect.gcp.bigtable.Transformer;
 import kafka.connect.gcp.bigtable.bean.WritableCell;
 import kafka.connect.gcp.bigtable.bean.WritableCells;
 import kafka.connect.gcp.bigtable.bean.WritableRow;
+import kafka.connect.gcp.bigtable.config.TransformerConfig;
 import kafka.connect.gcp.bigtable.exception.RowKeyNotFoundException;
 import kafka.connect.gcp.bigtable.transform.key.DefaultKeyParser;
 
