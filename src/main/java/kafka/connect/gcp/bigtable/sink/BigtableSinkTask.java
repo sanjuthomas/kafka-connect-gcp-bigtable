@@ -9,7 +9,6 @@ import org.apache.kafka.connect.sink.SinkTask;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import com.google.api.client.util.Preconditions;
-
 import kafka.connect.gcp.bigtable.Writer;
 import kafka.connect.gcp.bigtable.bean.WritableRow;
 import kafka.connect.gcp.bigtable.config.ConfigManger;
@@ -36,7 +35,6 @@ public class BigtableSinkTask extends SinkTask {
       final WritableRow row = ConfigManger.transformer(sr.topic()).transform(sr);
       logger.info("transformed row {}", row);
       writer.buffer(row);
-      writer.flush();
     }
   }
 
