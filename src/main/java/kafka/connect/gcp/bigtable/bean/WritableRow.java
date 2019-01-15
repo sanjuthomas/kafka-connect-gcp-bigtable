@@ -11,27 +11,27 @@ import java.util.List;
 public class WritableRow {
 
   private final String rowKey;
-  private final List<WritableCells> cells;
+  private final List<WritableFamilyCells> familyCells;
 
   public WritableRow(final String rowKey) {
     this.rowKey = rowKey;
-    this.cells = new ArrayList<>();
+    this.familyCells = new ArrayList<>();
   }
 
-  public void addCell(final WritableCells cell) {
-    this.cells.add(cell);
+  public void addCell(final WritableFamilyCells cell) {
+    this.familyCells.add(cell);
   }
 
   public String rowKey() {
     return this.rowKey;
   }
 
-  public List<WritableCells> cells() {
-    return this.cells;
+  public List<WritableFamilyCells> familyCells() {
+    return this.familyCells;
   }
 
   @Override
   public String toString() {
-    return "WritableRow [rowKey=" + this.rowKey + ", cells=" + this.cells + "]";
+    return "WritableRow [rowKey=" + this.rowKey + ", familyCells=" + this.familyCells + "]";
   }
 }

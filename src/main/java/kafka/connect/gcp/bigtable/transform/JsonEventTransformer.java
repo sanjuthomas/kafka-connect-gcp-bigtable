@@ -11,7 +11,7 @@ import com.google.common.annotations.VisibleForTesting;
 import kafka.connect.gcp.bigtable.Parser;
 import kafka.connect.gcp.bigtable.Transformer;
 import kafka.connect.gcp.bigtable.bean.WritableCell;
-import kafka.connect.gcp.bigtable.bean.WritableCells;
+import kafka.connect.gcp.bigtable.bean.WritableFamilyCells;
 import kafka.connect.gcp.bigtable.bean.WritableRow;
 import kafka.connect.gcp.bigtable.config.TransformerConfig;
 import kafka.connect.gcp.bigtable.exception.RowKeyNotFoundException;
@@ -54,13 +54,13 @@ public class JsonEventTransformer implements Transformer<SinkRecord, WritableRow
   }
 
   @VisibleForTesting
-  WritableCells createCells(final String family, final Map<String, ? extends Object> row) {
+  WritableFamilyCells createCells(final String family, final Map<String, ? extends Object> row) {
     final Map<String, Object> filteredRow = this.filterRow(family, row);
     final List<WritableCell> cells = filteredRow.entrySet().stream()
         .map(e -> new WritableCell(TypeUtils.toByteString(e.getKey()),
             TypeUtils.toByteString(e.getValue())))
         .collect(Collectors.toList());
-    return new WritableCells(family, cells);
+    return new WritableFamilyCells(family, cells);
   }
 
   @VisibleForTesting

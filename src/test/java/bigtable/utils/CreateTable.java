@@ -13,13 +13,14 @@ public class CreateTable {
         .setInstanceName(com.google.bigtable.admin.v2.InstanceName.of(project, instance)).build();
     try (BigtableTableAdminClient bigtableDataClient =
         BigtableTableAdminClient.create(adminSettings)) {
-      final CreateTableRequest request = CreateTableRequest.of(table);
+      final CreateTableRequest request =
+          CreateTableRequest.of(table).addFamily("data").addFamily("metadata");
       bigtableDataClient.createTable(request);
     }
   }
 
   // have the GOOGLE_APPLICATION_CREDENTIALS system environment variable set
   public static void main(final String[] args) throws IOException {
-    new CreateTable().execute("demo-project", "demo-instance", "demo-table");
+    new CreateTable().execute("primeval-jet-227401", "demo-instance", "demo-table");
   }
 }

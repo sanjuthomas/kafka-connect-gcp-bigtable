@@ -16,7 +16,7 @@ import com.google.common.annotations.VisibleForTesting;
 import kafka.connect.gcp.bigtable.Result;
 import kafka.connect.gcp.bigtable.Writer;
 import kafka.connect.gcp.bigtable.bean.WritableCell;
-import kafka.connect.gcp.bigtable.bean.WritableCells;
+import kafka.connect.gcp.bigtable.bean.WritableFamilyCells;
 import kafka.connect.gcp.bigtable.bean.WritableRow;
 import kafka.connect.gcp.bigtable.config.AuthConfig;
 import kafka.connect.gcp.bigtable.config.ClientProvider;
@@ -47,8 +47,8 @@ public class BigtableWriter implements Writer<WritableRow, Boolean> {
     BulkMutation batch = null;
     batch = BulkMutation.create(this.config.table());
     for (final WritableRow row : this.rows) {
-      for (final WritableCells cells : row.cells()) {
-        this.addMutation(batch, row.rowKey(), cells.family(), cells.cells());
+      for (final WritableFamilyCells familyCells : row.familyCells()) {
+        this.addMutation(batch, row.rowKey(), familyCells.family(), familyCells.cells());
       }
     }
     final boolean executeAsync = this.executeAsync(batch);

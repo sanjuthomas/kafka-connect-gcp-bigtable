@@ -1,6 +1,6 @@
 ---
 keyFile: /Users/sathomas/keys/demo-key.json
-project: demo-project
+project: primeval-jet-227401
 instance: demo-instance
 table: demo-table
 transformer: kafka.connect.gcp.transform.JsonEventTransformer

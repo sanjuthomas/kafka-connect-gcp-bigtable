@@ -7,12 +7,12 @@ import java.util.List;
  * @author Sanju Thomas
  *
  */
-public class WritableCells {
+public class WritableFamilyCells {
 
   private final String family;
   private final List<WritableCell> cells;
 
-  public WritableCells(final String family, final List<WritableCell> cells) {
+  public WritableFamilyCells(final String family, final List<WritableCell> cells) {
     this.family = family;
     this.cells = cells;
   }

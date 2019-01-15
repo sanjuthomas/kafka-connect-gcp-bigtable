@@ -12,7 +12,7 @@ import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import kafka.connect.gcp.bigtable.Transformer;
 import kafka.connect.gcp.bigtable.Writer;
-import kafka.connect.gcp.bigtable.bean.WritableCells;
+import kafka.connect.gcp.bigtable.bean.WritableFamilyCells;
 import kafka.connect.gcp.bigtable.bean.WritableRow;
 import kafka.connect.gcp.bigtable.config.ConfigManger;
 import kafka.connect.gcp.resolvers.SinkRecordResolver;
@@ -30,7 +30,7 @@ public class ConfigMangerTest {
     final Transformer<SinkRecord, WritableRow> transformer = ConfigManger.transformer("demo-topic");
     final WritableRow row = transformer.transform(record);
     assertEquals("NYQ_MMM", row.rowKey());
-    final List<WritableCells> cells = row.cells();
+    final List<WritableFamilyCells> cells = row.familyCells();
     assertEquals(2, cells.size());
     assertEquals("data", cells.get(0).family());
     assertEquals("metadata", cells.get(1).family());

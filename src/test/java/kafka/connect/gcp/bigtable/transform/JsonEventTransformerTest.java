@@ -13,7 +13,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 
-import kafka.connect.gcp.bigtable.bean.WritableCells;
+import kafka.connect.gcp.bigtable.bean.WritableFamilyCells;
 import kafka.connect.gcp.bigtable.bean.WritableRow;
 import kafka.connect.gcp.bigtable.config.TransformerConfig;
 import kafka.connect.gcp.bigtable.exception.RowKeyNotFoundException;
@@ -49,10 +49,10 @@ class JsonEventTransformerTest {
   public void shouldTransformToWritableRowsWhenKeyQualifiersIsGiven(final SinkRecord record) {
     final WritableRow rows = this.transformer.transform(record);
     assertEquals("MMM", rows.rowKey());
-    final List<WritableCells> cells = rows.cells();
-    final WritableCells data = cells.get(0);
+    final List<WritableFamilyCells> cells = rows.familyCells();
+    final WritableFamilyCells data = cells.get(0);
     assertEquals("data", data.family());
-    final WritableCells metadata = cells.get(1);
+    final WritableFamilyCells metadata = cells.get(1);
     assertEquals("metadata", metadata.family());
     assertEquals(3, data.cells().size());
     assertEquals("symbol", data.cells().get(0).qualifier().toStringUtf8());
@@ -102,7 +102,7 @@ class JsonEventTransformerTest {
   @Test
   @ExtendWith({SinkRecordResolver.class, MapEventResolver.class})
   public void shouldCreateRow(final SinkRecord record, final Map<String, String> mapEvent) {
-    final WritableCells cells = this.transformer.createCells("data", mapEvent);
+    final WritableFamilyCells cells = this.transformer.createCells("data", mapEvent);
     assertEquals("data", cells.family());
   }
 
