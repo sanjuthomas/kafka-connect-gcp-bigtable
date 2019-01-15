@@ -71,7 +71,7 @@ This is maven project. To create an [uber](https://maven.apache.org/plugins/mave
 
 Copy the artifact ```kafka-connect-gcp-bigtable-1.0.0.jar``` to kakfa_home/lib folder.
 
-Copy the [bigtable-sink.properties](https://github.com/sanjuthomas/kafka-connect-gcp-bigtable/blob/master/config/bigtable-sink.properties) file into kafka_home/config folder. Update the content of the property file according to your environment.
+Copy the [bigtable-sink.properties](https://github.com/sanjuthomas/kafka-connect-gcp-bigtable/blob/master/src/main/resources/configs/bigtable-sink.properties) file into kafka_home/config folder. Update the content of the property file according to your environment.
 
 Alternatively, you may keep the ```kafka-connect-gcp-bigtable-1.0.jar``` in another directory and export that directory into Kafka class path before starting the connector.
 
