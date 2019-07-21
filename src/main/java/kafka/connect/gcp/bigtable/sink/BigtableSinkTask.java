@@ -36,8 +36,8 @@ public class BigtableSinkTask extends SinkTask {
       final WritableRow row = ConfigManger.transformer(sr.topic()).transform(sr);
       logger.info("transformed row {}", row);
       writer.buffer(row);
-      writer.flush();
     }
+    writer.flush();
   }
 
   @Override
