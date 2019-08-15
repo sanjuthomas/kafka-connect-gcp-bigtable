@@ -1,16 +1,19 @@
 package kafka.connect.gcp.bigtable.sink;
 
 import java.util.Collection;
+import java.util.LinkedHashSet;
 import java.util.Map;
+import java.util.Set;
+
 import org.apache.kafka.clients.consumer.OffsetAndMetadata;
 import org.apache.kafka.common.TopicPartition;
 import org.apache.kafka.connect.sink.SinkRecord;
 import org.apache.kafka.connect.sink.SinkTask;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
 import com.google.api.client.util.Preconditions;
 
-import kafka.connect.gcp.bigtable.Writer;
 import kafka.connect.gcp.bigtable.bean.WritableRow;
 import kafka.connect.gcp.bigtable.config.ConfigManger;
 
@@ -22,6 +25,7 @@ import kafka.connect.gcp.bigtable.config.ConfigManger;
 public class BigtableSinkTask extends SinkTask {
 
   private static final Logger logger = LoggerFactory.getLogger(BigtableSinkTask.class);
+  private static final Set<String> assingedTopics = new LinkedHashSet<>();
 
   @Override
   public String version() {
@@ -32,12 +36,11 @@ public class BigtableSinkTask extends SinkTask {
   public void put(final Collection<SinkRecord> sinkRecords) {
     logger.info("Data arrived in the Bigtable Sink Task, the count is {}", sinkRecords.size());
     for (final SinkRecord sr : sinkRecords) {
-      final Writer<WritableRow, Boolean> writer = ConfigManger.writer(sr.topic());
       final WritableRow row = ConfigManger.transformer(sr.topic()).transform(sr);
       logger.info("transformed row {}", row);
-      writer.buffer(row);
-      writer.flush();
+      ConfigManger.writer(sr.topic()).buffer(row);
     }
+    assingedTopics.forEach(at -> ConfigManger.writer(at).flush());
   }
 
   @Override
@@ -50,6 +53,11 @@ public class BigtableSinkTask extends SinkTask {
     Preconditions.checkNotNull(configFileLocation,
         "topics.config.files.location is a mandatory config in the bigtable-sink.properties");
     ConfigManger.load(configFileLocation, topic);
+  }
+  
+  @Override
+  public void open(Collection<TopicPartition> topicPartitions) {
+	  topicPartitions.forEach(tp -> assingedTopics.add(tp.topic()));
   }
 
   @Override
