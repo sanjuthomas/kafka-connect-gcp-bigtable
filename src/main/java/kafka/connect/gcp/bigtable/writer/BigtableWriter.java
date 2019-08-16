@@ -44,8 +44,7 @@ public class BigtableWriter implements Writer<WritableRow, Boolean> {
 
   @Override
   public Result<Boolean> flush() {
-    BulkMutation batch = null;
-    batch = BulkMutation.create(this.config.table());
+    final BulkMutation batch = BulkMutation.create(this.config.table());
     for (final WritableRow row : this.rows) {
       for (final WritableFamilyCells familyCells : row.familyCells()) {
         this.addMutation(batch, row.rowKey(), familyCells.family(), familyCells.cells());

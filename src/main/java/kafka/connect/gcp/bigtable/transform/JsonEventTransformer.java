@@ -3,10 +3,12 @@ package kafka.connect.gcp.bigtable.transform;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
+
 import org.apache.kafka.connect.sink.SinkRecord;
+import com.google.common.annotations.VisibleForTesting;
+
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.google.common.annotations.VisibleForTesting;
 
 import kafka.connect.gcp.bigtable.Parser;
 import kafka.connect.gcp.bigtable.Transformer;
