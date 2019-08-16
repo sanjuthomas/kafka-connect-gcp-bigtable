@@ -10,7 +10,7 @@ public class CreateTable {
   public void execute(final String project, final String instance, final String table)
       throws IOException {
     final BigtableTableAdminSettings adminSettings = BigtableTableAdminSettings.newBuilder()
-        .setInstanceName(com.google.bigtable.admin.v2.InstanceName.of(project, instance)).build();
+        .setProjectId(project).setInstanceId(instance).build();
     try (BigtableTableAdminClient bigtableDataClient =
         BigtableTableAdminClient.create(adminSettings)) {
       final CreateTableRequest request =

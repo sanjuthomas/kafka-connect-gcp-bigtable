@@ -2,13 +2,13 @@ package bigtable.utils;
 
 import java.io.File;
 import java.io.FileInputStream;
+
 import com.google.api.gax.core.FixedCredentialsProvider;
 import com.google.api.gax.rpc.ServerStream;
 import com.google.auth.oauth2.GoogleCredentials;
 import com.google.auth.oauth2.ServiceAccountCredentials;
 import com.google.cloud.bigtable.data.v2.BigtableDataClient;
 import com.google.cloud.bigtable.data.v2.BigtableDataSettings;
-import com.google.cloud.bigtable.data.v2.models.InstanceName;
 import com.google.cloud.bigtable.data.v2.models.Query;
 import com.google.cloud.bigtable.data.v2.models.Row;
 
@@ -24,7 +24,7 @@ public class QueryTable {
       credentials = ServiceAccountCredentials.fromStream(serviceAccountStream);
     }
     final BigtableDataSettings bigtableDataSettings =
-        BigtableDataSettings.newBuilder().setInstanceName(InstanceName.of(project, instance))
+        BigtableDataSettings.newBuilder().setProjectId(project).setInstanceId(instance)
             .setCredentialsProvider(FixedCredentialsProvider.create(credentials)).build();
     try (BigtableDataClient bigtableDataClient = BigtableDataClient.create(bigtableDataSettings)) {
 

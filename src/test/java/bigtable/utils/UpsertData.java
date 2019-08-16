@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.util.HashMap;
 import java.util.Map;
+
 import com.google.api.core.ApiFuture;
 import com.google.api.gax.core.FixedCredentialsProvider;
 import com.google.auth.oauth2.GoogleCredentials;
@@ -11,7 +12,6 @@ import com.google.auth.oauth2.ServiceAccountCredentials;
 import com.google.cloud.bigtable.data.v2.BigtableDataClient;
 import com.google.cloud.bigtable.data.v2.BigtableDataSettings;
 import com.google.cloud.bigtable.data.v2.models.BulkMutation;
-import com.google.cloud.bigtable.data.v2.models.InstanceName;
 import com.google.cloud.bigtable.data.v2.models.Mutation;
 
 public class UpsertData {
@@ -26,7 +26,7 @@ public class UpsertData {
       credentials = ServiceAccountCredentials.fromStream(serviceAccountStream);
     }
     final BigtableDataSettings bigtableDataSettings =
-        BigtableDataSettings.newBuilder().setInstanceName(InstanceName.of(project, instance))
+        BigtableDataSettings.newBuilder().setInstanceId(instance).setProjectId(project)
             .setCredentialsProvider(FixedCredentialsProvider.create(credentials)).build();
     try (BigtableDataClient bigtableDataClient = BigtableDataClient.create(bigtableDataSettings)) {
       final BulkMutation batch = BulkMutation.create(table);
