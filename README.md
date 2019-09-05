@@ -59,7 +59,7 @@ This project leverage [bigtable-client-core](https://mvnrepository.com/artifact/
 						 	 
 ### Constraints
 
-The current configuration system supports streaming messages from a given topic to a given table. You can subscribe any number of topics, but a topic can be pointed to one and only table. Say for example, if you subscribed to topic named demo-topic, you should have yml file named demo-topic.yml. That yml file contains all the configuration requires to transform and write data into Bigtable.										
+The current configuration system supports streaming messages from a given topic to a given table. You can subscribe any number of topics, but a topic can be pointed to one and only table. Say for example, if you subscribed from topic named demo-topic, you should have yml file named demo-topic.yml. That yml file contains all the configuration requires to transform and write data into Bigtable.										
 
 As of today, we have transformer support for JSON Messages. I'm planning to add the Avro Messages transformer in the next version.
 
