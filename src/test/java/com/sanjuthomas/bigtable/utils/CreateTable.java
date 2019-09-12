@@ -1,4 +1,4 @@
-package bigtable.utils;
+package com.sanjuthomas.bigtable.utils;
 
 import java.io.IOException;
 import com.google.cloud.bigtable.admin.v2.BigtableTableAdminClient;
