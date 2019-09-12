@@ -5,6 +5,3 @@ script:
   - mvn clean package
 after_success:
   - bash <(curl -s https://codecov.io/bash)
-env:
-  global:
-    - CODECOV_TOKEN=:36576a3f-b43a-472a-a05a-7623962e79e4
