@@ -8,7 +8,7 @@ import com.sanjuthomas.gcp.bigtable.bean.WritableRow;
 import com.sanjuthomas.gcp.bigtable.config.ConfigManger;
 import com.sanjuthomas.gcp.bigtable.Transformer;
 import com.sanjuthomas.gcp.bigtable.Writer;
-import com.sanjuthomas.gcp.resolvers.SinkRecordResolver;.
+import com.sanjuthomas.gcp.resolvers.SinkRecordResolver;
 import com.sanjuthomas.gcp.bigtable.Integration;
 
 import java.io.IOException;
