@@ -3,7 +3,7 @@ keyFile: /Users/sanjuthomas/keys/demo-instance-key.json
 project: demo-project
 instance: demo-instance
 table: demo-table
-transformer: kafka.connect.gcp.transform.JsonEventTransformer
+transformer: com.sanjuthomas.gcp.transform.JsonEventTransformer
 keyQualifiers:
 - exchange
 - symbol
