@@ -1,4 +1,4 @@
-https://api.travis-ci.com/sanjuthomas/kafka-connect-gcp-bigtable.svg?branch=master
+[![Build Status](https://travis-ci.com/sanjuthomas/kafka-connect-gcp-bigtable.svg?branch=master)](https://travis-ci.com/sanjuthomas/kafka-connect-gcp-bigtable)
 
 # Kafka Sink Connect GCP Bigtable
 
