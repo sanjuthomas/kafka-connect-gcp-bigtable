@@ -5,7 +5,7 @@
 
 	<groupId>kafka.connect.gcp.bigtable</groupId>
 	<artifactId>kafka-connect-gcp-bigtable</artifactId>
-	<version>1.0.0</version>
+	<version>0.0.1</version>
 	<packaging>jar</packaging>
 
 	<name>kafka-connect-bigtable</name>
