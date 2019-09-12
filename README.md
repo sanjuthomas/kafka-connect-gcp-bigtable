@@ -1,3 +1,5 @@
+https://api.travis-ci.com/sanjuthomas/kafka-connect-gcp-bigtable.svg?branch=master
+
 # Kafka Sink Connect GCP Bigtable
 
 Apache Kafka Sink only Connect can be used to stream messages from Apache Kafka to Google Cloud Platform (GCP) wide column store Bigtable.
