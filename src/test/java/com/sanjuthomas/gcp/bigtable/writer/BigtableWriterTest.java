@@ -17,6 +17,7 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import com.sanjuthomas.gcp.bigtable.config.TransformerConfig;
 import com.sanjuthomas.gcp.bigtable.transform.JsonEventTransformer;
 import com.sanjuthomas.gcp.resolvers.SinkRecordResolver;
+import com.sanjuthomas.gcp.bigtable.Integration;
 
 @Integration
 public class BigtableWriterTest {
