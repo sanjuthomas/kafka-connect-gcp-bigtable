@@ -19,6 +19,7 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 
+@Integration
 public class ConfigMangerTest {
 
   @BeforeAll
