@@ -18,6 +18,7 @@ import com.sanjuthomas.gcp.bigtable.config.TransformerConfig;
 import com.sanjuthomas.gcp.bigtable.transform.JsonEventTransformer;
 import com.sanjuthomas.gcp.resolvers.SinkRecordResolver;
 
+@Integration
 public class BigtableWriterTest {
 
 	private BigtableWriter writer;
