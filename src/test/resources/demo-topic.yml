@@ -1,0 +1,24 @@
+---
+keyFile: /Users/sanjuthomas/keys/demo-instance-key.json
+project: demo-project
+instance: demo-instance
+table: demo-table
+transformer: com.sanjuthomas.gcp.transform.JsonEventTransformer
+keyQualifiers:
+- exchange
+- symbol
+keyDelimiter: _
+families:
+- data
+- metadata
+familyQualifiers:
+- data:
+  - exchange
+  - symbol
+  - name
+  - sector
+- metadata:
+  - event_time
+  - create_time
+  - processing_time
+  - topic

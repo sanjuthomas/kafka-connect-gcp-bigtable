@@ -46,13 +46,15 @@ public class BigtableSinkTask extends SinkTask {
   @Override
   public void start(final Map<String, String> config) {
     logger.info("{} started with config {}", this, config);
-    final String topic = config.get(BigtableSinkConfig.TOPICS);
+    final String topics = config.get(BigtableSinkConfig.TOPICS);
     final String configFileLocation = config.get(BigtableSinkConfig.CONFIG_FILE_LOCATION);
-    Preconditions.checkNotNull(topic,
+    Preconditions.checkNotNull(topics,
         "topics is a mandatory config in the bigtable-sink.properties");
     Preconditions.checkNotNull(configFileLocation,
         "topics.config.files.location is a mandatory config in the bigtable-sink.properties");
-    ConfigManger.load(configFileLocation, topic);
+    for(String topic : topics.split(",")) {
+    	ConfigManger.load(configFileLocation, topic);
+    }
   }
 
   @Override
