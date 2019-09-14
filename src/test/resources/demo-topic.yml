@@ -1,5 +1,5 @@
 ---
-keyFile: /Users/sanjuthomas/keys/demo-instance-key.json
+keyFile: src/test/resources/demo-instance-key.json
 project: demo-project
 instance: demo-instance
 table: demo-table

@@ -1,13 +1,5 @@
 package com.sanjuthomas.gcp.bigtable.writer;
 
-import com.sanjuthomas.gcp.bigtable.bean.WritableCell;
-import com.sanjuthomas.gcp.bigtable.bean.WritableFamilyCells;
-import com.sanjuthomas.gcp.bigtable.bean.WritableRow;
-import com.sanjuthomas.gcp.bigtable.config.AuthConfig;
-import com.sanjuthomas.gcp.bigtable.config.WriterConfig;
-import com.sanjuthomas.gcp.bigtable.Result;
-import com.sanjuthomas.gcp.bigtable.Writer;
-
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -20,8 +12,12 @@ import com.google.cloud.bigtable.data.v2.BigtableDataClient;
 import com.google.cloud.bigtable.data.v2.models.BulkMutation;
 import com.google.cloud.bigtable.data.v2.models.Mutation;
 import com.google.common.annotations.VisibleForTesting;
-
-import com.sanjuthomas.gcp.bigtable.config.ClientProvider;
+import com.sanjuthomas.gcp.bigtable.Result;
+import com.sanjuthomas.gcp.bigtable.Writer;
+import com.sanjuthomas.gcp.bigtable.bean.WritableCell;
+import com.sanjuthomas.gcp.bigtable.bean.WritableFamilyCells;
+import com.sanjuthomas.gcp.bigtable.bean.WritableRow;
+import com.sanjuthomas.gcp.bigtable.config.WriterConfig;
 
 /**
  *
@@ -36,11 +32,11 @@ public class BigtableWriter implements Writer<WritableRow, Boolean> {
   private final BigtableDataClient client;
   private final WriterConfig config;
 
-  public BigtableWriter(final WriterConfig config) throws FileNotFoundException, IOException {
+  public BigtableWriter(final WriterConfig config, final BigtableDataClient client)
+      throws FileNotFoundException, IOException {
     this.config = config;
     this.rows = new ArrayList<>();
-    this.client = ClientProvider.provideUsing(AuthConfig.from(config.keyFile()), config.project(),
-        config.instance());
+    this.client = client;
   }
 
   @Override

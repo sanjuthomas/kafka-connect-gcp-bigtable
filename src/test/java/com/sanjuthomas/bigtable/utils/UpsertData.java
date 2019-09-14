@@ -14,6 +14,11 @@ import com.google.cloud.bigtable.data.v2.BigtableDataSettings;
 import com.google.cloud.bigtable.data.v2.models.BulkMutation;
 import com.google.cloud.bigtable.data.v2.models.Mutation;
 
+/**
+ * 
+ * @author Sanju Thomas
+ *
+ */
 public class UpsertData {
 
   private static final String KEY_FILE = "/Users/sanjuthomas/keys/demo-instance-key.json";

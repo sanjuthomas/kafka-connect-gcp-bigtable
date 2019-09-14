@@ -12,6 +12,11 @@ import com.google.cloud.bigtable.data.v2.BigtableDataSettings;
 import com.google.cloud.bigtable.data.v2.models.Query;
 import com.google.cloud.bigtable.data.v2.models.Row;
 
+/**
+ * 
+ * @author Sanju Thomas
+ *
+ */
 public class QueryTable {
 
   private static final String KEY_FILE = "/Users/sanjuthomas/keys/demo-instance-key.json";

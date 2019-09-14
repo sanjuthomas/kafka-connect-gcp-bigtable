@@ -5,6 +5,11 @@ import com.google.cloud.bigtable.admin.v2.BigtableTableAdminClient;
 import com.google.cloud.bigtable.admin.v2.BigtableTableAdminSettings;
 import com.google.cloud.bigtable.admin.v2.models.CreateTableRequest;
 
+/**
+ * 
+ * @author Sanju Thomas
+ *
+ */
 public class CreateTable {
 
   public void execute(final String project, final String instance, final String table)

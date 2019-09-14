@@ -23,6 +23,7 @@ public class Config {
   private String keyDelimiter;
   private List<String> families;
   private List<Map<String, List<String>>> familyQualifiers;
+  private WriterConfig writerConfig;
 
   public Map<String, List<String>> familyQualifiersMappings() {
     final Map<String, List<String>> familyQualifiersMappings = new HashMap<>();
@@ -32,20 +33,11 @@ public class Config {
     return familyQualifiersMappings;
   }
 
-  public String getKeyFile() {
-    return this.keyFile;
-  }
-
-  public String getProject() {
-    return this.project;
-  }
-
-  public String getInstance() {
-    return this.instance;
-  }
-
-  public String getTable() {
-    return this.table;
+  public WriterConfig writerConfig() {
+    if (writerConfig == null) {
+      writerConfig = new WriterConfig(keyFile, project, instance, table);
+    }
+    return writerConfig;
   }
 
   public String getTransformer() {

@@ -13,7 +13,7 @@ import org.apache.kafka.connect.sink.SinkRecord;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-
+import com.sanjuthomas.gcp.bigtable.config.ClientProvider;
 import com.sanjuthomas.gcp.bigtable.config.TransformerConfig;
 import com.sanjuthomas.gcp.bigtable.transform.JsonEventTransformer;
 import com.sanjuthomas.gcp.resolvers.SinkRecordResolver;
@@ -37,8 +37,9 @@ public class BigtableWriterTest {
 		final TransformerConfig config = new TransformerConfig(this.keyQualifiers, "_", this.families,
 				this.familyToQualifierMapping);
 		this.transformer = new JsonEventTransformer(config);
-		this.writer = new BigtableWriter(new WriterConfig("/Users/sathomas/keys/demo-key.json", "demo-project",
-				"demo-instance", "demo-table"));
+		WriterConfig writerConfig = new WriterConfig("/Users/sathomas/keys/demo-key.json", "demo-project",
+            "demo-instance", "demo-table");
+		this.writer = new BigtableWriter(writerConfig, new ClientProvider(writerConfig).client());
 	}
 
 	@Test
