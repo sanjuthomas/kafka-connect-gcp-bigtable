@@ -36,13 +36,11 @@ public class BigtableSinkConnector extends SinkConnector {
 
   @Override
   public Class<? extends Task> taskClass() {
-
     return BigtableSinkTask.class;
   }
 
   @Override
   public List<Map<String, String>> taskConfigs(final int taskCunt) {
-
     final List<Map<String, String>> configs = new ArrayList<>(taskCunt);
     for (int i = 0; i < taskCunt; ++i) {
       configs.add(this.config);
