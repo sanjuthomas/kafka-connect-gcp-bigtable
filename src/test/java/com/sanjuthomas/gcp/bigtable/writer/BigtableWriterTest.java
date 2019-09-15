@@ -63,6 +63,7 @@ public class BigtableWriterTest {
   @ExtendWith(SinkRecordResolver.class)
   public void shouldWrite(final SinkRecord record) throws InterruptedException, ExecutionException {
     when(client.bulkMutateRowsAsync(any(BulkMutation.class))).thenReturn(apiFuture);
+    when(apiFuture.isDone()).thenReturn(true);
     final WritableRow row = this.transformer.transform(record);
     writer.buffer(row);
     assertTrue(writer.flush().get());
