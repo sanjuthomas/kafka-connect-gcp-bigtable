@@ -1,10 +1,12 @@
 package com.sanjuthomas.gcp.bigtable.writer;
 
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
-
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.Arrays;
@@ -63,7 +65,19 @@ public class BigtableWriterTest {
     when(client.bulkMutateRowsAsync(any(BulkMutation.class))).thenReturn(apiFuture);
     final WritableRow row = this.transformer.transform(record);
     writer.buffer(row);
-    writer.flush();
+    assertTrue(writer.flush().get());
+    verify(client, times(1)).bulkMutateRowsAsync(any(BulkMutation.class));
+    verify(apiFuture, times(1)).get();
+  }
+  
+  @Test
+  @ExtendWith(SinkRecordResolver.class)
+  public void shouldNotWrite(final SinkRecord record) throws InterruptedException, ExecutionException {
+    when(client.bulkMutateRowsAsync(any(BulkMutation.class))).thenReturn(apiFuture);
+    when(apiFuture.get()).thenThrow(ExecutionException.class);
+    final WritableRow row = this.transformer.transform(record);
+    writer.buffer(row);
+    assertFalse(writer.flush().get());
     verify(client, times(1)).bulkMutateRowsAsync(any(BulkMutation.class));
     verify(apiFuture, times(1)).get();
   }
