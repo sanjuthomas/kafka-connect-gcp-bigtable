@@ -1,5 +1,5 @@
 ---
-keyFile: src/test/resources/demo-instance-key.json
+keyFile: /Users/sanjuthomas/keys/civic-athlete-251623-e16dce095204.json
 project: demo-project
 instance: demo-instance
 table: demo-table

@@ -52,8 +52,6 @@ public class BigtableSinkTask extends SinkTask {
 	logger.info("{} started with config {}", this, config);
 	this.configProvider = new ConfigProvider();
 	final String topics = config.get(BigtableSinkConfig.TOPICS);
-	this.writerProvider = new WriterProvider(configProvider);
-   
     final String configFileLocation = config.get(BigtableSinkConfig.CONFIG_FILE_LOCATION);
     Preconditions.checkNotNull(topics,
         "topics is a mandatory config in the bigtable-sink.properties");
@@ -62,6 +60,7 @@ public class BigtableSinkTask extends SinkTask {
     for(String topic : topics.split(",")) {
     	configProvider.load(configFileLocation, topic);
     }
+    this.writerProvider = new WriterProvider(configProvider);
   }
 
   @Override
