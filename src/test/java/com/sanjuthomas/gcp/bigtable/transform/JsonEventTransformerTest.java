@@ -22,6 +22,11 @@ import com.sanjuthomas.gcp.resolvers.KeylessSinkRecordResolver;
 import com.sanjuthomas.gcp.resolvers.MapEventResolver;
 import com.sanjuthomas.gcp.resolvers.SinkRecordResolver;
 
+/**
+ * 
+ * @author Sanju Thomas
+ *
+ */
 class JsonEventTransformerTest {
 
   private JsonEventTransformer transformer;
