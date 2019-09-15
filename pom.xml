@@ -200,6 +200,62 @@
 					</execution>
 				</executions>
 			</plugin>
+			<plugin>
+				<groupId>io.confluent</groupId>
+				<version>0.10.0</version>
+				<artifactId>kafka-connect-maven-plugin</artifactId>
+				<executions>
+					<execution>
+						<goals>
+							<goal>kafka-connect</goal>
+						</goals>
+						<configuration>
+							<title>Kafka Connect GCP Bigtable</title>
+							<documentationUrl>https://github.com/sanjuthomas/kafka-connect-gcp-bigtable/blob/master/README.md</documentationUrl>
+							<description>
+								The GCP Bigtable connector allows moving data from Kafka to GCP
+								Bigtable. It writes data from a topic in Kafka to an table in
+								GCP Bigtable.
+
+								Cloud Bigtable stores data in massively scalable tables, each of
+								which is a sorted key/value map. The table is composed of rows,
+								each of which typically describes a single entity, and columns,
+								which contain individual values for each row. Each row is
+								indexed by a single row key, and columns that are related to one
+								another are typically grouped together into a column family.
+								Each column is identified by a combination of the column family
+								and a column qualifier, which is a unique name within the column
+								family.
+
+								Refer to
+								https://github.com/sanjuthomas/kafka-connect-gcp-bigtable/blob/master/README.md
+								to know more about mapping the messages from a topic in Kafka to
+								table in GCP Bigtable.
+							</description>
+							<logo>docs/logos/gcp-bigtable.jpg</logo>
+							<supportProviderName>Open Source Community</supportProviderName>
+							<supportSummary>Support provided through community involvement.</supportSummary>
+							<supportUrl>${project.issueManagement.url}</supportUrl>
+							<ownerUsername>sanjuthomas</ownerUsername>
+							<ownerType>user</ownerType>
+							<ownerName>Sanju Thomas</ownerName>
+							<ownerUrl>http://sanjuthomas.com/</ownerUrl>
+							<componentTypes>
+								<componentType>sink</componentType>
+							</componentTypes>
+							<tags>
+								<tag>GCP</tag>
+								<tag>Bigtable</tag>
+								<tag>NoSQL</tag>
+							</tags>
+							<requirements>
+								<requirement>GCP Bigtable</requirement>
+							</requirements>
+							<confluentControlCenterIntegration>true</confluentControlCenterIntegration>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
 		</plugins>
 	</build>
 	<distributionManagement>
