@@ -3,7 +3,7 @@ keyFile: src/test/resources/demo-instance-key.json
 project: demo-project
 instance: demo-instance
 table: demo-table
-transformer: com.sanjuthomas.gcp.transform.JsonEventTransformer
+transformer: com.sanjuthomas.gcp.bigtable.transform.JsonEventTransformer
 keyQualifiers:
 - exchange
 - symbol
