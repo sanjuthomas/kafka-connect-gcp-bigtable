@@ -71,7 +71,6 @@ public class BigtableSinkTask extends SinkTask {
   @Override
   public void flush(final Map<TopicPartition, OffsetAndMetadata> currentOffsets) {
     logger.info("flush is called for {}", currentOffsets.keySet());
-    currentOffsets.entrySet().stream().map(e -> writerProvider.writer(e.getKey().topic()).flush());
   }
 
   @Override
