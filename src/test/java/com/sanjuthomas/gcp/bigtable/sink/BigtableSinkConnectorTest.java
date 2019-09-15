@@ -26,7 +26,7 @@ public class BigtableSinkConnectorTest {
 
   @Test
   public void shouldGetTaskConfigs() {
-    List<Map<String, String>> taskConfigs = bigtableSinkConnector.taskConfigs(1);
+    final List<Map<String, String>> taskConfigs = bigtableSinkConnector.taskConfigs(1);
     assertEquals(1, taskConfigs.size());
     assertEquals(0, taskConfigs.get(0).size());
   }

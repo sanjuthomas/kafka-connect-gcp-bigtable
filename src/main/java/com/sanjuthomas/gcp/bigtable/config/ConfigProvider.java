@@ -1,6 +1,8 @@
 package com.sanjuthomas.gcp.bigtable.config;
 
 import java.io.File;
+import java.lang.reflect.Constructor;
+import java.lang.reflect.InvocationTargetException;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 import org.apache.kafka.connect.sink.SinkRecord;
@@ -10,7 +12,6 @@ import com.google.common.base.MoreObjects;
 import com.sanjuthomas.gcp.bigtable.Transformer;
 import com.sanjuthomas.gcp.bigtable.bean.WritableRow;
 import com.sanjuthomas.gcp.bigtable.exception.BigtableSinkInitializationException;
-import com.sanjuthomas.gcp.bigtable.transform.JsonEventTransformer;
 
 /**
  *
@@ -33,20 +34,32 @@ public class ConfigProvider {
       throw new BigtableSinkInitializationException(e.getMessage(), e);
     }
   }
-  
+
   public Config config(final String topic) {
     return configs.get(topic);
   }
 
   public Transformer<SinkRecord, WritableRow> transformer(final String topic) {
-    return MoreObjects.firstNonNull(transformerMap.get(topic), createAndCacheTransformer(topic));
+    try {
+      return MoreObjects.firstNonNull(transformerMap.get(topic), createAndCacheTransformer(topic));
+    } catch (NoSuchMethodException | SecurityException | ClassNotFoundException
+        | InstantiationException | IllegalAccessException | IllegalArgumentException
+        | InvocationTargetException e) {
+      throw new RuntimeException(e.getMessage());
+    }
   }
 
-  private Transformer<SinkRecord, WritableRow> createAndCacheTransformer(final String topic) {
+  private Transformer<SinkRecord, WritableRow> createAndCacheTransformer(final String topic)
+      throws NoSuchMethodException, SecurityException, ClassNotFoundException,
+      InstantiationException, IllegalAccessException, IllegalArgumentException,
+      InvocationTargetException {
     final Config config = configs.get(topic);
     final TransformerConfig transformerConfig = new TransformerConfig(config.getKeyQualifiers(),
         config.getKeyDelimiter(), config.getFamilies(), config.familyQualifiersMappings());
-    final JsonEventTransformer jsonEventTransformer = new JsonEventTransformer(transformerConfig);
+    final Constructor<?> constructor =
+        Class.forName(config.getTransformer()).getConstructor(TransformerConfig.class);
+    final Transformer<SinkRecord, WritableRow> jsonEventTransformer =
+        (Transformer<SinkRecord, WritableRow>) constructor.newInstance(transformerConfig);
     transformerMap.put(topic, jsonEventTransformer);
     return jsonEventTransformer;
   }

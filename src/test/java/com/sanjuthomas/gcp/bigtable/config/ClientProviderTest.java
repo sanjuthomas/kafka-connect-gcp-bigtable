@@ -19,7 +19,6 @@ public class ClientProviderTest {
 
   @Test
   public void shouldGetClient() throws Exception {
-
     final BigtableDataClient bigtableClient = clientProvider.client();
     bigtableClient.close();
   }

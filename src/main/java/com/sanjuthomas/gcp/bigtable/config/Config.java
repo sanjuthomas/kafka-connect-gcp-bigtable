@@ -82,8 +82,7 @@ public class Config {
   }
 
   public void setTransformer(final String transformer) {
-    Preconditions.checkNotNull(transformer, "transformer class is a mandatory configuration.");
-    this.transformer = transformer;
+    this.transformer = MoreObjects.firstNonNull(transformer, "com.sanjuthomas.gcp.transform.JsonEventTransformer");
   }
 
   public void setKeyQualifiers(final List<String> keyQualifiers) {
