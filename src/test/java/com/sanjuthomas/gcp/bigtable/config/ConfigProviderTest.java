@@ -14,6 +14,11 @@ import com.sanjuthomas.gcp.bigtable.bean.WritableFamilyCells;
 import com.sanjuthomas.gcp.bigtable.bean.WritableRow;
 import com.sanjuthomas.gcp.resolvers.SinkRecordResolver;
 
+/**
+ * 
+ * @author Sanju Thomas
+ *
+ */
 public class ConfigProviderTest {
   
   private ConfigProvider configProvider;

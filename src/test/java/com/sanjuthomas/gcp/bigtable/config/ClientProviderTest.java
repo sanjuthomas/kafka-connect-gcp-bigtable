@@ -5,6 +5,11 @@ import org.junit.jupiter.api.Test;
 import com.google.cloud.bigtable.data.v2.BigtableDataClient;
 import com.sanjuthomas.gcp.bigtable.Integration;
 
+/**
+ * 
+ * @author Sanju Thomas
+ *
+ */
 @Integration
 public class ClientProviderTest {
 
