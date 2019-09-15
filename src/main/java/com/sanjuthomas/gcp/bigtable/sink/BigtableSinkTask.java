@@ -15,7 +15,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.google.api.client.util.Preconditions;
-
+import com.google.common.annotations.VisibleForTesting;
 import com.sanjuthomas.gcp.bigtable.bean.WritableRow;
 
 /**
@@ -28,7 +28,8 @@ public class BigtableSinkTask extends SinkTask {
   private static final Logger logger = LoggerFactory.getLogger(BigtableSinkTask.class);
   private static final Set<String> assingedTopics = new LinkedHashSet<>();
   private ConfigProvider configProvider;
-  private WriterProvider writerProvider;
+  @VisibleForTesting
+  WriterProvider writerProvider;
   
   @Override
   public String version() {
