@@ -202,7 +202,7 @@
 			</plugin>
 			<plugin>
 				<groupId>io.confluent</groupId>
-				<version>0.11.2</version>
+				<version>0.11.1</version>
 				<artifactId>kafka-connect-maven-plugin</artifactId>
 				<executions>
 					<execution>
@@ -233,7 +233,7 @@
 								README to know more about mapping the messages from a topic in
 								Kafka to table in GCP Bigtable.
 							</description>
-							<logo>docs/logos/gcp-bigtable.jpg</logo>
+							<logo>docs/logos/gcp-bigtable.png</logo>
 							<supportProviderName>Open Source Community</supportProviderName>
 							<supportSummary>Support provided through community involvement.</supportSummary>
 							<supportUrl>${project.issueManagement.url}</supportUrl>
