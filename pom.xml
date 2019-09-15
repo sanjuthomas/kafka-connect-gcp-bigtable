@@ -24,6 +24,8 @@
 	</licenses>
 
 	<scm>
+		<connection>scm:git:git://github.com/sanjuthomas/kafka-connect-gcp-bigtable.git</connection>
+		<developerConnection>scm:git:git@github.com:sanjuthomas/kafka-connect-gcp-bigtable.git</developerConnection>
 		<url>https://github.com/sanjuthomas/kafka-connect-gcp-bigtable</url>
 	</scm>
 
