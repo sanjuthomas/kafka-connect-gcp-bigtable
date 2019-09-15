@@ -20,6 +20,10 @@ import com.sanjuthomas.gcp.bigtable.bean.WritableRow;
 import com.sanjuthomas.gcp.bigtable.config.WriterConfig;
 
 /**
+ * Default Bigtable writer implementation.
+ * 
+ * This implementation write rows using bulkMutateRowsAsync. There is no error handling or retry
+ * logic is implemented in the open source version.
  *
  * @author Sanju Thomas
  *

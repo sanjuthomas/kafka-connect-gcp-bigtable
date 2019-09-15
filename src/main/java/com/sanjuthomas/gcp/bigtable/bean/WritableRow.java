@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
+ *  Represent a row in the Bigtable.
  *
  * @author Sanju Thomas
  *

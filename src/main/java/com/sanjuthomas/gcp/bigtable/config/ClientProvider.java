@@ -22,6 +22,12 @@ public class ClientProvider {
     this.writerConfig = writerConfig;
   }
 
+  /**
+   * Create a BigtableDataClient using the given WriterConfig.
+   * 
+   * @return BigtableDataClient
+   * @throws IOException
+   */
   public BigtableDataClient client() throws IOException {
     final BigtableDataSettings settings =
         BigtableDataSettings.newBuilder().setProjectId(this.writerConfig.project())

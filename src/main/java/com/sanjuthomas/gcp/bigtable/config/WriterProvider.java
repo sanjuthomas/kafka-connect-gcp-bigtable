@@ -11,6 +11,7 @@ import com.sanjuthomas.gcp.bigtable.exception.BigtableSinkInitializationExceptio
 import com.sanjuthomas.gcp.bigtable.writer.BigtableWriter;
 
 /**
+ * Class responsible for creating and caching witer objects.
  * 
  * @author Sanju Thomas
  *
@@ -26,6 +27,12 @@ public class WriterProvider {
     this.configProvider = configProvider;
   }
 
+  /**
+   * Return the writer for the given topic.
+   * 
+   * @param topic
+   * @return
+   */
   public Writer<WritableRow, Boolean> writer(final String topic) {
     try {
       return MoreObjects.firstNonNull(writerMap.get(topic), createAndCacheWriter(topic));

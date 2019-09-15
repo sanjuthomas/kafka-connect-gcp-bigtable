@@ -3,6 +3,7 @@ package com.sanjuthomas.gcp.bigtable.bean;
 import java.util.List;
 
 /**
+ * Represent all the cells belongs to a column family in Bigtable.
  *
  * @author Sanju Thomas
  *

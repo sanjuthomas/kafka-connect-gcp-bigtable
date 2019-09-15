@@ -22,6 +22,9 @@ public class DefaultKeyParser implements Parser<Object, String> {
     this.keyDelimiter = keyDelimiter;
   }
 
+ /**
+  * Extract key from the record.
+  */
   @Override
   public String parse(final Object record) {
     if (record instanceof SinkRecord) {

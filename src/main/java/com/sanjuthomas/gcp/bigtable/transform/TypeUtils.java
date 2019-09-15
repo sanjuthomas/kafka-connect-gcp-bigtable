@@ -10,6 +10,12 @@ import com.google.protobuf.ByteString;
  */
 public class TypeUtils {
 
+  /**
+   * Convert the given object to ByteString.
+   * 
+   * @param value
+   * @return ByteString
+   */
   public static ByteString toByteString(final Object value) {
     if (value instanceof ByteBuffer) {
       return ByteString.copyFrom((ByteBuffer) value);

@@ -3,6 +3,7 @@ package com.sanjuthomas.gcp.bigtable.bean;
 import com.google.protobuf.ByteString;
 
 /**
+ * Represent a Cell in the Bigtable.
  *
  * @author Sanju Thomas
  *
