@@ -1,7 +1,6 @@
 package com.sanjuthomas.gcp.bigtable.config;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 import com.google.common.base.MoreObjects;
@@ -27,11 +26,8 @@ public class TransformerConfig {
   }
 
   public List<String> familyQualifiers(final String family) {
-    List<String> list = null;
-    if (this.familyToQualifierMapping != null) {
-      list = this.familyToQualifierMapping.get(family);
-    }
-    return list == null ? Collections.emptyList() : list;
+    return MoreObjects.firstNonNull(this.familyToQualifierMapping.get(family),
+        new ArrayList<String>(0));
   }
 
   public List<String> families() {
