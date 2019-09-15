@@ -3,6 +3,7 @@ package com.sanjuthomas.gcp.bigtable.writer;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
@@ -81,5 +82,11 @@ public class BigtableWriterTest {
     verify(client, times(1)).bulkMutateRowsAsync(any(BulkMutation.class));
     verify(apiFuture, times(1)).get();
   }
-
+  
+  @Test
+  public void shouldClose() throws Exception {
+    doNothing().when(client).close();
+    writer.close();
+  }
+  
 }
