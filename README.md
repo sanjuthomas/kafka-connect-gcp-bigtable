@@ -55,7 +55,7 @@ This project leverage [bigtable-client-core](https://mvnrepository.com/artifact/
 | project: 					    | demo-project	| String |					    Name of the GCP Project | 
 | instance: 					    | demo-instance	 | String |				    Name of GCP Bigtable instance | 
 | table: 							| demo-table| 	 String |				     Name of GCP Bigtable table | 
-| transformer: 					| kafka.connect.gcp.transform.JsonEventTransformer | String|	  Transformer class to transform the message to Bigtable writable row. You may provide your own implementation. | 
+| transformer: 					| com.sanjuthomas.gcp.transform.JsonEventTransformer | String|	  Transformer class to transform the message to Bigtable writable row. You may provide your own implementation. | 
 | keyQualifiers: | 		 - exchange	<br/> - symbol| Array| Bigtable row key qualifier. Configured element names would be used to construct the row keys. | 
 | keyDelimiter: | - | String | Delimiter to use if there are more than one element to construct row key. |
 | families:  	| - data	 <br/> - metadata | Array | Column families in the Bigtable table. This configuration will be used by the transformer. | 
