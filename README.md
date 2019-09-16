@@ -84,7 +84,7 @@ Alternatively, you may keep the ```kafka-connect-gcp-bigtable-1.0.jar``` in anot
 Open a shell prompt, move to kafka_home and execute the following.
 
 ```
-bin/connect-standalone.sh config/bigtable-connect-standalone.properties config/bigtable-sink.properties
+bin/connect-standalone.sh config/connect-bigtable-standalone.properties config/bigtable-sink.properties
 ```
 
 ## How to start connector in distribute mode?
