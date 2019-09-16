@@ -1,7 +1,8 @@
 [![Build Status](https://travis-ci.com/sanjuthomas/kafka-connect-gcp-bigtable.svg?branch=master)](https://travis-ci.com/sanjuthomas/kafka-connect-gcp-bigtable)
 [![codecov](https://codecov.io/gh/sanjuthomas/kafka-connect-gcp-bigtable/branch/master/graph/badge.svg)](https://codecov.io/gh/sanjuthomas/kafka-connect-gcp-bigtable)
 ![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)
-[![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2Fsanjuthomas%2Fkafka-connect-gcp-bigtable.svg?type=shield)](https://app.fossa.io/projects/git%2Bgithub.com%2Fsanjuthomas%2Fkafka-connect-gcp-bigtable?ref=badge_shield)
+[![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2Fsanjuthomas%2Fkafka-connect-gcp-bigtable.svg?type=shield)](https://app.fossa.com/projects/git%2Bgithub.com%2Fsanjuthomas%2Fkafka-connect-gcp-bigtable?ref=badge_shield)
+
 # Kafka Sink Connect GCP Bigtable
 
 Apache Kafka Sink only Connect can be used to stream messages from Apache Kafka to Google Cloud Platform (GCP) wide column store Bigtable.
@@ -45,7 +46,7 @@ This project leverage [bigtable-client-core](https://mvnrepository.com/artifact/
 | connector.class        		  | BigtableSinkConnector       | String	       |  Simple name of the Connector Class.|               								|
 | tasks.max        				  | 1 							| Number 	   | Numbers of tasks.								|
 | topics							  | demo-topic					| String		   | Comma separated list of topics. 				|
-| topics.config.files.location    | kafka_home/config    		| String		   |	 There should be one yml file per topic.  	|	
+| config.files.location    | kafka_home/config    		| String		   |	 There should be one yml file per topic.  	|	
 
 ### demo-topic.yml (one yml file per topic)
 
@@ -55,7 +56,7 @@ This project leverage [bigtable-client-core](https://mvnrepository.com/artifact/
 | project: 					    | demo-project	| String |					    Name of the GCP Project | 
 | instance: 					    | demo-instance	 | String |				    Name of GCP Bigtable instance | 
 | table: 							| demo-table| 	 String |				     Name of GCP Bigtable table | 
-| transformer: 					| kafka.connect.gcp.transform.JsonEventTransformer | String|	  Transformer class to transform the message to Bigtable writable row. You may provide your own implementation. | 
+| transformer: 					| com.sanjuthomas.gcp.transform.JsonEventTransformer | String|	  Transformer class to transform the message to Bigtable writable row. You may provide your own implementation. | 
 | keyQualifiers: | 		 - exchange	<br/> - symbol| Array| Bigtable row key qualifier. Configured element names would be used to construct the row keys. | 
 | keyDelimiter: | - | String | Delimiter to use if there are more than one element to construct row key. |
 | families:  	| - data	 <br/> - metadata | Array | Column families in the Bigtable table. This configuration will be used by the transformer. | 
@@ -84,7 +85,7 @@ Alternatively, you may keep the ```kafka-connect-gcp-bigtable-1.0.jar``` in anot
 Open a shell prompt, move to kafka_home and execute the following.
 
 ```
-bin/connect-standalone.sh config/bigtable-connect-standalone.properties config/bigtable-sink.properties
+bin/connect-standalone.sh config/connect-bigtable-standalone.properties config/bigtable-sink.properties
 ```
 
 ## How to start connector in distribute mode?
@@ -92,7 +93,7 @@ bin/connect-standalone.sh config/bigtable-connect-standalone.properties config/b
 Open a shell prompt, change your working directory to kafka_home and execute the following.
 
 ```
-bin/connect-distributed.sh config/bigtable-connect-distributed.properties config/bigtable-sink.properties
+bin/connect-distributed.sh config/connect-bigtable-distributed.properties config/bigtable-sink.properties
 ```
 ## Questions? 
 

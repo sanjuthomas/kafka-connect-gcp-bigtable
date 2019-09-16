@@ -25,8 +25,9 @@ public class BigtableSinkConnector extends SinkConnector {
   }
 
   @Override
-  public void start(final Map<String, String> arg0) {
-    this.config = arg0;
+  public void start(final Map<String, String> config) {
+    logger.info("BigtableSinkConnector is started with config {}", config);
+    this.config = config;
   }
 
   @Override
