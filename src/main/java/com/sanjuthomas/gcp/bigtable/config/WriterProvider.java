@@ -28,6 +28,7 @@ public class WriterProvider {
       new ConcurrentHashMap<>();
 
   public WriterProvider(final ConfigProvider configProvider) {
+    logger.info("WriterProvider is created by thread id {}.", Thread.currentThread().getId());
     this.configProvider = configProvider;
   }
 
@@ -37,7 +38,7 @@ public class WriterProvider {
    * @param topic
    * @return
    */
-  public Writer<WritableRow, Boolean> writer(final String topic) {
+  public synchronized Writer<WritableRow, Boolean> writer(final String topic) {
     try {
       return MoreObjects.firstNonNull(writerMap.get(topic), createAndCacheWriter(topic));
     } catch (final Exception e) {

@@ -4,6 +4,7 @@ import java.util.Collection;
 import java.util.LinkedHashSet;
 import java.util.Map;
 import java.util.Set;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.kafka.clients.consumer.OffsetAndMetadata;
 import org.apache.kafka.common.TopicPartition;
 import org.apache.kafka.connect.sink.SinkRecord;
@@ -62,8 +63,8 @@ public class BigtableSinkTask extends SinkTask {
         "topics is a mandatory config in the bigtable-sink.properties");
     Preconditions.checkNotNull(configFileLocation,
         "topics.config.files.location is a mandatory config in the bigtable-sink.properties");
-    for (String topic : topics.split(",")) {
-      configProvider.load(configFileLocation, topic);
+    for (final String topic : topics.split(",")) {
+      configProvider.load(configFileLocation, StringUtils.trim(topic));
     }
     this.writerProvider = new WriterProvider(configProvider);
   }

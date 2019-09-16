@@ -6,6 +6,8 @@ import java.lang.reflect.InvocationTargetException;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 import org.apache.kafka.connect.sink.SinkRecord;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.dataformat.yaml.YAMLFactory;
 import com.google.common.base.MoreObjects;
@@ -19,12 +21,17 @@ import com.sanjuthomas.gcp.bigtable.exception.BigtableSinkInitializationExceptio
  *
  */
 public class ConfigProvider {
-
+  
+  private static final Logger logger = LoggerFactory.getLogger(ConfigProvider.class);
   private static final ObjectMapper MAPPER = new ObjectMapper(new YAMLFactory());
   private static final Map<String, Config> configs = new ConcurrentHashMap<>();
   private static final Map<String, Transformer<SinkRecord, WritableRow>> transformerMap =
       new ConcurrentHashMap<>();
 
+  public ConfigProvider() {
+    logger.info("ConfigProvider is created by thread id {}.", Thread.currentThread().getId());
+  }
+  
   /**
    * Load configuration for a given topic from the given configFileLocation.
    * There should be one configuration file per topic in the configFileLocation.
@@ -58,7 +65,7 @@ public class ConfigProvider {
    * @param topic
    * @return Transformer
    */
-  public Transformer<SinkRecord, WritableRow> transformer(final String topic) {
+  public synchronized Transformer<SinkRecord, WritableRow> transformer(final String topic) {
     try {
       return MoreObjects.firstNonNull(transformerMap.get(topic), createAndCacheTransformer(topic));
     } catch (NoSuchMethodException | SecurityException | ClassNotFoundException
@@ -80,6 +87,7 @@ public class ConfigProvider {
     final Transformer<SinkRecord, WritableRow> jsonEventTransformer =
         (Transformer<SinkRecord, WritableRow>) constructor.newInstance(transformerConfig);
     transformerMap.put(topic, jsonEventTransformer);
+    logger.info("Transformer is created by thread id {}.", Thread.currentThread().getId());
     return jsonEventTransformer;
   }
 }

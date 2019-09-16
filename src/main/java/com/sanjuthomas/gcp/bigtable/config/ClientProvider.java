@@ -19,10 +19,10 @@ import com.google.cloud.bigtable.data.v2.BigtableDataSettings;
 public class ClientProvider {
 
   private static final Logger logger = LoggerFactory.getLogger(ClientProvider.class);
-  
   private WriterConfig writerConfig;
 
   public ClientProvider(final WriterConfig writerConfig) {
+    logger.info("ClientProvider is created by thread id {}.",Thread.currentThread().getId());
     this.writerConfig = writerConfig;
   }
 
