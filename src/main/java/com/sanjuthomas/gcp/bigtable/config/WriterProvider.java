@@ -4,6 +4,8 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import com.google.common.base.MoreObjects;
 import com.sanjuthomas.gcp.bigtable.Writer;
 import com.sanjuthomas.gcp.bigtable.bean.WritableRow;
@@ -11,13 +13,15 @@ import com.sanjuthomas.gcp.bigtable.exception.BigtableSinkInitializationExceptio
 import com.sanjuthomas.gcp.bigtable.writer.BigtableWriter;
 
 /**
- * Class responsible for creating and caching witer objects.
+ * Class responsible for creating and caching writer objects.
  * 
  * @author Sanju Thomas
  *
  */
 public class WriterProvider {
 
+  private static final Logger logger = LoggerFactory.getLogger(WriterProvider.class);
+  
   private ConfigProvider configProvider;
 
   private static final Map<String, Writer<WritableRow, Boolean>> writerMap =
@@ -47,6 +51,7 @@ public class WriterProvider {
     final BigtableWriter bigtableWriter =
         new BigtableWriter(writerConfig, new ClientProvider(writerConfig).client());
     writerMap.put(topic, bigtableWriter);
+    logger.info("Writer created for topic {} and cached.", topic);
     return bigtableWriter;
   }
 

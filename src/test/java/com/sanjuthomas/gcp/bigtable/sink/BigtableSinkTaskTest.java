@@ -58,10 +58,12 @@ public class BigtableSinkTaskTest {
     task.writerProvider = writerProvider;
     when(writerProvider.writer("demo-topic")).thenReturn(writer);
     when(writer.buffer(any(WritableRow.class))).thenReturn(1);
+    when(writer.bufferSize()).thenReturn(1);
     task.open(topicPartitions);
     task.put(Arrays.asList(record));
     verify(writerProvider, times(2)).writer("demo-topic");
     verify(writer, times(1)).buffer(any(WritableRow.class));
+    verify(writer, times(1)).bufferSize();
     verify(writer, times(1)).flush();
   }
 }

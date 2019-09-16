@@ -24,5 +24,11 @@ public interface Writer<T, R> {
    * Close any resources open.
    */
   void close();
+  
+  /**
+   * Return the current size of the buffer.
+   * @return
+   */
+  int bufferSize();
 
 }

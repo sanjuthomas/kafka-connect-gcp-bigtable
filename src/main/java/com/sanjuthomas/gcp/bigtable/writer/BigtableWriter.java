@@ -80,6 +80,7 @@ public class BigtableWriter implements Writer<WritableRow, Boolean> {
     this.rows.add(row);
     return this.rows.size();
   }
+  
 
   @Override
   public void close() {
@@ -88,5 +89,10 @@ public class BigtableWriter implements Writer<WritableRow, Boolean> {
     } catch (final Exception e) {
       logger.error(e.getMessage(), e);
     }
+  }
+
+  @Override
+  public int bufferSize() {
+    return rows.size();
   }
 }
