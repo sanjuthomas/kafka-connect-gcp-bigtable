@@ -92,7 +92,7 @@ bin/connect-standalone.sh config/connect-bigtable-standalone.properties config/b
 Open a shell prompt, change your working directory to kafka_home and execute the following.
 
 ```
-bin/connect-distributed.sh config/bigtable-connect-distributed.properties config/bigtable-sink.properties
+bin/connect-distributed.sh config/connect-bigtable-distributed.properties config/bigtable-sink.properties
 ```
 ## Questions? 
 
