@@ -45,7 +45,7 @@ This project leverage [bigtable-client-core](https://mvnrepository.com/artifact/
 | connector.class        		  | BigtableSinkConnector       | String	       |  Simple name of the Connector Class.|               								|
 | tasks.max        				  | 1 							| Number 	   | Numbers of tasks.								|
 | topics							  | demo-topic					| String		   | Comma separated list of topics. 				|
-| topics.config.files.location    | kafka_home/config    		| String		   |	 There should be one yml file per topic.  	|	
+| config.files.location    | kafka_home/config    		| String		   |	 There should be one yml file per topic.  	|	
 
 ### demo-topic.yml (one yml file per topic)
 
