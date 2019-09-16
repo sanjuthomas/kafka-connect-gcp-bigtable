@@ -3,6 +3,7 @@ package com.sanjuthomas.gcp.bigtable.config;
 import java.io.File;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
+import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 import org.apache.kafka.connect.sink.SinkRecord;
@@ -25,8 +26,7 @@ public class ConfigProvider {
   private static final Logger logger = LoggerFactory.getLogger(ConfigProvider.class);
   private static final ObjectMapper MAPPER = new ObjectMapper(new YAMLFactory());
   private static final Map<String, Config> configs = new ConcurrentHashMap<>();
-  private static final Map<String, Transformer<SinkRecord, WritableRow>> transformerMap =
-      new ConcurrentHashMap<>();
+  private static final Map<String, Transformer<SinkRecord, WritableRow>> transformerMap = new HashMap<>();
 
   public ConfigProvider() {
     logger.info("ConfigProvider is created by thread id {}.", Thread.currentThread().getId());
@@ -65,9 +65,14 @@ public class ConfigProvider {
    * @param topic
    * @return Transformer
    */
-  public synchronized Transformer<SinkRecord, WritableRow> transformer(final String topic) {
+  public Transformer<SinkRecord, WritableRow> transformer(final String topic) {
     try {
-      return MoreObjects.firstNonNull(transformerMap.get(topic), createAndCacheTransformer(topic));
+      if(!transformerMap.containsKey(topic)) {
+        synchronized (transformerMap) {
+          return MoreObjects.firstNonNull(transformerMap.get(topic), createAndCacheTransformer(topic)); 
+        }
+      }
+      return transformerMap.get(topic);
     } catch (NoSuchMethodException | SecurityException | ClassNotFoundException
         | InstantiationException | IllegalAccessException | IllegalArgumentException
         | InvocationTargetException e) {

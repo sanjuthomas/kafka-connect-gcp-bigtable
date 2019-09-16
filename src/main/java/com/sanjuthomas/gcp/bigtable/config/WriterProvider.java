@@ -2,8 +2,8 @@ package com.sanjuthomas.gcp.bigtable.config;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.Map;
-import java.util.concurrent.ConcurrentHashMap;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import com.google.common.base.MoreObjects;
@@ -24,8 +24,7 @@ public class WriterProvider {
   
   private ConfigProvider configProvider;
 
-  private static final Map<String, Writer<WritableRow, Boolean>> writerMap =
-      new ConcurrentHashMap<>();
+  private static final Map<String, Writer<WritableRow, Boolean>> writerMap = new HashMap<>();
 
   public WriterProvider(final ConfigProvider configProvider) {
     logger.info("WriterProvider is created by thread id {}.", Thread.currentThread().getId());
@@ -38,9 +37,14 @@ public class WriterProvider {
    * @param topic
    * @return
    */
-  public synchronized Writer<WritableRow, Boolean> writer(final String topic) {
+  public Writer<WritableRow, Boolean> writer(final String topic) {
     try {
-      return MoreObjects.firstNonNull(writerMap.get(topic), createAndCacheWriter(topic));
+      if(!writerMap.containsKey(topic)) {
+        synchronized (writerMap) {
+          return MoreObjects.firstNonNull(writerMap.get(topic), createAndCacheWriter(topic));
+        }
+      }
+      return writerMap.get(topic);
     } catch (final Exception e) {
       throw new BigtableSinkInitializationException(e.getMessage(), e);
     }
