@@ -32,8 +32,8 @@ This project leverage [bigtable-client-core](https://mvnrepository.com/artifact/
 | ------------- |---------------| --------------------------------------- |
 | Java          | 1.8.0_161     | You may use java 8 or above.                                          |
 | Kafka         | 2.11-2.1.0    | Please [refer](https://kafka.apache.org/downloads) | 
-| Zookeeper     | 3.4.13        | Please [refer](https://zookeeper.apache.org/releases.html) |
-| bigtable-client-core | 1.8.0  | Please [refer](https://mvnrepository.com/artifact/com.google.cloud.bigtable/bigtable-client-core/1.12.1) |
+| Zookeeper     | 3.4.13        | Please [refer](https://zookeeper.apache.org/releases.html)         |
+| bigtable-client-core | 1.8.0  | Please [refer](https://mvnrepository.com/artifact/com.google.cloud.bigtable/bigtable-client-core/1.12.1)                 |
 | Kafka connect-api | 2.1.0     | Please [refer](https://mvnrepository.com/artifact/org.apache.kafka/connect-api/2.3.0) |
 | grpc-netty-shaded | 1.17.1    | Please [refer](https://mvnrepository.com/artifact/io.grpc/grpc-netty-shaded/1.23.0) |
 
