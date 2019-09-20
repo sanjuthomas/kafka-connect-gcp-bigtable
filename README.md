@@ -30,12 +30,12 @@ This project leverage [bigtable-client-core](https://mvnrepository.com/artifact/
 
 | Software      | Version       |  Note                                 |         
 | ------------- |---------------| ---------------------------------------
-| Java          | 1.8.0_161     | You may use java 8 or above.|
-| Kafka         | 2.11-2.1.0    | Please [refer](https://kafka.apache.org/downloads)| 
-| Zookeeper     | 3.4.13        | Please [refer](https://zookeeper.apache.org/releases.html)|
-| bigtable-client-core | 1.8.0  | Please [refer](https://mvnrepository.com/artifact/com.google.cloud.bigtable/bigtable-client-core/1.8.0)|
-| Kafka connect-api | 2.1.0     | Please [refer](https://mvnrepository.com/artifact/org.apache.kafka/connect-api/2.1.0)|
-| grpc-netty-shaded | 1.17.1    | Please [refer](https://mvnrepository.com/artifact/io.grpc/grpc-netty-shaded/1.17.1)|
+| Java          | 1.8.0_161     | You may use java 8 or above. |
+| Kafka         | 2.11-2.1.0    | Please [refer](https://kafka.apache.org/downloads) | 
+| Zookeeper     | 3.4.13        | Please [refer](https://zookeeper.apache.org/releases.html) |
+| bigtable-client-core | 1.8.0  | Please [refer](https://mvnrepository.com/artifact/com.google.cloud.bigtable/bigtable-client-core/1.8.0) |
+| Kafka connect-api | 2.1.0     | Please [refer](https://mvnrepository.com/artifact/org.apache.kafka/connect-api/2.1.0) |
+| grpc-netty-shaded | 1.17.1    | Please [refer](https://mvnrepository.com/artifact/io.grpc/grpc-netty-shaded/1.17.1) |
 
 ## Configurations
 
@@ -43,8 +43,8 @@ This project leverage [bigtable-client-core](https://mvnrepository.com/artifact/
 
 | Property      					  | Value       				    | Data Type    | Description     								|       
 |---------------------------------|-----------------------------|--------------|------------------------------------------------	|
-| name          					  | bigtable-sink    		 	| String		   | Name of the Sink Connect.|                								|
-| connector.class        		  | BigtableSinkConnector       | String	       |  Simple name of the Connector Class.|               								|
+| name          					  | bigtable-sink    		 	| String		   | Name of the Sink Connect. |                								|
+| connector.class        		  | BigtableSinkConnector       | String	       |  Simple name of the Connector Class. |               								|
 | tasks.max        				  | 1 							| Number 	   | Numbers of tasks.								|
 | topics							  | demo-topic					| String		   | Comma separated list of topics. 				|
 | config.files.location    | kafka_home/config    		| String		   |	 There should be one yml file per topic.  	|	
