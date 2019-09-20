@@ -96,6 +96,7 @@ Open a shell prompt, change your working directory to kafka_home and execute the
 ```
 bin/connect-distributed.sh config/connect-bigtable-distributed.properties config/bigtable-sink.properties
 ```
+
 ## Questions
 
 Either create an issues in this project or send it to bt@sanju.org. Thanks!
