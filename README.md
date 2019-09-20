@@ -29,7 +29,7 @@ This project leverage [bigtable-client-core](https://mvnrepository.com/artifact/
 ### Tested Software Versions
 
 | Software      | Version       |  Note                                 |         
-| ------------- |---------------| ---------------------------------------
+| ------------- |---------------| --------------------------------------- |
 | Java          | 1.8.0_161     | You may use java 8 or above.                                          |
 | Kafka         | 2.11-2.1.0    | Please [refer](https://kafka.apache.org/downloads) | 
 | Zookeeper     | 3.4.13        | Please [refer](https://zookeeper.apache.org/releases.html) |
@@ -41,13 +41,13 @@ This project leverage [bigtable-client-core](https://mvnrepository.com/artifact/
 
 ### bigtable-sink.properties
 
-| Property      					  | Value       				    | Data Type    | Description     							|   
-|---------------------------------|-----------------------------|--------------|------------------------------------------------	|
-| name          					  | bigtable-sink    		 	| String		   | Name of the Sink Connect. |                								|
-| connector.class        		  | BigtableSinkConnector       | String	       |  Simple name of the Connector Class. |               								|
-| tasks.max        				  | 1 							| Number 	   | Numbers of tasks.								|
-| topics							  | demo-topic					| String		   | Comma separated list of topics. 				|
-| config.files.location    | kafka_home/config    		| String		   |	 There should be one yml file per topic.  	|	
+| Property      				  | Value       			    | Data Type    | Description     							|   
+|---------------------------------|-----------------------------|--------------|------------------------------------------------|
+| name          				  | bigtable-sink    		 	| String	   | Name of the Sink Connect.          |     
+| connector.class        		  | BigtableSinkConnector       | String	   | Simple name of the Connector Class. |  
+| tasks.max        				  | 1 							| Number 	   | Numbers of tasks.				|
+| topics						  | demo-topic					| String	   | Comma separated list of topics. 	|
+| config.files.location           | kafka_home/config    		| String	   | There should be one yml file per topic.  	|	
 
 ### demo-topic.yml (one yml file per topic)
 
