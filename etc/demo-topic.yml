@@ -13,12 +13,14 @@ families:
 - metadata
 familyQualifiers:
 - data:
+  - client
   - exchange
   - symbol
-  - name
-  - sector
+  - price
+  - quantity
 - metadata:
-  - event_time
-  - create_time
-  - processing_time
+  - event_created_at
+  - event_arrived_at
+  - event_processed_at
   - topic
+  - partition

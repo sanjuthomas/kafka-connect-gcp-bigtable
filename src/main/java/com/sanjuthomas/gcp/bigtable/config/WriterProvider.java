@@ -20,10 +20,9 @@ import com.sanjuthomas.gcp.bigtable.writer.BigtableWriter;
 public class WriterProvider {
 
   private static final Logger logger = LoggerFactory.getLogger(WriterProvider.class);
-
-  private ConfigProvider configProvider;
-
   private final Map<String, Writer<WritableRow, Boolean>> writerMap = new HashMap<>();
+  
+  private ConfigProvider configProvider;
 
   public WriterProvider(final ConfigProvider configProvider) {
     logger.info("WriterProvider is created by thread id {}.", Thread.currentThread().getId());
