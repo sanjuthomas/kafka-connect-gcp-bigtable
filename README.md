@@ -61,7 +61,7 @@ This project leverage [bigtable-client-core](https://mvnrepository.com/artifact/
 | keyQualifiers: | 		 - exchange	<br/> - symbol| Array| Bigtable row key qualifier. Configured element names would be used to construct the row keys. | 
 | keyDelimiter: | - | String | Delimiter to use if there are more than one element to construct row key. |
 | families:  	| - data	 <br/> - metadata | Array | Column families in the Bigtable table. This configuration will be used by the transformer. | 
-| familyQualifiers: | - data:	 <br> &nbsp;- exchange <br> &nbsp;- symbol <br> &nbsp;- name <br> &nbsp;- sector	 <br/> - metadata:	 <br> &nbsp;- created_at <br> &nbsp;- processed_at <br> &nbsp;- topic <br> &nbsp;- partition| Array | Column family to columns mapping. | 
+| familyQualifiers: | - data:	 <br> &nbsp;- client <br> &nbsp;- exchange <br> &nbsp;- symbol <br> &nbsp;- price <br> &nbsp;- quantity	 <br/> - metadata:	 <br> &nbsp;- created_at <br> &nbsp;- processed_at <br> &nbsp;- topic <br> &nbsp;- partition| Array | Column family to columns mapping. | 
 						 	 
 ### Constraints
 
