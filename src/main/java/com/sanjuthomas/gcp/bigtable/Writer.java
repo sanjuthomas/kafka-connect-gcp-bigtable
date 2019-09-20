@@ -11,7 +11,7 @@ public interface Writer<T, R> {
   /**
    * Flush out the messages from buffer to the store.
    */
-  Result<R> flush();
+  void flush();
 
   /**
    * Add the given message into local buffer and return the size of the buffer.
