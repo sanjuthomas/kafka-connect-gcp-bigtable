@@ -10,7 +10,7 @@ import com.google.protobuf.ByteString;
  * @author Sanju Thomas
  *
  */
-public class TypeUtilTest {
+public class TypeUtilsTest {
 
   @Test
   public void shouldConvertToByteString() {

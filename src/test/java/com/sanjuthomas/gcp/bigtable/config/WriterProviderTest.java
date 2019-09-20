@@ -1,11 +1,13 @@
 package com.sanjuthomas.gcp.bigtable.config;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import com.sanjuthomas.gcp.bigtable.Integration;
 import com.sanjuthomas.gcp.bigtable.Writer;
 import com.sanjuthomas.gcp.bigtable.bean.WritableRow;
+import com.sanjuthomas.gcp.bigtable.exception.BigtableSinkInitializationException;
 
 /**
  * 
@@ -31,5 +33,12 @@ public class WriterProviderTest {
     assertEquals(writer.hashCode(), writer1.hashCode());
     writer.close();
   }
-
+  
+  @Test
+  public void shouldNotInit() {
+    final ConfigProvider configProvider = new ConfigProvider();
+    Assertions.assertThrows(BigtableSinkInitializationException.class, () -> {
+      configProvider.load("src/test/resources/test", "demo-topic");
+    });
+  }
 }
