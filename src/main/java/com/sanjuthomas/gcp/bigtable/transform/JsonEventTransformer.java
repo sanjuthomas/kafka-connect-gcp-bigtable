@@ -6,17 +6,13 @@ import com.sanjuthomas.gcp.bigtable.bean.WritableRow;
 import com.sanjuthomas.gcp.bigtable.transform.key.DefaultKeyParser;
 import com.sanjuthomas.gcp.bigtable.Parser;
 import com.sanjuthomas.gcp.bigtable.Transformer;
-
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
-
 import org.apache.kafka.connect.sink.SinkRecord;
 import com.google.common.annotations.VisibleForTesting;
-
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
-
 import com.sanjuthomas.gcp.bigtable.config.TransformerConfig;
 import com.sanjuthomas.gcp.bigtable.exception.RowKeyNotFoundException;
 
@@ -54,6 +50,8 @@ public class JsonEventTransformer implements Transformer<SinkRecord, WritableRow
     payload.put("created_at", record.timestamp());
     payload.put("processed_at", System.currentTimeMillis());
     payload.put("topic", record.topic());
+    payload.put("topic", record.topic());
+    payload.put("partition", record.kafkaPartition());
   }
 
   @VisibleForTesting

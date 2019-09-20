@@ -43,5 +43,13 @@ public class ConfigProviderTest {
     assertEquals(transformer1.hashCode(), transformer.hashCode());
     assertEquals(configProvider.config("demo-topic").hashCode(), configProvider.config("demo-topic").hashCode());
   }
+  
+  @Test
+  public void shouldGetWriterConfig() {
+    assertEquals("demo-table", configProvider.config("demo-topic").writerConfig().table());
+    assertEquals("/Users/sanjuthomas/keys/civic-athlete-251623-e16dce095204.json", configProvider.config("demo-topic").writerConfig().keyFile());
+    assertEquals("demo-project", configProvider.config("demo-topic").writerConfig().project());
+    assertEquals("demo-instance", configProvider.config("demo-topic").writerConfig().instance());
+  }
 
 }
