@@ -8,11 +8,11 @@
 
 Apache Kafka Sink only Connect can be used to stream messages from Apache Kafka to Google Cloud Platform (GCP) wide column store Bigtable.
 
-## What is Apache Kafka?
+## What is Apache Kafka
 
 Apache Kafka is an open-source stream processing platform developed by the Apache Software Foundation written in Scala and Java. The project aims to provide a unified, high-throughput, low-latency platform for handling real-time data feeds. For more details, please refer to [Apache Kafka home page](https://kafka.apache.org/).
 
-## What is Google Cloud Bigtable?
+## What is Google Cloud Bigtable
 
 Bigtable is a compressed, high performance, proprietary data storage system built on Google File System, Chubby Lock Service, SSTable and a few other Google technologies. On May 6, 2015, a public version of Bigtable was made available as a service in the Google Cloud Platform. For more details, please refer to [GCP Bigtable home page](https://cloud.google.com/bigtable/).
 
@@ -69,7 +69,7 @@ The current configuration system supports streaming messages from a given topic 
 
 As of today, we have transformer support for JSON Messages. I'm planning to add the Avro Messages transformer in the next version.
 
-## How to deploy the connector?
+## How to deploy the connector
 
 This is maven project. To create an [uber](https://maven.apache.org/plugins/maven-shade-plugin/index.html) jar, execute the following maven goals.
 
@@ -81,7 +81,7 @@ Copy the [bigtable-sink.properties](https://github.com/sanjuthomas/kafka-connect
 
 Alternatively, you may keep the ```kafka-connect-gcp-bigtable-1.0.jar``` in another directory and export that directory into Kafka class path before starting the connector.
 
-## How to start connector in stand-alone mode?
+## How to start connector in stand-alone mode
 
 Open a shell prompt, move to kafka_home and execute the following.
 
@@ -89,14 +89,14 @@ Open a shell prompt, move to kafka_home and execute the following.
 bin/connect-standalone.sh config/connect-bigtable-standalone.properties config/bigtable-sink.properties
 ```
 
-## How to start connector in distribute mode?
+## How to start connector in distribute mode
 
 Open a shell prompt, change your working directory to kafka_home and execute the following.
 
 ```
 bin/connect-distributed.sh config/connect-bigtable-distributed.properties config/bigtable-sink.properties
 ```
-## Questions? 
+## Questions
 
 Either create an issues in this project or send it to bt@sanju.org. Thanks!
 
