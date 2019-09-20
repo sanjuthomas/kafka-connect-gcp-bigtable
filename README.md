@@ -51,17 +51,17 @@ This project leverage [bigtable-client-core](https://mvnrepository.com/artifact/
 
 ### demo-topic.yml (one yml file per topic)
 
-| Property      					| Value  			| Data Type |					   Description       				   		  |     
+| Property      					| Value  			| Data Type |					   Description       				   		  | 
 |-------------------------------|--------------------|--------------|------------------------------------------------------------------|
 | keyFile:	   				    |	 /home/keys/demo-instance-key.json | String	 | GCP Connect Key File. This is a topic level configuration because you could subscribe from multiple topics and messages from one topic may go to a table in instance A and messages from another topic may go to a table in instance B |		
 | project: 					    | demo-project	| String |					    Name of the GCP Project | 
 | instance: 					    | demo-instance	 | String |				    Name of GCP Bigtable instance | 
-| table: 							| demo-table| 	 String |				     Name of GCP Bigtable table | 
-| transformer: 					| com.sanjuthomas.gcp.transform.JsonEventTransformer | String|	  Transformer class to transform the message to Bigtable writable row. You may provide your own implementation. | 
+| table: 							| demo-table | 	 String |				     Name of GCP Bigtable table | 
+| transformer: 					| com.sanjuthomas.gcp.transform.JsonEventTransformer | String |	  Transformer class to transform the message to Bigtable writable row. You may provide your own implementation. | 
 | keyQualifiers: | 		 - exchange	<br/> - symbol| Array| Bigtable row key qualifier. Configured element names would be used to construct the row keys. | 
 | keyDelimiter: | - | String | Delimiter to use if there are more than one element to construct row key. |
 | families:  	| - data	 <br/> - metadata | Array | Column families in the Bigtable table. This configuration will be used by the transformer. | 
-| familyQualifiers: | - data:	 <br> &nbsp;- client <br> &nbsp;- exchange <br> &nbsp;- symbol <br> &nbsp;- price <br> &nbsp;- quantity	 <br/> - metadata:	 <br> &nbsp;- created_at <br> &nbsp;- processed_at <br> &nbsp;- topic <br> &nbsp;- partition| Array | Column family to columns mapping. | 
+| familyQualifiers: | - data:	 <br> &nbsp;- client <br> &nbsp;- exchange <br> &nbsp;- symbol <br> &nbsp;- price <br> &nbsp;- quantity	 <br/> - metadata:	 <br> &nbsp;- created_at <br> &nbsp;- processed_at <br> &nbsp;- topic <br> &nbsp;- partition | Array | Column family to columns mapping. | 
 						 	 
 ### Constraints
 
