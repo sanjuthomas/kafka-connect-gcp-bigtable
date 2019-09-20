@@ -19,8 +19,7 @@ familyQualifiers:
   - price
   - quantity
 - metadata:
-  - event_created_at
-  - event_arrived_at
-  - event_processed_at
+  - created_at
+  - processed_at
   - topic
   - partition

@@ -51,8 +51,8 @@ public class JsonEventTransformer implements Transformer<SinkRecord, WritableRow
   }
 
   void addMetadata(final SinkRecord record, final Map<String, Object> payload) {
-    payload.put("create_time", record.timestamp());
-    payload.put("processing_time", System.currentTimeMillis());
+    payload.put("created_at", record.timestamp());
+    payload.put("processed_at", System.currentTimeMillis());
     payload.put("topic", record.topic());
   }
 

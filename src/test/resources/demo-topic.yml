@@ -18,7 +18,7 @@ familyQualifiers:
   - name
   - sector
 - metadata:
-  - event_time
-  - create_time
-  - processing_time
+  - created_at
+  - processed_at
   - topic
+  - partition

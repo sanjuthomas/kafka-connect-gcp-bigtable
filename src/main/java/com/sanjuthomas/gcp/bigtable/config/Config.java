@@ -23,7 +23,6 @@ public class Config {
   private String keyDelimiter;
   private List<String> families;
   private List<Map<String, List<String>>> familyQualifiers;
-  private WriterConfig writerConfig;
 
   public Map<String, List<String>> familyQualifiersMappings() {
     final Map<String, List<String>> familyQualifiersMappings = new HashMap<>();
@@ -34,10 +33,7 @@ public class Config {
   }
 
   public WriterConfig writerConfig() {
-    if (writerConfig == null) {
-      writerConfig = new WriterConfig(keyFile, project, instance, table);
-    }
-    return writerConfig;
+    return new WriterConfig(keyFile, project, instance, table);
   }
 
   public String getTransformer() {
@@ -82,7 +78,8 @@ public class Config {
   }
 
   public void setTransformer(final String transformer) {
-    this.transformer = MoreObjects.firstNonNull(transformer, "com.sanjuthomas.gcp.transform.JsonEventTransformer");
+    this.transformer =
+        MoreObjects.firstNonNull(transformer, "com.sanjuthomas.gcp.transform.JsonEventTransformer");
   }
 
   public void setKeyQualifiers(final List<String> keyQualifiers) {

@@ -41,7 +41,7 @@ public class JsonEventTransformerTest {
     this.familyToQualifierMapping.put("data",
         Arrays.asList(new String[] {"symbol", "name", "sector"}));
     this.familyToQualifierMapping.put("metadata",
-        Arrays.asList(new String[] {"create_time", "processing_time", "topic"}));
+        Arrays.asList(new String[] {"created_at", "processed_at", "topic"}));
     final TransformerConfig config = new TransformerConfig(this.keyQualifiers, "_", this.families,
         this.familyToQualifierMapping);
     this.transformer = new JsonEventTransformer(config);
