@@ -1,5 +1,6 @@
 package com.sanjuthomas.gcp.bigtable.config;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import com.sanjuthomas.gcp.bigtable.Integration;
@@ -26,6 +27,8 @@ public class WriterProviderTest {
   @Test
   public void shouldGetWriter() {
     Writer<WritableRow, Boolean> writer = writerProvider.writer("demo-topic");
+    Writer<WritableRow, Boolean> writer1 = writerProvider.writer("demo-topic");
+    assertEquals(writer.hashCode(), writer1.hashCode());
     writer.close();
   }
 

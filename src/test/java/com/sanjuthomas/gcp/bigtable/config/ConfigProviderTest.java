@@ -39,6 +39,9 @@ public class ConfigProviderTest {
     assertEquals(2, cells.size());
     assertEquals("data", cells.get(0).family());
     assertEquals("metadata", cells.get(1).family());
+    final Transformer<SinkRecord, WritableRow> transformer1 = configProvider.transformer("demo-topic");
+    assertEquals(transformer1.hashCode(), transformer.hashCode());
+    assertEquals(configProvider.config("demo-topic").hashCode(), configProvider.config("demo-topic").hashCode());
   }
 
 }

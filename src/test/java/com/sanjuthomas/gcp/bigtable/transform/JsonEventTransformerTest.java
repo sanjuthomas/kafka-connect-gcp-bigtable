@@ -27,7 +27,7 @@ import com.sanjuthomas.gcp.resolvers.SinkRecordResolver;
  * @author Sanju Thomas
  *
  */
-class JsonEventTransformerTest {
+public class JsonEventTransformerTest {
 
   private JsonEventTransformer transformer;
   private JsonEventTransformer transformerWithoutKeyQualifier;
