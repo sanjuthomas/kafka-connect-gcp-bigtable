@@ -30,18 +30,18 @@ This project leverage [bigtable-client-core](https://mvnrepository.com/artifact/
 
 | Software      | Version       |  Note                                 |         
 | ------------- |---------------| ---------------------------------------
-| Java          | 1.8.0_161     | You may use java 8 or above. |
+| Java          | 1.8.0_161     | You may use java 8 or above.                                          |
 | Kafka         | 2.11-2.1.0    | Please [refer](https://kafka.apache.org/downloads) | 
 | Zookeeper     | 3.4.13        | Please [refer](https://zookeeper.apache.org/releases.html) |
-| bigtable-client-core | 1.8.0  | Please [refer](https://mvnrepository.com/artifact/com.google.cloud.bigtable/bigtable-client-core/1.8.0) |
-| Kafka connect-api | 2.1.0     | Please [refer](https://mvnrepository.com/artifact/org.apache.kafka/connect-api/2.1.0) |
-| grpc-netty-shaded | 1.17.1    | Please [refer](https://mvnrepository.com/artifact/io.grpc/grpc-netty-shaded/1.17.1) |
+| bigtable-client-core | 1.8.0  | Please [refer](https://mvnrepository.com/artifact/com.google.cloud.bigtable/bigtable-client-core/1.12.1) |
+| Kafka connect-api | 2.1.0     | Please [refer](https://mvnrepository.com/artifact/org.apache.kafka/connect-api/2.3.0) |
+| grpc-netty-shaded | 1.17.1    | Please [refer](https://mvnrepository.com/artifact/io.grpc/grpc-netty-shaded/1.23.0) |
 
 ## Configurations
 
 ### bigtable-sink.properties
 
-| Property      					  | Value       				    | Data Type    | Description     								|       
+| Property      					  | Value       				    | Data Type    | Description     							|   
 |---------------------------------|-----------------------------|--------------|------------------------------------------------	|
 | name          					  | bigtable-sink    		 	| String		   | Name of the Sink Connect. |                								|
 | connector.class        		  | BigtableSinkConnector       | String	       |  Simple name of the Connector Class. |               								|
@@ -51,7 +51,7 @@ This project leverage [bigtable-client-core](https://mvnrepository.com/artifact/
 
 ### demo-topic.yml (one yml file per topic)
 
-| Property      					| Value  			| Data Type |					   Description       				   		 						 |     
+| Property      					| Value  			| Data Type |					   Description       				   		  |     
 |-------------------------------|--------------------|--------------|------------------------------------------------------------------|
 | keyFile:	   				    |	 /home/keys/demo-instance-key.json | String	 | GCP Connect Key File. This is a topic level configuration because you could subscribe from multiple topics and messages from one topic may go to a table in instance A and messages from another topic may go to a table in instance B |		
 | project: 					    | demo-project	| String |					    Name of the GCP Project | 
