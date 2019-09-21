@@ -29,8 +29,7 @@ This project leverage [bigtable-client-core](https://mvnrepository.com/artifact/
 ### Tested Software Versions
 
 | Software      | Version       |  Note                                 |         
-| ------------- |---------------| --------------------------------------- |
-| Java          | 1.8.0_161     | You may use java 8 or above.                                          |
+| Java          | 1.8.0_161     | You may use java 8 or above. |
 | Kafka         | 2.11-2.1.0    | Please [refer](https://kafka.apache.org/downloads) | 
 | Zookeeper     | 3.4.13        | Please [refer](https://zookeeper.apache.org/releases.html)         |
 | bigtable-client-core | 1.8.0  | Please [refer](https://mvnrepository.com/artifact/com.google.cloud.bigtable/bigtable-client-core/1.12.1)                 |
@@ -100,7 +99,6 @@ bin/connect-distributed.sh config/connect-bigtable-distributed.properties config
 ## Questions
 
 Either create an issues in this project or send it to bt@sanju.org. Thanks!
-
 
 ## License
 [![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2Fsanjuthomas%2Fkafka-connect-gcp-bigtable.svg?type=large)](https://app.fossa.io/projects/git%2Bgithub.com%2Fsanjuthomas%2Fkafka-connect-gcp-bigtable?ref=badge_large)
