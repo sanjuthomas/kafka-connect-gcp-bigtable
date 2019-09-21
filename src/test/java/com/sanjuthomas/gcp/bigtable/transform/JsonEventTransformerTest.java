@@ -36,7 +36,7 @@ public class JsonEventTransformerTest {
   private Map<String, List<String>> familyToQualifierMapping;
 
   @BeforeEach
-  void setup() {
+  void setUp() {
     this.familyToQualifierMapping = new HashMap<>();
     this.familyToQualifierMapping.put("data",
         Arrays.asList(new String[] {"symbol", "name", "sector"}));

@@ -25,7 +25,7 @@ public class DefaultKeyParserTest {
   private final static ObjectMapper OBJECT_MAPPER = new ObjectMapper();
 
   @BeforeEach
-  public void setup() {
+  public void setUp() {
     this.keyParser = new DefaultKeyParser(Arrays.asList(new String[] {"symbol"}), "_");
   }
 

@@ -14,6 +14,7 @@ import com.fasterxml.jackson.dataformat.yaml.YAMLFactory;
 import com.sanjuthomas.gcp.bigtable.Transformer;
 import com.sanjuthomas.gcp.bigtable.bean.WritableRow;
 import com.sanjuthomas.gcp.bigtable.exception.BigtableSinkInitializationException;
+import com.sanjuthomas.gcp.bigtable.exception.TransformInitException;
 
 /**
  *
@@ -76,7 +77,7 @@ public class ConfigProvider {
     } catch (NoSuchMethodException | SecurityException | ClassNotFoundException
         | InstantiationException | IllegalAccessException | IllegalArgumentException
         | InvocationTargetException e) {
-      throw new RuntimeException(e.getMessage());
+      throw new TransformInitException(e.getMessage());
     }
   }
 

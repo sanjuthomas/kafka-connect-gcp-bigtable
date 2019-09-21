@@ -16,7 +16,7 @@ public class ClientProviderTest {
   private ClientProvider clientProvider;
 
   @BeforeEach
-  public void setup() {
+  public void setUp() {
     clientProvider = new ClientProvider(
         new WriterConfig("/Users/sanjuthomas/keys/civic-athlete-251623-e16dce095204.json",
             "demo-project", "demo-instance", "demo-table"));

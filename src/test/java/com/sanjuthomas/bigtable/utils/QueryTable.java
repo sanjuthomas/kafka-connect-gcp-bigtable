@@ -46,7 +46,6 @@ public class QueryTable {
           System.out.println(c.getTimestamp());
         });
         System.out.println("------------------------------------------------");
-        System.exit(0);
       });
     }
   }

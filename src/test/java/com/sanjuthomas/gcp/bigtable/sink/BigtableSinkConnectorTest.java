@@ -17,7 +17,7 @@ public class BigtableSinkConnectorTest {
   private BigtableSinkConnector bigtableSinkConnector;
 
   @BeforeEach
-  public void setup() {
+  public void setUp() {
     bigtableSinkConnector = new BigtableSinkConnector();
     bigtableSinkConnector.start(Collections.emptyMap());
   }

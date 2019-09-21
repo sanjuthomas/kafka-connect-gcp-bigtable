@@ -20,7 +20,7 @@ public class WriterProviderTest {
   private WriterProvider writerProvider;
   
   @BeforeEach
-  public void setup() {
+  public void setUp() {
     final ConfigProvider configProvider = new ConfigProvider();
     configProvider.load("src/test/resources/", "demo-topic");
     writerProvider = new WriterProvider(configProvider);

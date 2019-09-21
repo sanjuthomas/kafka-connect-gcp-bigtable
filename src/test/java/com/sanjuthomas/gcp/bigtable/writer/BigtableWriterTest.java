@@ -45,7 +45,7 @@ public class BigtableWriterTest {
   private Map<String, List<String>> familyToQualifierMapping;
 
   @BeforeEach
-  public void setup() throws FileNotFoundException, IOException {
+  public void setUp() throws FileNotFoundException, IOException {
     this.familyToQualifierMapping = new HashMap<>();
     this.familyToQualifierMapping.put("data",
         Arrays.asList(new String[] {"symbol", "name", "sector"}));

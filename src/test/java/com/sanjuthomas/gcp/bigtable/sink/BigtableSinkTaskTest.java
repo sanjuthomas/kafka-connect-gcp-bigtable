@@ -42,7 +42,7 @@ public class BigtableSinkTaskTest {
 
 
   @BeforeEach
-  public void setup() {
+  public void setUp() {
     task = new BigtableSinkTask();
     topicPartitions = new ArrayList<>();
     topicPartitions.add(new TopicPartition("demo-topic", 0));

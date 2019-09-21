@@ -24,7 +24,7 @@ public class ConfigProviderTest {
   private ConfigProvider configProvider;
 
   @BeforeEach
-  public void setup() throws JsonParseException, JsonMappingException, IOException {
+  public void setUp() throws JsonParseException, JsonMappingException, IOException {
     configProvider = new ConfigProvider();
     configProvider.load("src/test/resources/", "demo-topic");
   }
