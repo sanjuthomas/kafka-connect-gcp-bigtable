@@ -41,5 +41,6 @@ public class WriterProviderTest {
     Assertions.assertThrows(BigtableSinkInitializationException.class, () -> {
       configProvider.load("src/test/resources/test", "demo-topic");
     });
+    assertEquals(1, 1);
   }
 }
