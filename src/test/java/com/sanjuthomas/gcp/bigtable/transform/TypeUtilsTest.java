@@ -14,10 +14,10 @@ public class TypeUtilsTest {
 
   @Test
   public void shouldConvertToByteString() {
-    final ByteBuffer buffer = ByteBuffer.wrap(new String("data").getBytes());
+    final ByteBuffer buffer = ByteBuffer.wrap("data".getBytes());
     assertEquals(ByteString.copyFrom("data".getBytes()), TypeUtils.toByteString(buffer));
     assertEquals(ByteString.copyFrom("data".getBytes()),
-        TypeUtils.toByteString(new String("data").getBytes()));
+        TypeUtils.toByteString("data".getBytes()));
     assertEquals(ByteString.copyFrom("data".getBytes()), TypeUtils.toByteString("data"));
   }
 

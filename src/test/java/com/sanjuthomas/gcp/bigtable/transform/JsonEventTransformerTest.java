@@ -3,9 +3,6 @@ package com.sanjuthomas.gcp.bigtable.transform;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
-
-import com.sanjuthomas.gcp.bigtable.bean.WritableFamilyCells;
-import com.sanjuthomas.gcp.bigtable.bean.WritableRow;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashMap;
@@ -15,7 +12,8 @@ import org.apache.kafka.connect.sink.SinkRecord;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-
+import com.sanjuthomas.gcp.bigtable.bean.WritableFamilyCells;
+import com.sanjuthomas.gcp.bigtable.bean.WritableRow;
 import com.sanjuthomas.gcp.bigtable.config.TransformerConfig;
 import com.sanjuthomas.gcp.bigtable.exception.RowKeyNotFoundException;
 import com.sanjuthomas.gcp.resolvers.KeylessSinkRecordResolver;
@@ -33,20 +31,18 @@ public class JsonEventTransformerTest {
   private JsonEventTransformer transformerWithoutKeyQualifier;
   private final List<String> keyQualifiers = Arrays.asList(new String[] {"symbol"});
   private final List<String> families = Arrays.asList(new String[] {"data", "metadata"});
-  private Map<String, List<String>> familyToQualifierMapping;
 
   @BeforeEach
-  void setUp() {
-    this.familyToQualifierMapping = new HashMap<>();
-    this.familyToQualifierMapping.put("data",
-        Arrays.asList(new String[] {"symbol", "name", "sector"}));
-    this.familyToQualifierMapping.put("metadata",
+  public void setUp() {
+    final Map<String, List<String>> familyToQualifierMapping = new HashMap<>();
+    familyToQualifierMapping.put("data", Arrays.asList(new String[] {"symbol", "name", "sector"}));
+    familyToQualifierMapping.put("metadata",
         Arrays.asList(new String[] {"created_at", "processed_at", "topic"}));
-    final TransformerConfig config = new TransformerConfig(this.keyQualifiers, "_", this.families,
-        this.familyToQualifierMapping);
+    final TransformerConfig config =
+        new TransformerConfig(this.keyQualifiers, "_", this.families, familyToQualifierMapping);
     this.transformer = new JsonEventTransformer(config);
     final TransformerConfig noKeyQualifiersConfig = new TransformerConfig(Collections.emptyList(),
-        "_", this.families, this.familyToQualifierMapping);
+        "_", this.families, familyToQualifierMapping);
     this.transformerWithoutKeyQualifier = new JsonEventTransformer(noKeyQualifiersConfig);
   }
 
@@ -111,5 +107,4 @@ public class JsonEventTransformerTest {
     final WritableFamilyCells cells = this.transformer.createCells("data", mapEvent);
     assertEquals("data", cells.family());
   }
-
 }
