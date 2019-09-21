@@ -29,6 +29,7 @@ This project leverage [bigtable-client-core](https://mvnrepository.com/artifact/
 ### Tested Software Versions
 
 | Software      | Version       |  Note                                 |         
+| ------------- |---------------| --------------------------------------- |
 | Java          | 1.8.0_161     | You may use java 8 or above. |
 | Kafka         | 2.11-2.1.0    | Please [refer](https://kafka.apache.org/downloads) | 
 | Zookeeper     | 3.4.13        | Please [refer](https://zookeeper.apache.org/releases.html)         |
