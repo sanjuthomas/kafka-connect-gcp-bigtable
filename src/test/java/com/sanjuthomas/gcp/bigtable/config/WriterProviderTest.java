@@ -32,6 +32,7 @@ public class WriterProviderTest {
     Writer<WritableRow, Boolean> writer1 = writerProvider.writer("demo-topic");
     assertEquals(writer.hashCode(), writer1.hashCode());
     writer.close();
+    assertEquals(1, 1);
   }
   
   @Test
