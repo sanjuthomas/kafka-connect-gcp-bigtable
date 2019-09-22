@@ -22,32 +22,34 @@ public class ErrorHandler {
     if (exception instanceof ApiException) {
       if (((ApiException) exception).isRetryable()) {
         if (counter.incrementAndGet() <= config.maxRetryCount()) {
-          return new Result(true, retryBackOffSeconds());
+          return new Result(true, retryBackOffSeconds(), counter.get());
         }
       }
     }
-    return new Result(false, 0);
+    return new Result(false, 0, counter.get());
   }
 
   private long retryBackOffSeconds() {
-    if (config.exponentialBackOff()) {
-      return counter.longValue() * config.retryBackOffSeconds();
+    if (config.exponentialBackoff()) {
+      return counter.longValue() * config.retryBackoffSeconds();
     }
-    return config.retryBackOffSeconds();
+    return config.retryBackoffSeconds();
   }
-  
+
   public void reset() {
-    counter = new AtomicInteger(0);
+    counter.set(0);
   }
 
   class Result {
 
     private boolean retry;
     private long secondsToSleep;
+    private int attempt;
 
-    Result(boolean retry, long secondsToSleep) {
+    Result(final boolean retry, final long secondsToSleep, final int attempt) {
       this.retry = retry;
       this.secondsToSleep = secondsToSleep;
+      this.attempt = attempt;
     }
 
     public boolean retry() {
@@ -56,6 +58,10 @@ public class ErrorHandler {
 
     public long secondsToSleep() {
       return secondsToSleep;
+    }
+    
+    public int attempt() {
+      return attempt;
     }
   }
 }

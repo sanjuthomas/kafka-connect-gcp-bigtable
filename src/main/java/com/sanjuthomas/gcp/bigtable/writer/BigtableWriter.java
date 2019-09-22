@@ -5,7 +5,6 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
-import org.apache.kafka.connect.errors.ConnectException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import com.google.cloud.bigtable.data.v2.BigtableDataClient;
@@ -17,11 +16,14 @@ import com.sanjuthomas.gcp.bigtable.bean.WritableCell;
 import com.sanjuthomas.gcp.bigtable.bean.WritableFamilyCells;
 import com.sanjuthomas.gcp.bigtable.bean.WritableRow;
 import com.sanjuthomas.gcp.bigtable.config.WriterConfig;
+import com.sanjuthomas.gcp.bigtable.exception.BigtableWriteFailedException;
 import com.sanjuthomas.gcp.bigtable.writer.ErrorHandler.Result;
 
 /**
  * Default Bigtable writer implementation and this class is not thread safe. As per the design,
  * there would be one writer per topic and every task thread will have it's on writer instance.
+ * 
+ * a Task Thread -> a Topic -> a Writer
  * 
  * This implementation write rows using bulkMutateRows.
  * 
@@ -57,10 +59,8 @@ public class BigtableWriter implements Writer<WritableRow, Boolean> {
     }
     try {
       this.execute(batch);
-    } catch (InterruptedException e) {
-      logger.error(e.getMessage(), e);
-      throw new ConnectException(
-          String.format("Failed to save the batch to Bigtable and batch size was %s", rows.size()));
+    } catch (Exception e) {
+      throw e;
     } finally {
       this.rows.clear();
       errorHandler.reset();
@@ -74,23 +74,33 @@ public class BigtableWriter implements Writer<WritableRow, Boolean> {
    * @throws InterruptedException
    */
   @VisibleForTesting
-  void execute(final BulkMutation bulkMutation) throws InterruptedException {
+  void execute(final BulkMutation bulkMutation) {
     try {
       this.client.bulkMutateRows(bulkMutation);
     } catch (Exception e) {
       logger.error(e.getMessage(), e);
-      execute(bulkMutation, e);
+      if (!execute(bulkMutation, e)) {
+        throw new BigtableWriteFailedException(String
+            .format("Failed to save the batch to Bigtable and batch size was %s", rows.size()));
+      }
     }
   }
 
   @VisibleForTesting
-  void execute(final BulkMutation bulkMutation, final Exception exception)
-      throws InterruptedException {
-    final Result result = errorHandler.handle(exception);
-    if (result.retry()) {
-      TimeUnit.SECONDS.sleep(result.secondsToSleep());
-      this.client.bulkMutateRows(bulkMutation);
+  boolean execute(final BulkMutation bulkMutation, final Exception exception) {
+    Result result = errorHandler.handle(exception);
+    while (result.retry()) {
+      try {
+        TimeUnit.SECONDS.sleep(result.secondsToSleep());
+        this.client.bulkMutateRows(bulkMutation);
+        return true;
+      } catch (Exception e) {
+        logger.error("Write failed due to {}. retry attemps {}", e.getMessage(), result.attempt(),
+            e);
+        result = errorHandler.handle(exception);
+      }
     }
+    return false;
   }
 
   private void addMutation(final BulkMutation batch, final String rowKey, final String family,

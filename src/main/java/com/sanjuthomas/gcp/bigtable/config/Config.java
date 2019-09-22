@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import com.google.common.base.MoreObjects;
 import com.google.common.base.Preconditions;
 import com.sanjuthomas.gcp.bigtable.config.WriterConfig.ErrorHandlerConfig;
@@ -24,7 +25,9 @@ public class Config {
   private String keyDelimiter;
   private List<String> families;
   private List<Map<String, List<String>>> familyQualifiers;
-  private ErrorHandlerConfig errorHandler;
+  private int maxRetryCount;
+  private int retryBackoffSeconds;
+  private boolean exponentialBackoff;
 
   public Map<String, List<String>> familyQualifiersMappings() {
     final Map<String, List<String>> familyQualifiersMappings = new HashMap<>();
@@ -36,7 +39,8 @@ public class Config {
 
   public WriterConfig getWriterConfig() {
     final WriterConfig writerConfg = new WriterConfig(keyFile, project, instance, table);
-    writerConfg.setErrorHandlerConfig(getErrorHandler());
+    writerConfg.setErrorHandlerConfig(
+        new ErrorHandlerConfig(maxRetryCount, retryBackoffSeconds, exponentialBackoff));
     return writerConfg;
   }
 
@@ -96,7 +100,7 @@ public class Config {
 
   public void setFamilies(final List<String> families) {
     Preconditions.checkNotNull(families, "family is a mandatory configuration.");
-    Preconditions.checkArgument(families.size() > 0, "At least one family should be given.");
+    Preconditions.checkArgument(families.size() > 0, "at least one family should be given.");
     this.families = families;
   }
 
@@ -104,7 +108,10 @@ public class Config {
     this.familyQualifiers = familyQualifiers;
   }
 
-  private ErrorHandlerConfig getErrorHandler() {
-    return errorHandler;
+  public void setErrorHandler(Map<String, Object> errorHandler) {
+    this.maxRetryCount = Integer.valueOf(Objects.toString(errorHandler.get("maxRetryCount"), "3"));
+    this.retryBackoffSeconds = Integer.valueOf(Objects.toString(errorHandler.get("retryBackoffSeconds"), "3"));
+    this.exponentialBackoff = Boolean.valueOf(Objects.toString(errorHandler.get("exponentialBackoff"), "true"));
   }
+
 }

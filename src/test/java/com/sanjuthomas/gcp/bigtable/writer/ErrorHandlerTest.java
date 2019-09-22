@@ -6,7 +6,6 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import com.google.api.gax.rpc.ApiException;
-import com.google.api.gax.rpc.StatusCode;
 import com.sanjuthomas.gcp.bigtable.config.WriterConfig.ErrorHandlerConfig;
 import com.sanjuthomas.gcp.bigtable.writer.ErrorHandler.Result;
 
@@ -17,70 +16,88 @@ import com.sanjuthomas.gcp.bigtable.writer.ErrorHandler.Result;
  */
 public class ErrorHandlerTest {
 
-  private ErrorHandler handlerExponentialBackOff;
+  private ErrorHandler handlerExponentialBackoff;
+  private ErrorHandler handlerSingleBackoff;
   private ErrorHandler handler;
-
-  private static final StatusCode LOCAL_STATUS = new StatusCode() {
-    @Override
-    public Code getCode() {
-      return Code.INTERNAL;
-    }
-
-    @Override
-    public Object getTransportCode() {
-      return null;
-    }
-  };
 
   @BeforeEach
   public void setUp() {
-    handlerExponentialBackOff = new ErrorHandler(new ErrorHandlerConfig(3, 3, true));
+    handlerExponentialBackoff = new ErrorHandler(new ErrorHandlerConfig(3, 3, true));
+    handlerSingleBackoff = new ErrorHandler(new ErrorHandlerConfig(1, 3, true));
     handler = new ErrorHandler(new ErrorHandlerConfig(3, 3, false));
   }
 
   @Test
   public void shouldHandleExponentialBackOff() {
-    final ApiException exception = new ApiException(new Exception(), LOCAL_STATUS, true);
-    Result result = handlerExponentialBackOff.handle(exception);
+    final ApiException exception = new ApiException(new Exception(), StatusCodeStub.LOCAL_STATUS, true);
+    Result result = handlerExponentialBackoff.handle(exception);
     assertTrue(result.retry());
     assertEquals(3, result.secondsToSleep());
-    result = handlerExponentialBackOff.handle(exception);
+    assertEquals(1, result.attempt());
+    result = handlerExponentialBackoff.handle(exception);
     assertTrue(result.retry());
+    assertEquals(2, result.attempt());
     assertEquals(6, result.secondsToSleep());
-    result = handlerExponentialBackOff.handle(exception);
+    result = handlerExponentialBackoff.handle(exception);
     assertTrue(result.retry());
+    assertEquals(3, result.attempt());
     assertEquals(9, result.secondsToSleep());
-    result = handlerExponentialBackOff.handle(exception);
+    result = handlerExponentialBackoff.handle(exception);
     assertFalse(result.retry());
+    assertEquals(4, result.attempt());
     assertEquals(0, result.secondsToSleep());
+    handlerExponentialBackoff.reset();
   }
   
   @Test
   public void shouldHandle() {
-    final ApiException exception = new ApiException(new Exception(), LOCAL_STATUS, true);
+    final ApiException exception = new ApiException(new Exception(), StatusCodeStub.LOCAL_STATUS, true);
     Result result = handler.handle(exception);
     assertTrue(result.retry());
+    assertEquals(1, result.attempt());
     assertEquals(3, result.secondsToSleep());
     result = handler.handle(exception);
     assertTrue(result.retry());
+    assertEquals(2, result.attempt());
     assertEquals(3, result.secondsToSleep());
     result = handler.handle(exception);
     assertTrue(result.retry());
+    assertEquals(3, result.attempt());
     assertEquals(3, result.secondsToSleep());
     result = handler.handle(exception);
     assertFalse(result.retry());
+    assertEquals(4, result.attempt());
     assertEquals(0, result.secondsToSleep());
   }
   
   @Test
+  public void shouldRestHandler() {
+    final ApiException exception = new ApiException(new Exception(), StatusCodeStub.LOCAL_STATUS, true);
+    Result result = handlerSingleBackoff.handle(exception);
+    assertTrue(result.retry());
+    assertEquals(1, result.attempt());
+    assertEquals(3, result.secondsToSleep());
+    result = handlerSingleBackoff.handle(exception);
+    assertFalse(result.retry());
+    handlerSingleBackoff.reset();
+    result = handlerSingleBackoff.handle(exception);
+    assertTrue(result.retry());
+    assertEquals(1, result.attempt());
+    assertEquals(3, result.secondsToSleep());
+    result = handlerSingleBackoff.handle(exception);
+    assertFalse(result.retry());
+  }
+  
+  @Test
   public void shouldNotRetry() {
-    final ApiException exception = new ApiException(new Exception(), LOCAL_STATUS, false);
+    final ApiException exception = new ApiException(new Exception(), StatusCodeStub.LOCAL_STATUS, false);
     Result result = handler.handle(exception);
     assertFalse(result.retry());
     
     final Exception ex = new Exception();
     result = handler.handle(ex);
     assertFalse(result.retry());
+    assertEquals(0, result.attempt());
   }
 
 }

@@ -38,9 +38,6 @@ public class WriterConfig {
   }
 
   public ErrorHandlerConfig getErrorHandlerConfig() {
-    if (null == errorHandlerConfig) {
-      return new ErrorHandlerConfig(3, 3, true);
-    }
     return errorHandlerConfig;
   }
 
@@ -52,26 +49,26 @@ public class WriterConfig {
   public static class ErrorHandlerConfig {
 
     private int maxRetryCount;
-    private int retryBackOffSeconds;
-    private boolean exponentialBackOff;
+    private int retryBackoffSeconds;
+    private boolean exponentialBackoff;
     
-    public ErrorHandlerConfig(final int maxRetryCount, final int retryBackOffSeconds,
-        final boolean exponentialBackOff) {
+    public ErrorHandlerConfig(final int maxRetryCount, final int retryBackoffSeconds,
+        final boolean exponentialBackoff) {
       this.maxRetryCount = maxRetryCount;
-      this.retryBackOffSeconds = retryBackOffSeconds;
-      this.exponentialBackOff = exponentialBackOff;
+      this.retryBackoffSeconds = retryBackoffSeconds;
+      this.exponentialBackoff = exponentialBackoff;
     }
 
     public int maxRetryCount() {
       return maxRetryCount;
     }
 
-    public int retryBackOffSeconds() {
-      return retryBackOffSeconds;
+    public int retryBackoffSeconds() {
+      return retryBackoffSeconds;
     }
 
-    public boolean exponentialBackOff() {
-      return exponentialBackOff;
+    public boolean exponentialBackoff() {
+      return exponentialBackoff;
     }
   }
 }

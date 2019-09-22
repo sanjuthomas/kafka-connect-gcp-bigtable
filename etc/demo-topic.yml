@@ -6,8 +6,8 @@ table: demo-table
 transformer: com.sanjuthomas.gcp.transform.JsonEventTransformer
 errorHandler:
   maxRetryCount: 3
-  retryBackOffSeconds: 3
-  exponentialBackOff: true
+  retryBackoffSeconds: 3
+  exponentialBackoff: true
 keyQualifiers:
 - exchange
 - symbol

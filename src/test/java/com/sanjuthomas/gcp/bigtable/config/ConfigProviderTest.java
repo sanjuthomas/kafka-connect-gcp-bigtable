@@ -61,9 +61,9 @@ public class ConfigProviderTest {
     assertEquals(3, configProvider.config("demo-topic").getWriterConfig().getErrorHandlerConfig()
         .maxRetryCount());
     assertEquals(3, configProvider.config("demo-topic").getWriterConfig().getErrorHandlerConfig()
-        .retryBackOffSeconds());
+        .retryBackoffSeconds());
     assertEquals(true, configProvider.config("demo-topic").getWriterConfig().getErrorHandlerConfig()
-        .exponentialBackOff());
+        .exponentialBackoff());
   }
 
 }
