@@ -35,6 +35,10 @@ public class ErrorHandler {
     }
     return config.retryBackOffSeconds();
   }
+  
+  public void reset() {
+    counter = new AtomicInteger(0);
+  }
 
   class Result {
 
