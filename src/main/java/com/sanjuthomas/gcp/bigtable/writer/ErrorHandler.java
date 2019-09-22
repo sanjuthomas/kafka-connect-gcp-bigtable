@@ -19,12 +19,9 @@ public class ErrorHandler {
   }
 
   public Result handle(Throwable exception) {
-    if (exception instanceof ApiException) {
-      if (((ApiException) exception).isRetryable()) {
-        if (counter.incrementAndGet() <= config.maxRetryCount()) {
-          return new Result(true, retryBackOffSeconds(), counter.get());
-        }
-      }
+    if (exception instanceof ApiException && ((ApiException) exception).isRetryable()
+        && counter.incrementAndGet() <= config.maxRetryCount()) {
+      return new Result(true, retryBackOffSeconds(), counter.get());
     }
     return new Result(false, 0, counter.get());
   }
@@ -59,7 +56,7 @@ public class ErrorHandler {
     public long secondsToSleep() {
       return secondsToSleep;
     }
-    
+
     public int attempt() {
       return attempt;
     }

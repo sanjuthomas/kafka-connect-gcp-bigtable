@@ -18,6 +18,7 @@ public class BigtableSinkConfig extends AbstractConfig {
   private static final Logger logger = LoggerFactory.getLogger(BigtableSinkConfig.class);
   public static final String TOPICS = "topics";
   public static final String CONFIG_FILE_LOCATION = "config.files.location";
+  public static final String CONTINUE_AFTER_WRITE_ERROR = "continue.after.write.error";
   private static final String CONFIG_FILE_LOCATION_DOC =
       "the folder in which the bigtable config files are located";
   private static final String CONFIG_FILE_LOCATION_DEFAULT = "config";
