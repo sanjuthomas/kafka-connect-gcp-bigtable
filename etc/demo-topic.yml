@@ -4,6 +4,12 @@ project: demo-project
 instance: demo-instance
 table: demo-table
 transformer: com.sanjuthomas.gcp.transform.JsonEventTransformer
+errorHandler:
+  maxRetryCount: 3
+  retryBackOffSeconds: 3
+  exponentialBackOff: true
+  retryableExceptions:
+  - com.google.api.gax.rpc.ApiException
 keyQualifiers:
 - exchange
 - symbol

@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Map;
 import com.google.common.base.MoreObjects;
 import com.google.common.base.Preconditions;
+import com.sanjuthomas.gcp.bigtable.config.WriterConfig.ErrorHandlerConfig;
 
 /**
  *
@@ -23,6 +24,7 @@ public class Config {
   private String keyDelimiter;
   private List<String> families;
   private List<Map<String, List<String>>> familyQualifiers;
+  private ErrorHandlerConfig errorHandler;
 
   public Map<String, List<String>> familyQualifiersMappings() {
     final Map<String, List<String>> familyQualifiersMappings = new HashMap<>();
@@ -32,8 +34,10 @@ public class Config {
     return familyQualifiersMappings;
   }
 
-  public WriterConfig writerConfig() {
-    return new WriterConfig(keyFile, project, instance, table);
+  public WriterConfig getWriterConfig() {
+    final WriterConfig writerConfg = new WriterConfig(keyFile, project, instance, table);
+    writerConfg.setErrorHandlerConfig(getErrorHandler());
+    return writerConfg;
   }
 
   public String getTransformer() {
@@ -98,5 +102,9 @@ public class Config {
 
   public void setFamilyQualifiers(final List<Map<String, List<String>>> familyQualifiers) {
     this.familyQualifiers = familyQualifiers;
+  }
+
+  private ErrorHandlerConfig getErrorHandler() {
+    return errorHandler;
   }
 }

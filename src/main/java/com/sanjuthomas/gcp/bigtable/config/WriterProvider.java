@@ -50,7 +50,7 @@ public class WriterProvider {
 
   private Writer<WritableRow, Boolean> createAndCacheWriter(final String topic)
       throws FileNotFoundException, IOException {
-    final WriterConfig writerConfig = configProvider.config(topic).writerConfig();
+    final WriterConfig writerConfig = configProvider.config(topic).getWriterConfig();
     final BigtableWriter bigtableWriter =
         new BigtableWriter(writerConfig, new ClientProvider(writerConfig).client());
     writerMap.put(topic, bigtableWriter);
