@@ -8,8 +8,6 @@ errorHandler:
   maxRetryCount: 3
   retryBackOffSeconds: 3
   exponentialBackOff: true
-  retryableExceptions:
-  - com.google.api.gax.rpc.ApiException
 keyQualifiers:
 - exchange
 - symbol

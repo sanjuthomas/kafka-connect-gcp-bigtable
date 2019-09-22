@@ -1,8 +1,5 @@
 package com.sanjuthomas.gcp.bigtable.config;
 
-import java.util.Arrays;
-import java.util.List;
-
 /**
  *
  * @author Sanju Thomas
@@ -42,8 +39,7 @@ public class WriterConfig {
 
   public ErrorHandlerConfig getErrorHandlerConfig() {
     if (null == errorHandlerConfig) {
-      return new ErrorHandlerConfig(3, 3, true,
-          Arrays.asList("com.google.api.gax.rpc.ApiException"));
+      return new ErrorHandlerConfig(3, 3, true);
     }
     return errorHandlerConfig;
   }
@@ -55,18 +51,16 @@ public class WriterConfig {
 
   public static class ErrorHandlerConfig {
 
-    public ErrorHandlerConfig(final int maxRetryCount, final int retryBackOffSeconds,
-        final boolean exponentialBackOff, final List<String> retryableExceptions) {
-      this.maxRetryCount = maxRetryCount;
-      this.retryBackOffSeconds = retryBackOffSeconds;
-      this.exponentialBackOff = exponentialBackOff;
-      this.retryableExceptions = retryableExceptions;
-    }
-
     private int maxRetryCount;
     private int retryBackOffSeconds;
     private boolean exponentialBackOff;
-    private List<String> retryableExceptions;
+    
+    public ErrorHandlerConfig(final int maxRetryCount, final int retryBackOffSeconds,
+        final boolean exponentialBackOff) {
+      this.maxRetryCount = maxRetryCount;
+      this.retryBackOffSeconds = retryBackOffSeconds;
+      this.exponentialBackOff = exponentialBackOff;
+    }
 
     public int maxRetryCount() {
       return maxRetryCount;
@@ -78,10 +72,6 @@ public class WriterConfig {
 
     public boolean exponentialBackOff() {
       return exponentialBackOff;
-    }
-
-    public List<String> retryableExceptions() {
-      return retryableExceptions;
     }
   }
 }

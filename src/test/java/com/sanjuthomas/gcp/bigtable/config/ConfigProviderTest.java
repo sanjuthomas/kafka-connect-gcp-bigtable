@@ -20,7 +20,7 @@ import com.sanjuthomas.gcp.resolvers.SinkRecordResolver;
  *
  */
 public class ConfigProviderTest {
-  
+
   private ConfigProvider configProvider;
 
   @BeforeEach
@@ -32,32 +32,38 @@ public class ConfigProviderTest {
   @Test
   @ExtendWith(SinkRecordResolver.class)
   public void shouldGetTransformerForGivenTopic(final SinkRecord record) {
-    final Transformer<SinkRecord, WritableRow> transformer = configProvider.transformer("demo-topic");
+    final Transformer<SinkRecord, WritableRow> transformer =
+        configProvider.transformer("demo-topic");
     final WritableRow row = transformer.transform(record);
     assertEquals("NYQ_MMM", row.rowKey());
     final List<WritableFamilyCells> cells = row.familyCells();
     assertEquals(2, cells.size());
     assertEquals("data", cells.get(0).family());
     assertEquals("metadata", cells.get(1).family());
-    final Transformer<SinkRecord, WritableRow> transformer1 = configProvider.transformer("demo-topic");
+    final Transformer<SinkRecord, WritableRow> transformer1 =
+        configProvider.transformer("demo-topic");
     assertEquals(transformer1.hashCode(), transformer.hashCode());
-    assertEquals(configProvider.config("demo-topic").hashCode(), configProvider.config("demo-topic").hashCode());
+    assertEquals(configProvider.config("demo-topic").hashCode(),
+        configProvider.config("demo-topic").hashCode());
   }
-  
+
   @Test
   public void shouldGetWriterConfig() {
     assertEquals("demo-table", configProvider.config("demo-topic").getWriterConfig().table());
-    assertEquals("/Users/sanjuthomas/keys/civic-athlete-251623-e16dce095204.json", configProvider.config("demo-topic").getWriterConfig().keyFile());
+    assertEquals("/Users/sanjuthomas/keys/civic-athlete-251623-e16dce095204.json",
+        configProvider.config("demo-topic").getWriterConfig().keyFile());
     assertEquals("demo-project", configProvider.config("demo-topic").getWriterConfig().project());
     assertEquals("demo-instance", configProvider.config("demo-topic").getWriterConfig().instance());
   }
-  
+
   @Test
   public void shouldGetErrorHandlerConfig() {
-    assertEquals(3, configProvider.config("demo-topic").getWriterConfig().getErrorHandlerConfig().maxRetryCount());
-    assertEquals(3, configProvider.config("demo-topic").getWriterConfig().getErrorHandlerConfig().retryBackOffSeconds());
-    assertEquals(true, configProvider.config("demo-topic").getWriterConfig().getErrorHandlerConfig().exponentialBackOff());
-    assertEquals("com.google.api.gax.rpc.ApiException", configProvider.config("demo-topic").getWriterConfig().getErrorHandlerConfig().retryableExceptions().get(0));
+    assertEquals(3, configProvider.config("demo-topic").getWriterConfig().getErrorHandlerConfig()
+        .maxRetryCount());
+    assertEquals(3, configProvider.config("demo-topic").getWriterConfig().getErrorHandlerConfig()
+        .retryBackOffSeconds());
+    assertEquals(true, configProvider.config("demo-topic").getWriterConfig().getErrorHandlerConfig()
+        .exponentialBackOff());
   }
 
 }
