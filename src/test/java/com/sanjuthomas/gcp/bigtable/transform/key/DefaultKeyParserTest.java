@@ -34,7 +34,6 @@ public class DefaultKeyParserTest {
   public void shouldGetNullKey(final SinkRecord record) {
     assertNull(this.keyParser.parse(record));
   }
-  
 
   @Test
   public void shouldGetNullKey() {

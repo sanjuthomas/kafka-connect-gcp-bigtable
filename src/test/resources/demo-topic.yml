@@ -4,6 +4,10 @@ project: demo-project
 instance: demo-instance
 table: demo-table
 transformer: com.sanjuthomas.gcp.bigtable.transform.JsonEventTransformer
+errorHandler:
+  maxRetryCount: 3
+  retryBackoffSeconds: 3
+  exponentialBackoff: true
 keyQualifiers:
 - exchange
 - symbol

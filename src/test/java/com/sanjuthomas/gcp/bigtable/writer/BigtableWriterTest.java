@@ -14,6 +14,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ExecutionException;
 import org.apache.kafka.connect.sink.SinkRecord;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -25,6 +26,8 @@ import com.google.cloud.bigtable.data.v2.models.BulkMutation;
 import com.sanjuthomas.gcp.bigtable.bean.WritableRow;
 import com.sanjuthomas.gcp.bigtable.config.TransformerConfig;
 import com.sanjuthomas.gcp.bigtable.config.WriterConfig;
+import com.sanjuthomas.gcp.bigtable.config.WriterConfig.ErrorHandlerConfig;
+import com.sanjuthomas.gcp.bigtable.exception.BigtableWriteFailedException;
 import com.sanjuthomas.gcp.bigtable.transform.JsonEventTransformer;
 import com.sanjuthomas.gcp.resolvers.SinkRecordResolver;
 
@@ -48,8 +51,9 @@ public class BigtableWriterTest {
     final TransformerConfig config =
         new TransformerConfig(this.keyQualifiers, "_", this.families, familyToQualifierMapping);
     this.transformer = new JsonEventTransformer(config);
-    WriterConfig writerConfig = new WriterConfig("/Users/sathomas/keys/demo-key.json",
+    final WriterConfig writerConfig = new WriterConfig("/Users/sathomas/keys/demo-key.json",
         "demo-project", "demo-instance", "demo-table");
+    writerConfig.setErrorHandlerConfig(new ErrorHandlerConfig(3, 1, true));
     this.writer = new BigtableWriter(writerConfig, client);
   }
 
@@ -59,7 +63,9 @@ public class BigtableWriterTest {
     doNothing().when(client).bulkMutateRows(any(BulkMutation.class));
     final WritableRow row = this.transformer.transform(record);
     assertEquals(1, writer.buffer(row));
+    assertEquals(1, writer.bufferSize());
     writer.flush();
+    assertEquals(0, writer.bufferSize());
     verify(client, times(1)).bulkMutateRows(any(BulkMutation.class));
   }
 
@@ -70,8 +76,34 @@ public class BigtableWriterTest {
     doThrow(ApiException.class).when(client).bulkMutateRows(any(BulkMutation.class));
     final WritableRow row = this.transformer.transform(record);
     assertEquals(1, writer.buffer(row));
-    writer.flush();
+    Assertions.assertThrows(BigtableWriteFailedException.class, () -> {
+      writer.flush();
+    });
     verify(client, times(1)).bulkMutateRows(any(BulkMutation.class));
+  }
+  
+  @Test
+  @ExtendWith(SinkRecordResolver.class)
+  public void shouldRetryThreeTimes(final SinkRecord record) {
+    final ApiException exception = new ApiException(new Exception(), StatusCodeUtil.LOCAL_STATUS, true);
+    doThrow(exception).when(client).bulkMutateRows(any(BulkMutation.class));
+    final WritableRow row = this.transformer.transform(record);
+    assertEquals(1, writer.buffer(row));
+    Assertions.assertThrows(BigtableWriteFailedException.class, () -> {
+      writer.flush();
+    });
+    verify(client, times(4)).bulkMutateRows(any(BulkMutation.class));
+  }
+  
+  @Test
+  @ExtendWith(SinkRecordResolver.class)
+  public void shouldWriteSecondTime(final SinkRecord record) {
+    final ApiException exception = new ApiException(new Exception(), StatusCodeUtil.LOCAL_STATUS, true);
+    doThrow(exception).doNothing().when(client).bulkMutateRows(any(BulkMutation.class));
+    final WritableRow row = this.transformer.transform(record);
+    assertEquals(1, writer.buffer(row));
+    writer.flush();
+    verify(client, times(2)).bulkMutateRows(any(BulkMutation.class));
   }
 
   @Test

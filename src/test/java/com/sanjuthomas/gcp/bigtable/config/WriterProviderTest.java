@@ -16,16 +16,16 @@ import com.sanjuthomas.gcp.bigtable.exception.BigtableSinkInitializationExceptio
  */
 @Integration
 public class WriterProviderTest {
-  
+
   private WriterProvider writerProvider;
-  
+
   @BeforeEach
   public void setUp() {
     final ConfigProvider configProvider = new ConfigProvider();
     configProvider.load("src/test/resources/", "demo-topic");
     writerProvider = new WriterProvider(configProvider);
   }
-  
+
   @Test
   public void shouldGetWriter() {
     Writer<WritableRow, Boolean> writer = writerProvider.writer("demo-topic");
@@ -34,7 +34,7 @@ public class WriterProviderTest {
     writer.close();
     assertEquals(1, 1);
   }
-  
+
   @Test
   public void shouldNotInit() {
     final ConfigProvider configProvider = new ConfigProvider();
