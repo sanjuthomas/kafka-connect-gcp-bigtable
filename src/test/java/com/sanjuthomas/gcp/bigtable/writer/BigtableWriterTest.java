@@ -85,7 +85,7 @@ public class BigtableWriterTest {
   @Test
   @ExtendWith(SinkRecordResolver.class)
   public void shouldRetryThreeTimes(final SinkRecord record) {
-    final ApiException exception = new ApiException(new Exception(), StatusCodeStub.LOCAL_STATUS, true);
+    final ApiException exception = new ApiException(new Exception(), StatusCodeUtil.LOCAL_STATUS, true);
     doThrow(exception).when(client).bulkMutateRows(any(BulkMutation.class));
     final WritableRow row = this.transformer.transform(record);
     assertEquals(1, writer.buffer(row));
@@ -98,7 +98,7 @@ public class BigtableWriterTest {
   @Test
   @ExtendWith(SinkRecordResolver.class)
   public void shouldWriteSecondTime(final SinkRecord record) {
-    final ApiException exception = new ApiException(new Exception(), StatusCodeStub.LOCAL_STATUS, true);
+    final ApiException exception = new ApiException(new Exception(), StatusCodeUtil.LOCAL_STATUS, true);
     doThrow(exception).doNothing().when(client).bulkMutateRows(any(BulkMutation.class));
     final WritableRow row = this.transformer.transform(record);
     assertEquals(1, writer.buffer(row));

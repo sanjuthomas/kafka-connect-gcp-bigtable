@@ -29,7 +29,7 @@ public class ErrorHandlerTest {
 
   @Test
   public void shouldHandleExponentialBackOff() {
-    final ApiException exception = new ApiException(new Exception(), StatusCodeStub.LOCAL_STATUS, true);
+    final ApiException exception = new ApiException(new Exception(), StatusCodeUtil.LOCAL_STATUS, true);
     Result result = handlerExponentialBackoff.handle(exception);
     assertTrue(result.retry());
     assertEquals(3, result.secondsToSleep());
@@ -51,7 +51,7 @@ public class ErrorHandlerTest {
   
   @Test
   public void shouldHandle() {
-    final ApiException exception = new ApiException(new Exception(), StatusCodeStub.LOCAL_STATUS, true);
+    final ApiException exception = new ApiException(new Exception(), StatusCodeUtil.LOCAL_STATUS, true);
     Result result = handler.handle(exception);
     assertTrue(result.retry());
     assertEquals(1, result.attempt());
@@ -72,7 +72,7 @@ public class ErrorHandlerTest {
   
   @Test
   public void shouldRestHandler() {
-    final ApiException exception = new ApiException(new Exception(), StatusCodeStub.LOCAL_STATUS, true);
+    final ApiException exception = new ApiException(new Exception(), StatusCodeUtil.LOCAL_STATUS, true);
     Result result = handlerSingleBackoff.handle(exception);
     assertTrue(result.retry());
     assertEquals(1, result.attempt());
@@ -90,7 +90,7 @@ public class ErrorHandlerTest {
   
   @Test
   public void shouldNotRetry() {
-    final ApiException exception = new ApiException(new Exception(), StatusCodeStub.LOCAL_STATUS, false);
+    final ApiException exception = new ApiException(new Exception(), StatusCodeUtil.LOCAL_STATUS, false);
     Result result = handler.handle(exception);
     assertFalse(result.retry());
     

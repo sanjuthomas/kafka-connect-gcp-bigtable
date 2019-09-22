@@ -7,7 +7,7 @@ import com.google.api.gax.rpc.StatusCode;
  * @author Sanju Thomas
  *
  */
-public class StatusCodeStub {
+public interface StatusCodeUtil {
   
   public static final StatusCode LOCAL_STATUS = new StatusCode() {
       @Override
