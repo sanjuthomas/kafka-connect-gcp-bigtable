@@ -50,7 +50,6 @@ public class JsonEventTransformer implements Transformer<SinkRecord, WritableRow
     payload.put("created_at", record.timestamp());
     payload.put("processed_at", System.currentTimeMillis());
     payload.put("topic", record.topic());
-    payload.put("topic", record.topic());
     payload.put("partition", record.kafkaPartition());
   }
 
