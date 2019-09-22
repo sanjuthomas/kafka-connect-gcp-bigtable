@@ -3,6 +3,7 @@ package com.sanjuthomas.gcp.bigtable.sink;
 import java.util.Collection;
 import java.util.LinkedHashSet;
 import java.util.Map;
+import java.util.Objects;
 import java.util.Set;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.kafka.clients.consumer.OffsetAndMetadata;
@@ -17,6 +18,7 @@ import com.sanjuthomas.gcp.bigtable.Writer;
 import com.sanjuthomas.gcp.bigtable.bean.WritableRow;
 import com.sanjuthomas.gcp.bigtable.config.ConfigProvider;
 import com.sanjuthomas.gcp.bigtable.config.WriterProvider;
+import com.sanjuthomas.gcp.bigtable.exception.BigtableWriteFailedException;
 
 /**
  *
@@ -30,6 +32,8 @@ public class BigtableSinkTask extends SinkTask {
   private ConfigProvider configProvider;
   @VisibleForTesting
   WriterProvider writerProvider;
+  @VisibleForTesting
+  boolean continueAfterWriteError;
 
   @Override
   public String version() {
@@ -48,7 +52,15 @@ public class BigtableSinkTask extends SinkTask {
     assingedTopics.forEach(at -> {
       final Writer<WritableRow, Boolean> writer = writerProvider.writer(at);
       if (writer.bufferSize() > 0) {
-        writer.flush();
+        try {
+          writer.flush();
+        } catch (BigtableWriteFailedException e) {
+          if(continueAfterWriteError) {
+            logger.error("Swallow the error and continue to next batch, all or part of the batch is lost.");
+          }else {
+            throw e;
+          }
+        }
       }
     });
   }
@@ -58,6 +70,8 @@ public class BigtableSinkTask extends SinkTask {
     logger.info("{} started with config {}", this, config);
     this.configProvider = new ConfigProvider();
     final String topics = config.get(BigtableSinkConfig.TOPICS);
+    continueAfterWriteError = Boolean.valueOf(
+        Objects.toString(config.get(BigtableSinkConfig.CONTINUE_AFTER_WRITE_ERROR), "false"));
     final String configFileLocation = config.get(BigtableSinkConfig.CONFIG_FILE_LOCATION);
     Preconditions.checkNotNull(topics,
         "topics is a mandatory config in the bigtable-sink.properties");
