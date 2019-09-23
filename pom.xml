@@ -238,7 +238,6 @@
 								Each column is identified by a combination of the column family and a column qualifier, which is a unique name within the column family.
 								Refer to project README to know more about mapping the messages from a topic in Kafka to table in GCP Bigtable.
 							</description>
-							<logo>docs/logos/gcp-bigtable.png</logo>
 							<supportProviderName>Open Source Community</supportProviderName>
 							<supportSummary>Support provided through community involvement.</supportSummary>
 							<supportUrl>${project.issueManagement.url}</supportUrl>
@@ -254,6 +253,9 @@
 								<tag>Bigtable</tag>
 								<tag>NoSQL</tag>
 							</tags>
+							<deliveryGuarantee>
+                                <deliveryGuarantee>atLeastOnce</deliveryGuarantee>
+                            </deliveryGuarantee>
 							<requirements>
 								<requirement>GCP Bigtable</requirement>
 							</requirements>
