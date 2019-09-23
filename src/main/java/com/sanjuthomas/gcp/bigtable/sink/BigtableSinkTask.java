@@ -42,7 +42,7 @@ public class BigtableSinkTask extends SinkTask {
 
   @Override
   public void put(final Collection<SinkRecord> sinkRecords) {
-    logger.info("Data arrived in the Bigtable Sink Task, sinkRecords count is {}",
+    logger.debug("Data arrived in the Bigtable Sink Task, sinkRecords count is {}",
         sinkRecords.size());
     for (final SinkRecord sr : sinkRecords) {
       final WritableRow row = configProvider.transformer(sr.topic()).transform(sr);
@@ -90,7 +90,7 @@ public class BigtableSinkTask extends SinkTask {
 
   @Override
   public void flush(final Map<TopicPartition, OffsetAndMetadata> currentOffsets) {
-    logger.info("flush is called for {}", currentOffsets.keySet());
+    logger.debug("flush is called for {}", currentOffsets.keySet());
   }
 
   @Override
