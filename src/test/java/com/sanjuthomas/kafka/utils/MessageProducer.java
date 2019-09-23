@@ -1,5 +1,6 @@
 package com.sanjuthomas.kafka.utils;
 
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Properties;
@@ -23,10 +24,13 @@ public class MessageProducer {
     final Map<String, Object> messageMap = new HashMap<>();
     messageMap.put("client", "c-100");
     messageMap.put("exchange", "NYSE");
-    messageMap.put("symbol", "AAPL");
-    messageMap.put("price", 201.12);
+    messageMap.put("symbol", "FB");
+    messageMap.put("price", 110.23);
     messageMap.put("quantity", 1200);
-    new MessageProducer().produceMessages(messageMap);
+    Collections.nCopies(1000, 1)
+    .stream()
+    .forEach(i -> new MessageProducer().produceMessages(messageMap));
+    
   }
 
   private void produceMessages(final Map<String, Object> message) {

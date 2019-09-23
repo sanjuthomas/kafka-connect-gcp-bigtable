@@ -46,7 +46,7 @@ public class BigtableSinkTask extends SinkTask {
         sinkRecords.size());
     for (final SinkRecord sr : sinkRecords) {
       final WritableRow row = configProvider.transformer(sr.topic()).transform(sr);
-      logger.info("transformed row {}", row);
+      logger.debug("transformed row {}", row);
       writerProvider.writer(sr.topic()).buffer(row);
     }
     assingedTopics.forEach(at -> {

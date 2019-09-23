@@ -1,6 +1,6 @@
 ---
 keyFile: /user/home/kafka/demo-instance-key.json
-project: demo-project
+project: civic-athlete-251623
 instance: demo-instance
 table: demo-table
 transformer: com.sanjuthomas.gcp.bigtable.transform.JsonEventTransformer
