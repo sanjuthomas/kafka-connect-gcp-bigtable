@@ -1,4 +1,5 @@
 version 1.0.0 
 
-Please refer to project wiki for release notes.
-You can download the artifact from maven central.
+Please refer to project Wiki for release notes.
+
+You can download the artifact from maven central coordinate https://search.maven.org/search?q=com.sanjuthomas
