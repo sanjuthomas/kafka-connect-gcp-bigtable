@@ -223,29 +223,11 @@
 							<title>Kafka Connect GCP Bigtable</title>
 							<documentationUrl>https://github.com/sanjuthomas/kafka-connect-gcp-bigtable/blob/master/README.md</documentationUrl>
 							<description>
-								The GCP Bigtable connector allows moving data from
-								Kafka to GCP Bigtable. It writes data from a topic in Kafka to
-								an table in GCP Bigtable.
-
-								Cloud Bigtable stores data in massively
-								scalable tables, each of which is a sorted key/value map.
-								The
-								table is composed of rows, each of which typically describes a
-								single entity, and columns,
-								which contain individual values for
-								each row. Each row is indexed by a single row key, and columns
-								that are related to one another are typically grouped together
-								into a column family.
-								Each column is identified by a combination
-								of the column family and a column qualifier,
-								which is a unique
-								name within the column family.
-
-								Refer to project
-								README to know
-								more about mapping the messages from a topic in
-								Kafka to table in
-								GCP Bigtable.
+								The GCP Bigtable connector allows moving data from Kafka to GCP Bigtable. It writes data from a topic in Kafka to an table in GCP Bigtable.
+								Cloud Bigtable stores data in massively scalable tables, each of which is a sorted key/value map.
+								The table is composed of rows, each of which typically describes a single entity, and columns, which contain individual values for each row. Each row is indexed by a single row key, and columns that are related to one another are typically grouped together into a column family.
+								Each column is identified by a combination of the column family and a column qualifier, which is a unique name within the column family.
+								Refer to project README to know more about mapping the messages from a topic in Kafka to table in GCP Bigtable.
 							</description>
 							<logo>docs/logos/gcp-bigtable.png</logo>
 							<supportProviderName>Open Source Community</supportProviderName>
