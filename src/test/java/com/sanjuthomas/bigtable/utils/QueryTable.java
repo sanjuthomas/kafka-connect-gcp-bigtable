@@ -51,7 +51,7 @@ public class QueryTable {
   }
 
   public static void main(final String[] args) throws Exception {
-    new QueryTable().execute("primeval-jet-227401", "demo-instance", "demo-table");
+    new QueryTable().execute("civic-athlete-251623", "demo-instance", "demo-table");
   }
 }
 

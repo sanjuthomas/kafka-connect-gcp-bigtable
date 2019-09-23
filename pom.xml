@@ -91,6 +91,13 @@
 			<version>5.3.2</version>
 			<scope>test</scope>
 		</dependency>
+		<!-- requires for message producer -->
+		<dependency>
+			<groupId>org.apache.kafka</groupId>
+			<artifactId>connect-json</artifactId>
+			<version>2.3.0</version>
+			<scope>test</scope>
+		</dependency>
 	</dependencies>
 
 	<build>
@@ -222,7 +229,8 @@
 
 								Cloud Bigtable stores data in massively
 								scalable tables, each of which is a sorted key/value map.
-								The table is composed of rows, each of which typically describes a
+								The
+								table is composed of rows, each of which typically describes a
 								single entity, and columns,
 								which contain individual values for
 								each row. Each row is indexed by a single row key, and columns
@@ -230,11 +238,14 @@
 								into a column family.
 								Each column is identified by a combination
 								of the column family and a column qualifier,
-								which is a unique name within the column family.
+								which is a unique
+								name within the column family.
 
 								Refer to project
-								README to know more about mapping the messages from a topic in
-								Kafka to table in GCP Bigtable.
+								README to know
+								more about mapping the messages from a topic in
+								Kafka to table in
+								GCP Bigtable.
 							</description>
 							<logo>docs/logos/gcp-bigtable.png</logo>
 							<supportProviderName>Open Source Community</supportProviderName>

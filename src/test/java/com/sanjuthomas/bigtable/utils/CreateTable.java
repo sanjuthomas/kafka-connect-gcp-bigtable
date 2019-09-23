@@ -26,6 +26,6 @@ public class CreateTable {
 
   // have the GOOGLE_APPLICATION_CREDENTIALS system environment variable set
   public static void main(final String[] args) throws IOException {
-    new CreateTable().execute("primeval-jet-227401", "demo-instance", "demo-table");
+    new CreateTable().execute("civic-athlete-251623", "demo-instance", "demo-table");
   }
 }
