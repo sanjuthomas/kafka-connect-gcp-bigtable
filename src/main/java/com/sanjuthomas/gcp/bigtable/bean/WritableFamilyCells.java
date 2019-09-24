@@ -1,13 +1,16 @@
 package com.sanjuthomas.gcp.bigtable.bean;
 
 import java.util.List;
+import org.apache.kafka.common.annotation.InterfaceStability.Stable;
 
 /**
  * Represent all the cells belongs to a column family in Bigtable.
  *
  * @author Sanju Thomas
+ * @since 1.0.3
  *
  */
+@Stable
 public class WritableFamilyCells {
 
   private final String family;

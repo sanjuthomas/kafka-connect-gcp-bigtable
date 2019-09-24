@@ -1,14 +1,17 @@
 package com.sanjuthomas.gcp.bigtable.writer;
 
 import java.util.concurrent.atomic.AtomicInteger;
+import org.apache.kafka.common.annotation.InterfaceStability.Evolving;
 import com.google.api.gax.rpc.ApiException;
 import com.sanjuthomas.gcp.bigtable.config.WriterConfig.ErrorHandlerConfig;
 
 /**
  * 
  * @author Sanju Thomas
+ * @since 1.0.3
  *
  */
+@Evolving
 public class ErrorHandler {
 
   private ErrorHandlerConfig config;

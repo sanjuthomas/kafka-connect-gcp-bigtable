@@ -8,6 +8,7 @@ import java.util.Set;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.kafka.clients.consumer.OffsetAndMetadata;
 import org.apache.kafka.common.TopicPartition;
+import org.apache.kafka.common.annotation.InterfaceStability.Evolving;
 import org.apache.kafka.connect.sink.SinkRecord;
 import org.apache.kafka.connect.sink.SinkTask;
 import org.slf4j.Logger;
@@ -23,8 +24,10 @@ import com.sanjuthomas.gcp.bigtable.exception.BigtableWriteFailedException;
 /**
  *
  * @author Sanju Thomas
- *
+ * @since 1.0.3
+ * 
  */
+@Evolving
 public class BigtableSinkTask extends SinkTask {
 
   private static final Logger logger = LoggerFactory.getLogger(BigtableSinkTask.class);

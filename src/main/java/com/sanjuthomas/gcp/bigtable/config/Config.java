@@ -5,15 +5,43 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
+import org.apache.kafka.common.annotation.InterfaceStability.Stable;
 import com.google.common.base.MoreObjects;
 import com.google.common.base.Preconditions;
 import com.sanjuthomas.gcp.bigtable.config.WriterConfig.ErrorHandlerConfig;
 
 /**
+ * An in memory copy of the configuration. An example configuration given below.
+ * 
+ * keyFile: secret-key-file-to-connect-to-gcp
+ * project: name-of-the-gcp-project
+ * instance: name-of-the-bigtable-instance
+ * table: name-of-the-bigtable-table
+ * transformer: canonical-name-of-the-transformer-class
+ * errorHandler:
+ *  maxRetryCount: count-in-integer
+ *  retryBackoffSeconds: seconds-in-integer
+ *  exponentialBackoff: true or false
+ *  keyQualifiers:
+ *   - element-name-1
+ *   - element-name-n
+ *  keyDelimiter: delimiter-to-combine-key-qualifiers
+ *   families:
+ *     - family-name-one
+ *     - family-name-n
+ * familyQualifiers:
+ *  - family-name-one:
+ *   - column-name-one
+ *   - column-name-n
+ *  - family-name-n:
+ *   - column-name-one
+ *   - column-name-n
  *
  * @author Sanju Thomas
+ * @since 1.0.3
  *
  */
+@Stable
 public class Config {
 
   private String keyFile;

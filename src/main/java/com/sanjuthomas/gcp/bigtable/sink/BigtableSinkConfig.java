@@ -1,6 +1,7 @@
 package com.sanjuthomas.gcp.bigtable.sink;
 
 import java.util.Map;
+import org.apache.kafka.common.annotation.InterfaceStability.Stable;
 import org.apache.kafka.common.config.AbstractConfig;
 import org.apache.kafka.common.config.ConfigDef;
 import org.apache.kafka.common.config.ConfigDef.Importance;
@@ -11,8 +12,10 @@ import org.slf4j.LoggerFactory;
 /**
  *
  * @author Sanju Thomas
+ * @since 1.0.3
  *
  */
+@Stable
 public class BigtableSinkConfig extends AbstractConfig {
 
   private static final Logger logger = LoggerFactory.getLogger(BigtableSinkConfig.class);

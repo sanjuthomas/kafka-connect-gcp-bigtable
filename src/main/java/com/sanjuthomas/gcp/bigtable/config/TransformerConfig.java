@@ -3,15 +3,20 @@ package com.sanjuthomas.gcp.bigtable.config;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import org.apache.kafka.common.annotation.InterfaceStability.Stable;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import com.google.common.base.MoreObjects;
 
 /**
+ * 
+ * In memory representation of Transformer configuration.
  *
  * @author Sanju Thomas
+ * @since 1.0.3
  *
  */
+@Stable
 public class TransformerConfig {
 
   private static final Logger logger = LoggerFactory.getLogger(TransformerConfig.class);

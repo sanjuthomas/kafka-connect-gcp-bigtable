@@ -3,6 +3,7 @@ package com.sanjuthomas.gcp.bigtable.sink;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import org.apache.kafka.common.annotation.InterfaceStability.Stable;
 import org.apache.kafka.common.config.ConfigDef;
 import org.apache.kafka.connect.connector.Task;
 import org.apache.kafka.connect.sink.SinkConnector;
@@ -12,8 +13,10 @@ import org.slf4j.LoggerFactory;
 /**
  *
  * @author Sanju Thomas
+ * @since 1.0.3
  *
  */
+@Stable
 public class BigtableSinkConnector extends SinkConnector {
 
   private static final Logger logger = LoggerFactory.getLogger(SinkConnector.class);

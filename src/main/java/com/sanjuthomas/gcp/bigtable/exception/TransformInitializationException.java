@@ -3,13 +3,14 @@ package com.sanjuthomas.gcp.bigtable.exception;
 /**
  * 
  * @author Sanju Thomas
+ * @since 1.0.3
  *
  */
-public class TransformInitException extends RuntimeException {
+public class TransformInitializationException extends RuntimeException {
 
   private static final long serialVersionUID = 1L;
 
-  public TransformInitException(final String message) {
+  public TransformInitializationException(final String message) {
     super(message);
   }
 }

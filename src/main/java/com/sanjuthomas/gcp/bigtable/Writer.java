@@ -1,11 +1,15 @@
 package com.sanjuthomas.gcp.bigtable;
 
+import org.apache.kafka.common.annotation.InterfaceStability.Stable;
+
 /**
  * A writer that can buffer the transformed messages and flush to the storage.
  *
  * @author Sanju Thomas
+ * @since 1.0.3
  *
  */
+@Stable
 public interface Writer<T, R> {
 
   /**

@@ -6,6 +6,7 @@ import java.lang.reflect.InvocationTargetException;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
+import org.apache.kafka.common.annotation.InterfaceStability.Stable;
 import org.apache.kafka.connect.sink.SinkRecord;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -14,13 +15,20 @@ import com.fasterxml.jackson.dataformat.yaml.YAMLFactory;
 import com.sanjuthomas.gcp.bigtable.Transformer;
 import com.sanjuthomas.gcp.bigtable.bean.WritableRow;
 import com.sanjuthomas.gcp.bigtable.exception.BigtableSinkInitializationException;
-import com.sanjuthomas.gcp.bigtable.exception.TransformInitException;
+import com.sanjuthomas.gcp.bigtable.exception.TransformInitializationException;
 
 /**
- *
+ * Class responsible for creating and caching the configuration(s) for task(s). Every task instance
+ * would create an instance of the ConfigProvider during the start up and provide the
+ * configuration(s) during the life of the task. Per design, there would be one configuration file
+ * per topic and the configuration file is written in a yaml file. Please @see {@link Config} to see
+ * an example configuration.
+ * 
  * @author Sanju Thomas
+ * @since 1.0.3
  *
  */
+@Stable
 public class ConfigProvider {
 
   private static final Logger logger = LoggerFactory.getLogger(ConfigProvider.class);
@@ -77,7 +85,7 @@ public class ConfigProvider {
     } catch (NoSuchMethodException | SecurityException | ClassNotFoundException
         | InstantiationException | IllegalAccessException | IllegalArgumentException
         | InvocationTargetException e) {
-      throw new TransformInitException(e.getMessage());
+      throw new TransformInitializationException(e.getMessage());
     }
   }
 

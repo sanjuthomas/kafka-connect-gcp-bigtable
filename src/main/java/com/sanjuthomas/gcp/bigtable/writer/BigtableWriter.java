@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
+import org.apache.kafka.common.annotation.InterfaceStability.Evolving;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import com.google.cloud.bigtable.data.v2.BigtableDataClient;
@@ -30,8 +31,10 @@ import com.sanjuthomas.gcp.bigtable.writer.ErrorHandler.Result;
  * @see ErrorHandler for more details about error handling and retry logic.
  *
  * @author Sanju Thomas
+ * @since 1.0.3
  *
  */
+@Evolving
 public class BigtableWriter implements Writer<WritableRow, Boolean> {
 
   private static final Logger logger = LoggerFactory.getLogger(BigtableWriter.class);

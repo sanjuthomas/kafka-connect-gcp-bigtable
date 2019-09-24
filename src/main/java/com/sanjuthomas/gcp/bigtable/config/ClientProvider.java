@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import org.apache.kafka.common.annotation.InterfaceStability.Stable;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import com.google.api.gax.core.FixedCredentialsProvider;
@@ -14,8 +15,10 @@ import com.google.cloud.bigtable.data.v2.BigtableDataSettings;
 /**
  *
  * @author Sanju Thomas
+ * @since 1.0.3
  *
  */
+@Stable
 public class ClientProvider {
 
   private static final Logger logger = LoggerFactory.getLogger(ClientProvider.class);

@@ -1,28 +1,31 @@
 package com.sanjuthomas.gcp.bigtable.transform;
 
-import com.sanjuthomas.gcp.bigtable.bean.WritableCell;
-import com.sanjuthomas.gcp.bigtable.bean.WritableFamilyCells;
-import com.sanjuthomas.gcp.bigtable.bean.WritableRow;
-import com.sanjuthomas.gcp.bigtable.transform.key.DefaultKeyParser;
-import com.sanjuthomas.gcp.bigtable.Parser;
-import com.sanjuthomas.gcp.bigtable.Transformer;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
+import org.apache.kafka.common.annotation.InterfaceStability.Stable;
 import org.apache.kafka.connect.sink.SinkRecord;
-import com.google.common.annotations.VisibleForTesting;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.google.common.annotations.VisibleForTesting;
+import com.sanjuthomas.gcp.bigtable.Parser;
+import com.sanjuthomas.gcp.bigtable.Transformer;
+import com.sanjuthomas.gcp.bigtable.bean.WritableCell;
+import com.sanjuthomas.gcp.bigtable.bean.WritableFamilyCells;
+import com.sanjuthomas.gcp.bigtable.bean.WritableRow;
 import com.sanjuthomas.gcp.bigtable.config.TransformerConfig;
 import com.sanjuthomas.gcp.bigtable.exception.RowKeyNotFoundException;
+import com.sanjuthomas.gcp.bigtable.transform.key.DefaultKeyParser;
 
 /**
  * This default transformer assumes that the values in the sink records are Maps. If your data is in
  * different format, please write another transformer implementation and change the configuration.
  *
  * @author Sanju Thomas
+ * @since 1.0.3
  *
  */
+@Stable
 public class JsonEventTransformer implements Transformer<SinkRecord, WritableRow> {
 
   private final Parser<Object, String> keyParser;

@@ -3,15 +3,17 @@ package com.sanjuthomas.gcp.bigtable.transform.key;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
+import org.apache.kafka.common.annotation.InterfaceStability.Stable;
 import org.apache.kafka.connect.sink.SinkRecord;
-
 import com.sanjuthomas.gcp.bigtable.Parser;
 
 /**
  *
  * @author Sanju Thomas
+ *  @since 1.0.3
  *
  */
+@Stable
 public class DefaultKeyParser implements Parser<Object, String> {
 
   private final List<String> keyQualifies;

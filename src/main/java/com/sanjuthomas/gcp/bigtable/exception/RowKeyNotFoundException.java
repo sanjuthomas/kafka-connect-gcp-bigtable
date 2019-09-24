@@ -3,6 +3,7 @@ package com.sanjuthomas.gcp.bigtable.exception;
 /**
  *
  * @author Sanju Thomas
+ * @since 1.0.3
  *
  */
 public class RowKeyNotFoundException extends RuntimeException {

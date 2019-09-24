@@ -1,13 +1,16 @@
 package com.sanjuthomas.gcp.bigtable.bean;
 
+import org.apache.kafka.common.annotation.InterfaceStability.Stable;
 import com.google.protobuf.ByteString;
 
 /**
  * Represent a Cell in the Bigtable.
  *
  * @author Sanju Thomas
+ * @since 1.0.3
  *
  */
+@Stable
 public class WritableCell {
 
   private final ByteString qualifier;
