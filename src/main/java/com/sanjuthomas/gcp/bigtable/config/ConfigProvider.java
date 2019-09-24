@@ -90,6 +90,7 @@ public class ConfigProvider {
         config.getKeyDelimiter(), config.getFamilies(), config.familyQualifiersMappings());
     final Constructor<?> constructor =
         Class.forName(config.getTransformer()).getConstructor(TransformerConfig.class);
+    @SuppressWarnings("unchecked")
     final Transformer<SinkRecord, WritableRow> jsonEventTransformer =
         (Transformer<SinkRecord, WritableRow>) constructor.newInstance(transformerConfig);
     transformerMap.put(topic, jsonEventTransformer);
