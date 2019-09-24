@@ -18,6 +18,7 @@ import com.sanjuthomas.gcp.bigtable.exception.RowKeyNotFoundException;
 import com.sanjuthomas.gcp.bigtable.transform.key.DefaultKeyParser;
 
 /**
+ * 
  * This default transformer assumes that the values in the sink records are Maps. If your data is in
  * different format, please write another transformer implementation and change the configuration.
  *

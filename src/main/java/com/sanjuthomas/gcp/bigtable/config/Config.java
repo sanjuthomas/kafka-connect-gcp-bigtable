@@ -11,7 +11,8 @@ import com.google.common.base.Preconditions;
 import com.sanjuthomas.gcp.bigtable.config.WriterConfig.ErrorHandlerConfig;
 
 /**
- * An in memory copy of the configuration. An example configuration given below.
+ * 
+ * An in memory copy of the configuration. An example configuration is given below.
  * 
  * keyFile: secret-key-file-to-connect-to-gcp
  * project: name-of-the-gcp-project

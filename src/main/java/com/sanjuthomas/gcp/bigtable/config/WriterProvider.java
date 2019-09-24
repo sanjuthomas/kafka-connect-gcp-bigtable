@@ -13,6 +13,7 @@ import com.sanjuthomas.gcp.bigtable.exception.BigtableSinkInitializationExceptio
 import com.sanjuthomas.gcp.bigtable.writer.BigtableWriter;
 
 /**
+ * 
  * Class responsible for creating and caching writer objects.
  * 
  * @author Sanju Thomas

@@ -10,7 +10,7 @@ import com.sanjuthomas.gcp.bigtable.Parser;
 /**
  *
  * @author Sanju Thomas
- *  @since 1.0.3
+ * @since 1.0.3
  *
  */
 @Stable

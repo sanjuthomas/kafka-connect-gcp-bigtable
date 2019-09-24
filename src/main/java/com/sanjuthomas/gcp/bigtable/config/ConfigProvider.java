@@ -18,6 +18,7 @@ import com.sanjuthomas.gcp.bigtable.exception.BigtableSinkInitializationExceptio
 import com.sanjuthomas.gcp.bigtable.exception.TransformInitializationException;
 
 /**
+ * 
  * Class responsible for creating and caching the configuration(s) for task(s). Every task instance
  * would create an instance of the ConfigProvider during the start up and provide the
  * configuration(s) during the life of the task. Per design, there would be one configuration file

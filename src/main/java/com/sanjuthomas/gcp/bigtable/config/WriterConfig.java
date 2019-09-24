@@ -3,6 +3,7 @@ package com.sanjuthomas.gcp.bigtable.config;
 import org.apache.kafka.common.annotation.InterfaceStability.Stable;
 
 /**
+ * 
  * In memory representation of Writer configuration.
  *
  * @author Sanju Thomas

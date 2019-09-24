@@ -4,6 +4,7 @@ import org.apache.kafka.common.annotation.InterfaceStability.Stable;
 import com.google.protobuf.ByteString;
 
 /**
+ * 
  * Represent a Cell in the Bigtable.
  *
  * @author Sanju Thomas

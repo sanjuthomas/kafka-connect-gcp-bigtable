@@ -4,6 +4,7 @@ import java.util.List;
 import org.apache.kafka.common.annotation.InterfaceStability.Stable;
 
 /**
+ * 
  * Represent all the cells belongs to a column family in Bigtable.
  *
  * @author Sanju Thomas

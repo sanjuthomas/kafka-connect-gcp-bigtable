@@ -13,6 +13,12 @@ import com.google.cloud.bigtable.data.v2.BigtableDataClient;
 import com.google.cloud.bigtable.data.v2.BigtableDataSettings;
 
 /**
+ * 
+ * The class responsible for creating the connection/bigtable client. Creation of the client is an
+ * expensive process so we cache the client. Upon a write error the client is closed and removed
+ * from the cache.
+ * 
+ * @see WriterProvider to see how it is cached.
  *
  * @author Sanju Thomas
  * @since 1.0.3
@@ -25,7 +31,7 @@ public class ClientProvider {
   private WriterConfig writerConfig;
 
   public ClientProvider(final WriterConfig writerConfig) {
-    logger.info("ClientProvider is created by thread id {}.",Thread.currentThread().getId());
+    logger.info("ClientProvider is created by thread id {}.", Thread.currentThread().getId());
     this.writerConfig = writerConfig;
   }
 
@@ -37,10 +43,9 @@ public class ClientProvider {
    */
   public BigtableDataClient client() throws IOException {
     logger.info("BigtableDataClient is created for thread id {}", Thread.currentThread().getId());
-    final BigtableDataSettings settings =
-        BigtableDataSettings.newBuilder().setProjectId(this.writerConfig.project())
-            .setInstanceId(this.writerConfig.instance())
-            .setCredentialsProvider(FixedCredentialsProvider.create(credential())).build();
+    final BigtableDataSettings settings = BigtableDataSettings.newBuilder()
+        .setProjectId(this.writerConfig.project()).setInstanceId(this.writerConfig.instance())
+        .setCredentialsProvider(FixedCredentialsProvider.create(credential())).build();
     return BigtableDataClient.create(settings);
   }
 

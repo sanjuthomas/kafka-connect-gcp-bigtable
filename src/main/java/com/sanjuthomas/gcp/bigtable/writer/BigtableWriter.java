@@ -21,6 +21,7 @@ import com.sanjuthomas.gcp.bigtable.exception.BigtableWriteFailedException;
 import com.sanjuthomas.gcp.bigtable.writer.ErrorHandler.Result;
 
 /**
+ * 
  * Default Bigtable writer implementation and this class is not thread safe. As per the design,
  * there would be one writer per topic and every task thread will have it's on writer instance.
  * 
