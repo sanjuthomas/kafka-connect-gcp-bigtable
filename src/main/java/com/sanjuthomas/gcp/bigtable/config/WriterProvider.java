@@ -70,7 +70,9 @@ public class WriterProvider {
   public void remove(final String topic) {
     if (writerMap.containsKey(topic)) {
       synchronized (writerMap) {
-        writerMap.remove(topic).close();
+        if (writerMap.containsKey(topic)) {
+          writerMap.remove(topic).close();
+        }
       }
     }
   }
