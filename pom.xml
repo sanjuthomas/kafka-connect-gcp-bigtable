@@ -27,6 +27,18 @@
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<jackson-databind.version>2.9.10</jackson-databind.version>
+		<jackson-dataformat-yaml.version>2.9.10</jackson-dataformat-yaml.version>
+		<bigtable-client-core.version>1.12.1</bigtable-client-core.version>
+		<grpc-netty-shaded.version>1.23.0</grpc-netty-shaded.version>
+		<connect-api.version>2.3.0</connect-api.version>
+		<slf4j-api.version>1.7.21</slf4j-api.version>
+		<log4j.version>1.2.17</log4j.version>
+		<mockito-junit-jupiter.version>2.23.0</mockito-junit-jupiter.version>
+		<junit-jupiter-api.version>5.3.2</junit-jupiter-api.version>
+		<junit-jupiter-engine.version>5.3.2</junit-jupiter-engine.version>
+		<junit-jupiter-params.version>5.3.2</junit-jupiter-params.version>
+		<connect-json.version>2.3.0</connect-json.version>
 	</properties>
 
 	<licenses>
@@ -41,76 +53,75 @@
 		<connection>scm:git:git://github.com/sanjuthomas/kafka-connect-gcp-bigtable.git</connection>
 		<developerConnection>scm:git:git@github.com:sanjuthomas/kafka-connect-gcp-bigtable.git</developerConnection>
 		<url>https://github.com/sanjuthomas/kafka-connect-gcp-bigtable</url>
-	  <tag>HEAD</tag>
-  </scm>
+	  	<tag>HEAD</tag>
+ 	</scm>
 
 	<dependencies>
 		<dependency>
 			<groupId>com.fasterxml.jackson.core</groupId>
 			<artifactId>jackson-databind</artifactId>
-			<version>2.9.10</version>
+			<version>${jackson-databind.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>com.fasterxml.jackson.dataformat</groupId>
 			<artifactId>jackson-dataformat-yaml</artifactId>
-			<version>2.9.8</version>
+			<version>${jackson-dataformat-yaml.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>com.google.cloud.bigtable</groupId>
 			<artifactId>bigtable-client-core</artifactId>
-			<version>1.12.1</version>
+			<version>${bigtable-client-core.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>io.grpc</groupId>
 			<artifactId>grpc-netty-shaded</artifactId>
-			<version>1.23.0</version>
+			<version>${grpc-netty-shaded.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>org.apache.kafka</groupId>
 			<artifactId>connect-api</artifactId>
-			<version>2.3.0</version>
+			<version>${connect-api.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>org.slf4j</groupId>
 			<artifactId>slf4j-api</artifactId>
-			<version>1.7.21</version>
+			<version>${slf4j-api.version}</version>
 			<scope>provided</scope>
 		</dependency>
 		<dependency>
 			<groupId>log4j</groupId>
 			<artifactId>log4j</artifactId>
-			<version>1.2.17</version>
+			<version>${log4j.version}</version>
 			<scope>test</scope>
 		</dependency>
 		<dependency>
 			<groupId>org.mockito</groupId>
 			<artifactId>mockito-junit-jupiter</artifactId>
-			<version>2.23.0</version>
+			<version>${mockito-junit-jupiter.version}</version>
 			<scope>test</scope>
 		</dependency>
 		<dependency>
 			<groupId>org.junit.jupiter</groupId>
 			<artifactId>junit-jupiter-api</artifactId>
-			<version>5.3.2</version>
+			<version>${junit-jupiter-api.version}</version>
 			<scope>test</scope>
 		</dependency>
 		<dependency>
 			<groupId>org.junit.jupiter</groupId>
 			<artifactId>junit-jupiter-engine</artifactId>
-			<version>5.3.2</version>
+			<version>${junit-jupiter-engine.version}</version>
 			<scope>test</scope>
 		</dependency>
 		<dependency>
 			<groupId>org.junit.jupiter</groupId>
 			<artifactId>junit-jupiter-params</artifactId>
-			<version>5.3.2</version>
+			<version>${junit-jupiter-params.version}</version>
 			<scope>test</scope>
 		</dependency>
-		<!-- requires for message producer -->
 		<dependency>
 			<groupId>org.apache.kafka</groupId>
 			<artifactId>connect-json</artifactId>
-			<version>2.3.0</version>
+			<version>${connect-json.version}</version>
 			<scope>test</scope>
 		</dependency>
 	</dependencies>
@@ -293,6 +304,7 @@
 								<requirement>GCP Bigtable</requirement>
 							</requirements>
 							<confluentControlCenterIntegration>true</confluentControlCenterIntegration>
+							<sourceUrl>${project.scm.url}/tree/${project.version}</sourceUrl>
 						</configuration>
 					</execution>
 				</executions>
