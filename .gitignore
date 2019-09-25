@@ -8,3 +8,5 @@ dependency-reduced-pom.xml
 *.iml
 release.properties
 .DS_Store 
+dependency-reduced-pom.xml.releaseBackup 
+pom.xml.releaseBackup
