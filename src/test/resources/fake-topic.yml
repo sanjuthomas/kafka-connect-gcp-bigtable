@@ -1,0 +1,28 @@
+---
+keyFile: /Users/sanjuthomas/keys/civic-athlete-251623-e16dce095204.json
+project: demo-project
+instance: demo-instance
+table: demo-table
+transformer: com.sanjuthomas.gcp.bigtable.transform.FakeTransformer
+errorHandler:
+  maxRetryCount: 3
+  retryBackoffSeconds: 3
+  exponentialBackoff: true
+keyQualifiers:
+- exchange
+- symbol
+keyDelimiter: _
+families:
+- data
+- metadata
+familyQualifiers:
+- data:
+  - exchange
+  - symbol
+  - name
+  - sector
+- metadata:
+  - created_at
+  - processed_at
+  - topic
+  - partition

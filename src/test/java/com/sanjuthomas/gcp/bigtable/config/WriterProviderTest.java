@@ -34,9 +34,17 @@ public class WriterProviderTest {
     writer.close();
     assertEquals(1, 1);
   }
+  
+  @Test
+  public void shouldNotInitWiter() {
+    Assertions.assertThrows(BigtableSinkInitializationException.class, () -> {
+      writerProvider.writer("fake-topic-test");
+    });
+    assertEquals(1, 1);
+  }
 
   @Test
-  public void shouldNotInit() {
+  public void shouldNotInitConfig() {
     final ConfigProvider configProvider = new ConfigProvider();
     Assertions.assertThrows(BigtableSinkInitializationException.class, () -> {
       configProvider.load("src/test/resources/test", "demo-topic");

@@ -52,12 +52,13 @@ public class BigtableSinkTask extends SinkTask {
       logger.debug("transformed row {}", row);
       writerProvider.writer(sr.topic()).buffer(row);
     }
-    assingedTopics.forEach(at -> {
-      final Writer<WritableRow, Boolean> writer = writerProvider.writer(at);
+    assingedTopics.forEach(topic -> {
+      final Writer<WritableRow, Boolean> writer = writerProvider.writer(topic);
       if (writer.bufferSize() > 0) {
         try {
           writer.flush();
         } catch (BigtableWriteFailedException e) {
+          writerProvider.remove(topic);
           if(continueAfterWriteError) {
             logger.error("Swallow the error and continue to next batch, all or part of the batch is lost.");
           }else {

@@ -87,6 +87,7 @@ public class BigtableSinkTaskTest {
     verify(writer, times(1)).buffer(any(WritableRow.class));
     verify(writer, times(1)).bufferSize();
     verify(writer, times(1)).flush();
+    verify(writerProvider, times(1)).remove("demo-topic");
   }
   
 }

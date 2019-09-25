@@ -4,6 +4,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import java.io.IOException;
 import java.util.List;
 import org.apache.kafka.connect.sink.SinkRecord;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -12,6 +13,7 @@ import com.fasterxml.jackson.databind.JsonMappingException;
 import com.sanjuthomas.gcp.bigtable.Transformer;
 import com.sanjuthomas.gcp.bigtable.bean.WritableFamilyCells;
 import com.sanjuthomas.gcp.bigtable.bean.WritableRow;
+import com.sanjuthomas.gcp.bigtable.exception.TransformInitializationException;
 import com.sanjuthomas.gcp.resolvers.SinkRecordResolver;
 
 /**
@@ -22,11 +24,14 @@ import com.sanjuthomas.gcp.resolvers.SinkRecordResolver;
 public class ConfigProviderTest {
 
   private ConfigProvider configProvider;
+  private ConfigProvider fakeConfigProvider;
 
   @BeforeEach
   public void setUp() throws JsonParseException, JsonMappingException, IOException {
     configProvider = new ConfigProvider();
     configProvider.load("src/test/resources/", "demo-topic");
+    fakeConfigProvider = new ConfigProvider();
+    fakeConfigProvider.load("src/test/resources/", "fake-topic");
   }
 
   @Test
@@ -45,6 +50,14 @@ public class ConfigProviderTest {
     assertEquals(transformer1.hashCode(), transformer.hashCode());
     assertEquals(configProvider.config("demo-topic").hashCode(),
         configProvider.config("demo-topic").hashCode());
+  }
+
+  @Test
+  public void shouldNotInitializeTrasnformer() {
+    Assertions.assertThrows(TransformInitializationException.class, () -> {
+      fakeConfigProvider.transformer("fake-topic");
+    });
+    assertEquals(1, 1);
   }
 
   @Test
