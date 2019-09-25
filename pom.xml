@@ -3,7 +3,7 @@
 
 	<groupId>com.sanjuthomas</groupId>
 	<artifactId>kafka-connect-gcp-bigtable</artifactId>
-	<version>1.0.4-SNAPSHOT</version>
+	<version>1.0.5-SNAPSHOT</version>
 	<packaging>jar</packaging>
 	<description>Kafka Sink Connect GCP Bigtable</description>
 	
