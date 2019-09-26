@@ -168,6 +168,8 @@
 						<configuration>
 							<transformers>
 								<transformer implementation="org.apache.maven.plugins.shade.resource.ServicesResourceTransformer" />
+								 <shadedArtifactAttached>true</shadedArtifactAttached>
+              					 <shadedClassifierName>shaded</shadedClassifierName>
 							</transformers>
 						</configuration>
 					</execution>
