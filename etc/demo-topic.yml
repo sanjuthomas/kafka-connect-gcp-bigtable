@@ -1,5 +1,5 @@
 ---
-keyFile: /user/home/kafka/demo-instance-key.json
+keyFile: /user/home/bigtable/demo-instance-key.json
 project: civic-athlete-251623
 instance: demo-instance
 table: demo-table
