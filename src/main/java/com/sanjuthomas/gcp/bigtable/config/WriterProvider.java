@@ -14,7 +14,8 @@ import com.sanjuthomas.gcp.bigtable.writer.BigtableWriter;
 
 /**
  * 
- * Class responsible for creating and caching writer objects.
+ * Class responsible for creating and caching writer objects. There will be one instance of this
+ * class per Task thread.
  * 
  * @author Sanju Thomas
  * @since 1.0.3
@@ -42,9 +43,7 @@ public class WriterProvider {
   public Writer<WritableRow, Boolean> writer(final String topic) {
     try {
       if (!writerMap.containsKey(topic)) {
-        synchronized (writerMap) {
-          return writerMap.get(topic) != null ? writerMap.get(topic) : createAndCacheWriter(topic);
-        }
+        return createAndCacheWriter(topic);
       }
       return writerMap.get(topic);
     } catch (final Exception e) {
@@ -69,11 +68,7 @@ public class WriterProvider {
    */
   public void remove(final String topic) {
     if (writerMap.containsKey(topic)) {
-      synchronized (writerMap) {
-        if (writerMap.containsKey(topic)) {
-          writerMap.remove(topic).close();
-        }
-      }
+      writerMap.remove(topic).close();
     }
   }
 
