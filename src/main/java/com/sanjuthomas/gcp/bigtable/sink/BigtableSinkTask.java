@@ -19,7 +19,6 @@ import com.sanjuthomas.gcp.bigtable.Writer;
 import com.sanjuthomas.gcp.bigtable.bean.WritableRow;
 import com.sanjuthomas.gcp.bigtable.config.ConfigProvider;
 import com.sanjuthomas.gcp.bigtable.config.WriterProvider;
-import com.sanjuthomas.gcp.bigtable.exception.BigtableWriteFailedException;
 import com.sanjuthomas.gcp.bigtable.writer.BigtableWriter;
 
 /**
