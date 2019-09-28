@@ -1,0 +1,54 @@
+package com.sanjuthomas.gcp.bigtable.writer;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import java.util.ArrayList;
+import java.util.List;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import com.sanjuthomas.gcp.bigtable.bean.WritableRow;
+import com.sanjuthomas.gcp.resolvers.WritableRowResolver;
+
+/**
+ * 
+ * @author Sanju Thomas
+ *
+ */
+public class PartitionerTest {
+  
+  private Partitioner partitioner;
+  private Partitioner smallPartitioner;
+  
+  @BeforeEach
+  public void setUp() {
+    partitioner = new Partitioner(10);
+    smallPartitioner = new Partitioner(1);
+  }
+  
+  @Test
+  public void testPreconditions() {
+    Assertions.assertThrows(IllegalArgumentException.class, () -> {
+      partitioner.batches(null);
+    });
+    Assertions.assertThrows(IllegalArgumentException.class, () -> {
+      partitioner.batches(new ArrayList<>());
+    });
+  }
+  
+  @Test
+  public void shouldReturnSizeOfPartition() {
+    assertEquals(10, partitioner.partitionsCount(11));
+    assertEquals(10, partitioner.partitionsCount(20));
+    assertEquals(8, partitioner.partitionsCount(8));
+    assertEquals(1, partitioner.partitionsCount(1));
+  }
+  
+  @Test
+  @ExtendWith(WritableRowResolver.class)
+  public void shouldGetBatches(final List<WritableRow> rows) {
+    assertEquals(2, rows.size());
+    final List<List<WritableRow>> batches = smallPartitioner.batches(rows);
+    assertEquals(2, batches.size());
+  }
+}
