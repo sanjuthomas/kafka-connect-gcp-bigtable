@@ -4,6 +4,7 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Properties;
+import java.util.UUID;
 import org.apache.kafka.clients.producer.KafkaProducer;
 import org.apache.kafka.clients.producer.Producer;
 import org.apache.kafka.clients.producer.ProducerRecord;
@@ -29,15 +30,25 @@ public class MessageProducer {
     messageMap.put("quantity", 1200);
     Collections.nCopies(1, 1)
     .stream()
+    .forEach(i -> new MessageProducer().produceMessagesWithKey(messageMap));
+    Collections.nCopies(1, 1)
+    .stream()
     .forEach(i -> new MessageProducer().produceMessages(messageMap));
-    
   }
 
+  private void produceMessagesWithKey(final Map<String, Object> message) {
+    final Producer<String, JsonNode> producer =
+        new KafkaProducer<String, JsonNode>(connectionProperties());
+    final JsonNode messageNode = MAPPER.valueToTree(message);
+    producer.send(new ProducerRecord<String, JsonNode>("test-topic", UUID.randomUUID().toString(), messageNode));
+    producer.close();
+  }
+  
   private void produceMessages(final Map<String, Object> message) {
     final Producer<String, JsonNode> producer =
         new KafkaProducer<String, JsonNode>(connectionProperties());
     final JsonNode messageNode = MAPPER.valueToTree(message);
-    producer.send(new ProducerRecord<String, JsonNode>("demo-topic", messageNode));
+    producer.send(new ProducerRecord<String, JsonNode>("demo-topic",  messageNode));
     producer.close();
   }
 

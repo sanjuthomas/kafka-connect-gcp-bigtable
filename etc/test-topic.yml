@@ -1,18 +1,9 @@
 ---
-#contains all mandatory and optional configurations.
+#contains only mandatory configurations.
 keyFile: <<kafka_home>>/config/demo-instance-key.json
 project: demo-project
 instance: demo-instance
 table: demo-table
-transformer: com.sanjuthomas.gcp.bigtable.transform.JsonEventTransformer
-errorHandler:
-  maxRetryCount: 3
-  retryBackoffSeconds: 3
-  exponentialBackoff: true
-keyQualifiers:
-- exchange
-- symbol
-keyDelimiter: _
 families:
 - data
 - metadata
