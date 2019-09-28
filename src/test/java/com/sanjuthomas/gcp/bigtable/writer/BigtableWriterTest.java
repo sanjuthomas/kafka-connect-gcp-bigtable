@@ -38,6 +38,7 @@ public class BigtableWriterTest {
   private BigtableDataClient client;
 
   private BigtableWriter writer;
+  private BigtableWriter writerIgnoreError;
   private JsonEventTransformer transformer;
   private final List<String> keyQualifiers = Arrays.asList(new String[] {"symbol"});
   private final List<String> families = Arrays.asList(new String[] {"data", "metadata"});
@@ -55,6 +56,11 @@ public class BigtableWriterTest {
         "demo-project", "demo-instance", "demo-table", 1024, false);
     writerConfig.setErrorHandlerConfig(new ErrorHandlerConfig(3, 1, true));
     this.writer = new BigtableWriter(writerConfig, client);
+    
+    final WriterConfig writerConfigIgnoreError = new WriterConfig("/Users/sathomas/keys/demo-key.json",
+        "demo-project", "demo-instance", "demo-table", 1024, true);
+    writerConfigIgnoreError.setErrorHandlerConfig(new ErrorHandlerConfig(0, 0, false));
+    this.writerIgnoreError = new BigtableWriter(writerConfigIgnoreError, client);
   }
 
   @Test
@@ -71,6 +77,17 @@ public class BigtableWriterTest {
 
   @Test
   @ExtendWith(SinkRecordResolver.class)
+  public void shouldFlushWhenContinueAfterWriteErrorIsSetToTrue(final SinkRecord record)
+      throws InterruptedException, ExecutionException {
+    doThrow(ApiException.class).when(client).bulkMutateRows(any(BulkMutation.class));
+    final WritableRow row = this.transformer.transform(record);
+    assertEquals(1, writerIgnoreError.buffer(row));
+    writerIgnoreError.flush();
+    verify(client, times(1)).bulkMutateRows(any(BulkMutation.class));
+  }
+
+  @Test
+  @ExtendWith(SinkRecordResolver.class)
   public void shouldNotWrite(final SinkRecord record)
       throws InterruptedException, ExecutionException {
     doThrow(ApiException.class).when(client).bulkMutateRows(any(BulkMutation.class));
@@ -81,11 +98,12 @@ public class BigtableWriterTest {
     });
     verify(client, times(1)).bulkMutateRows(any(BulkMutation.class));
   }
-  
+
   @Test
   @ExtendWith(SinkRecordResolver.class)
   public void shouldRetryThreeTimes(final SinkRecord record) {
-    final ApiException exception = new ApiException(new Exception(), StatusCodeUtil.LOCAL_STATUS, true);
+    final ApiException exception =
+        new ApiException(new Exception(), StatusCodeUtil.LOCAL_STATUS, true);
     doThrow(exception).when(client).bulkMutateRows(any(BulkMutation.class));
     final WritableRow row = this.transformer.transform(record);
     assertEquals(1, writer.buffer(row));
@@ -94,11 +112,12 @@ public class BigtableWriterTest {
     });
     verify(client, times(4)).bulkMutateRows(any(BulkMutation.class));
   }
-  
+
   @Test
   @ExtendWith(SinkRecordResolver.class)
   public void shouldWriteSecondTime(final SinkRecord record) {
-    final ApiException exception = new ApiException(new Exception(), StatusCodeUtil.LOCAL_STATUS, true);
+    final ApiException exception =
+        new ApiException(new Exception(), StatusCodeUtil.LOCAL_STATUS, true);
     doThrow(exception).doNothing().when(client).bulkMutateRows(any(BulkMutation.class));
     final WritableRow row = this.transformer.transform(record);
     assertEquals(1, writer.buffer(row));

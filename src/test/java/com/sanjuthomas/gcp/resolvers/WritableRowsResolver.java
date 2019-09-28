@@ -13,7 +13,7 @@ import com.sanjuthomas.gcp.bigtable.bean.WritableRow;
  * @author Sanju Thomas
  *
  */
-public class WritableRowResolver implements ParameterResolver {
+public class WritableRowsResolver implements ParameterResolver {
 
   @Override
   public boolean supportsParameter(ParameterContext parameterContext,

@@ -8,7 +8,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import com.sanjuthomas.gcp.bigtable.bean.WritableRow;
-import com.sanjuthomas.gcp.resolvers.WritableRowResolver;
+import com.sanjuthomas.gcp.resolvers.WritableRowsResolver;
 
 /**
  * 
@@ -45,7 +45,7 @@ public class PartitionerTest {
   }
   
   @Test
-  @ExtendWith(WritableRowResolver.class)
+  @ExtendWith(WritableRowsResolver.class)
   public void shouldGetBatches(final List<WritableRow> rows) {
     assertEquals(2, rows.size());
     assertEquals(2, smallPartitioner.partitions(rows).size());
