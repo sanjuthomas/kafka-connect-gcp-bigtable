@@ -74,6 +74,14 @@ public class JsonEventTransformer implements Transformer<SinkRecord, WritableRow
         .collect(Collectors.toMap(e -> e.getKey(), e -> e.getValue()));
   }
 
+  /**
+   * Compute the row key - if a key qualifier is given then compute row key using the record.
+   * if not, consider SinkRecord key as the row key. @see DefaultKeyParser
+   * 
+   * @param record
+   * @param row
+   * @return
+   */
   @VisibleForTesting
   String rowKey(final SinkRecord record, final Map<String, ? extends Object> row) {
     String rowKey = null;
