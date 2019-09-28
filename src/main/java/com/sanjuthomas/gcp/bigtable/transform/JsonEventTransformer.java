@@ -92,7 +92,7 @@ public class JsonEventTransformer implements Transformer<SinkRecord, WritableRow
     }
     if (rowKey == null) {
       throw new RowKeyNotFoundException(
-          "keyQualifiers are not configured and there is not key found in the SinkRecord!");
+          "keyQualifiers are not configured and there is no key found in the SinkRecord!");
     }
     return rowKey;
   }
