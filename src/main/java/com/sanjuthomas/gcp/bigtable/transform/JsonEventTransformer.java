@@ -75,8 +75,8 @@ public class JsonEventTransformer implements Transformer<SinkRecord, WritableRow
   }
 
   /**
-   * Compute the row key - if a key qualifier is given then compute row key using the record.
-   * if not, consider SinkRecord key as the row key. @see DefaultKeyParser
+   * Compute the row key - if a key qualifier is given then compute row key using the record. if
+   * not, consider SinkRecord key as the row key. Refer {@link DefaultKeyParser} for more details.
    * 
    * @param record
    * @param row

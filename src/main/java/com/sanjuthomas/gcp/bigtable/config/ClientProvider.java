@@ -18,7 +18,7 @@ import com.google.cloud.bigtable.data.v2.BigtableDataSettings;
  * expensive process so we cache the client. Upon a write error the client is closed and removed
  * from the cache.
  * 
- * @see WriterProvider to see how it is cached.
+ * Refer {@link WriterProvider} to know how it is cached.
  *
  * @author Sanju Thomas
  * @since 1.0.3

@@ -27,7 +27,7 @@ public class MessageProducer {
     messageMap.put("symbol", "FB");
     messageMap.put("price", 110.23);
     messageMap.put("quantity", 1200);
-    Collections.nCopies(1000, 1)
+    Collections.nCopies(1, 1)
     .stream()
     .forEach(i -> new MessageProducer().produceMessages(messageMap));
     

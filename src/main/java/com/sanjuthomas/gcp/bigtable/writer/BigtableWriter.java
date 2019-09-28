@@ -29,7 +29,7 @@ import com.sanjuthomas.gcp.bigtable.writer.ErrorHandler.Result;
  * 
  * This implementation write rows using bulkMutateRows.
  * 
- * @see ErrorHandler for more details about error handling and retry logic.
+ * Refer {@link ErrorHandler} for more details about error handling and retry logic.
  *
  * @author Sanju Thomas
  * @since 1.0.3

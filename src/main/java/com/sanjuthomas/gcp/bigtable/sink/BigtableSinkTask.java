@@ -15,13 +15,19 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import com.google.api.client.util.Preconditions;
 import com.google.common.annotations.VisibleForTesting;
+import com.sanjuthomas.gcp.bigtable.Transformer;
 import com.sanjuthomas.gcp.bigtable.Writer;
 import com.sanjuthomas.gcp.bigtable.bean.WritableRow;
 import com.sanjuthomas.gcp.bigtable.config.ConfigProvider;
 import com.sanjuthomas.gcp.bigtable.config.WriterProvider;
 import com.sanjuthomas.gcp.bigtable.exception.BigtableWriteFailedException;
+import com.sanjuthomas.gcp.bigtable.writer.BigtableWriter;
 
 /**
+ * Refer to super class documentation for general information about the {@link SinkTask}. This
+ * class is responsible for taking a batch of SinkRecord(s), call the given {@link Transformer}
+ * to transform SinkRecord(s) to Bigtable writable rows, and call the {@link BigtableWriter} to
+ * buffer and flush the rows to Bigtable.
  *
  * @author Sanju Thomas
  * @since 1.0.3
@@ -45,8 +51,7 @@ public class BigtableSinkTask extends SinkTask {
 
   @Override
   public void put(final Collection<SinkRecord> sinkRecords) {
-    logger.debug("Data arrived in the Bigtable Sink Task, sinkRecords count is {}",
-        sinkRecords.size());
+    logger.debug("data arrived in the Bigtable sink task, record count was {}", sinkRecords.size());
     for (final SinkRecord sr : sinkRecords) {
       final WritableRow row = configProvider.transformer(sr.topic()).transform(sr);
       logger.debug("transformed row {}", row);
@@ -59,9 +64,11 @@ public class BigtableSinkTask extends SinkTask {
           writer.flush();
         } catch (BigtableWriteFailedException e) {
           writerProvider.remove(topic);
-          if(continueAfterWriteError) {
-            logger.error("Swallow the error and continue to next batch, all or part of the batch is lost.");
-          }else {
+          if (continueAfterWriteError) {
+            logger.error(
+                "swallow the error and continue to next batch, all or part of the batch is lost and the batch size was {}",
+                sinkRecords.size());
+          } else {
             throw e;
           }
         }
@@ -71,7 +78,7 @@ public class BigtableSinkTask extends SinkTask {
 
   @Override
   public void start(final Map<String, String> config) {
-    logger.info("{} started with config {}", this, config);
+    logger.info("task {} started with config {}", Thread.currentThread().getId(), config);
     this.configProvider = new ConfigProvider();
     final String topics = config.get(BigtableSinkConfig.TOPICS);
     continueAfterWriteError = Boolean.valueOf(
@@ -94,13 +101,14 @@ public class BigtableSinkTask extends SinkTask {
 
   @Override
   public void flush(final Map<TopicPartition, OffsetAndMetadata> currentOffsets) {
-    logger.debug("flush is called for {}", currentOffsets.keySet());
+    logger.debug("flush is called for {} in task {}", currentOffsets.keySet(),
+        Thread.currentThread().getId());
   }
 
   @Override
   public void stop() {
     assingedTopics.forEach(at -> writerProvider.writer(at).close());
-    logger.info("{} stopped", this);
+    logger.info("task {} stopped", Thread.currentThread().getId());
   }
 
 }

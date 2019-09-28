@@ -57,7 +57,7 @@ public class WriterProvider {
     final BigtableWriter bigtableWriter =
         new BigtableWriter(writerConfig, new ClientProvider(writerConfig).client());
     writerMap.put(topic, bigtableWriter);
-    logger.info("Writer created for topic {} and cached.", topic);
+    logger.info("Writer created for topic {} and cached for task id {}", topic, Thread.currentThread().getId());
     return bigtableWriter;
   }
 
