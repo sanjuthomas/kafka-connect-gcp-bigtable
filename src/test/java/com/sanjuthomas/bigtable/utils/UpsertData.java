@@ -52,7 +52,7 @@ public class UpsertData {
       batch.add("metadata", Mutation.create().setCell("metadata", "partition", "0"));
 
       final ApiFuture<Void> result = bigtableDataClient.bulkMutateRowsAsync(batch);
-      
+
       ApiFutures.addCallback(result, new ApiFutureCallback<Void>() {
         public void onFailure(Throwable t) {
           if (t instanceof BulkMutationFailure) {
@@ -61,11 +61,12 @@ public class UpsertData {
             t.printStackTrace();
           }
         }
+
         public void onSuccess(Void ignored) {
           System.out.println("Successfully applied all mutation");
         }
       }, MoreExecutors.directExecutor());
-      
+
       result.get();
     }
   }
