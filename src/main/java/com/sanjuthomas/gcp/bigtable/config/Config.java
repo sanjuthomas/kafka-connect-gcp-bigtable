@@ -64,7 +64,7 @@ public class Config {
 
   public Map<String, List<String>> familyQualifiersMappings() {
     final Map<String, List<String>> familyQualifiersMappings = new HashMap<>();
-    for (final Map<String, List<String>> familyQualifiers : this.getFamilyQualifiers()) {
+    for (final Map<String, List<String>> familyQualifiers : this.familyQualifiers()) {
       familyQualifiersMappings.putAll(familyQualifiers);
     }
     return familyQualifiersMappings;
@@ -77,23 +77,23 @@ public class Config {
     return writerConfg;
   }
 
-  public String getTransformer() {
-    return this.transformer;
+  public String transformer() {
+    return MoreObjects.firstNonNull(transformer, "com.sanjuthomas.gcp.transform.JsonEventTransformer");
   }
 
-  public List<String> getKeyQualifiers() {
+  public List<String> keyQualifiers() {
     return MoreObjects.firstNonNull(this.keyQualifiers, new ArrayList<String>(0));
   }
 
-  public String getKeyDelimiter() {
+  public String keyDelimiter() {
     return MoreObjects.firstNonNull(this.keyDelimiter, "");
   }
 
-  public List<String> getFamilies() {
+  public List<String> families() {
     return this.families;
   }
 
-  private List<Map<String, List<String>>> getFamilyQualifiers() {
+  private List<Map<String, List<String>>> familyQualifiers() {
     return MoreObjects.firstNonNull(this.familyQualifiers,
         new ArrayList<Map<String, List<String>>>(0));
   }
@@ -119,8 +119,7 @@ public class Config {
   }
 
   public void setTransformer(final String transformer) {
-    this.transformer =
-        MoreObjects.firstNonNull(transformer, "com.sanjuthomas.gcp.transform.JsonEventTransformer");
+    this.transformer = transformer;
   }
 
   public void setKeyQualifiers(final List<String> keyQualifiers) {
@@ -147,15 +146,15 @@ public class Config {
     this.exponentialBackoff = Boolean.valueOf(Objects.toString(errorHandler.get("exponentialBackoff"), "true"));
   }
   
-  Integer maxRetryCount() {
+  private Integer maxRetryCount() {
     return Integer.valueOf(Objects.toString(maxRetryCount, "3"));
   }
   
-  Integer retryBackoffSeconds() {
+  private Integer retryBackoffSeconds() {
     return Integer.valueOf(Objects.toString(retryBackoffSeconds, "3"));
   }
   
-  Boolean exponentialBackoff() {
+  private Boolean exponentialBackoff() {
     return Boolean.valueOf(Objects.toString(exponentialBackoff, "true"));
   }
   
@@ -163,7 +162,7 @@ public class Config {
     this.bulkMutateRowsMaxSize = bulkMutateRowsMaxSize;
   }
   
-  Integer bulkMutateRowsMaxSize() {
+  private Integer bulkMutateRowsMaxSize() {
     return Integer.valueOf(Objects.toString(bulkMutateRowsMaxSize, "3"));
   }
   
@@ -171,7 +170,7 @@ public class Config {
     this.continueAfterWriteError = continueAfterWriteError;
   }
 
-  Boolean continueAfterWriteError() {
+  private Boolean continueAfterWriteError() {
     return Boolean.valueOf(Objects.toString(continueAfterWriteError, "false"));
   }
 
