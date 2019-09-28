@@ -37,7 +37,7 @@ public class MessageProducer {
     final Producer<String, JsonNode> producer =
         new KafkaProducer<String, JsonNode>(connectionProperties());
     final JsonNode messageNode = MAPPER.valueToTree(message);
-    producer.send(new ProducerRecord<String, JsonNode>("demo-topic", messageNode));
+    producer.send(new ProducerRecord<String, JsonNode>("test-topic", messageNode));
     producer.close();
   }
 

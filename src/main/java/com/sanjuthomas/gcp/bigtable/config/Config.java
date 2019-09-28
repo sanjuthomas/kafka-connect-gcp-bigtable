@@ -78,7 +78,7 @@ public class Config {
   }
 
   public String transformer() {
-    return MoreObjects.firstNonNull(transformer, "com.sanjuthomas.gcp.transform.JsonEventTransformer");
+    return MoreObjects.firstNonNull(transformer, "com.sanjuthomas.gcp.bigtable.transform.JsonEventTransformer");
   }
 
   public List<String> keyQualifiers() {
