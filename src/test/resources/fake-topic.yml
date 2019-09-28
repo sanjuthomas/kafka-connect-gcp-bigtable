@@ -4,6 +4,7 @@ project: demo-project
 instance: demo-instance
 table: demo-table
 bulkMutateRowsMaxSize: 1024
+continueAfterWriteError: true
 transformer: com.sanjuthomas.gcp.bigtable.transform.FakeTransformer
 errorHandler:
   maxRetryCount: 3

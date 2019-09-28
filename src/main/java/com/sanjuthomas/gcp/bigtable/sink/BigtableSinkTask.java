@@ -3,7 +3,6 @@ package com.sanjuthomas.gcp.bigtable.sink;
 import java.util.Collection;
 import java.util.LinkedHashSet;
 import java.util.Map;
-import java.util.Objects;
 import java.util.Set;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.kafka.clients.consumer.OffsetAndMetadata;
@@ -41,8 +40,6 @@ public class BigtableSinkTask extends SinkTask {
   private ConfigProvider configProvider;
   @VisibleForTesting
   WriterProvider writerProvider;
-  @VisibleForTesting
-  boolean continueAfterWriteError;
 
   @Override
   public String version() {
@@ -62,15 +59,10 @@ public class BigtableSinkTask extends SinkTask {
       if (writer.bufferSize() > 0) {
         try {
           writer.flush();
-        } catch (BigtableWriteFailedException e) {
+        } catch (Exception e) {
           writerProvider.remove(topic);
-          if (continueAfterWriteError) {
-            logger.error(
-                "swallow the error and continue to next batch, all or part of the batch is lost and the batch size was {}",
-                sinkRecords.size());
-          } else {
-            throw e;
-          }
+          logger.error(e.getMessage(), e);
+          throw e;
         }
       }
     });
@@ -86,8 +78,6 @@ public class BigtableSinkTask extends SinkTask {
     logger.info("task {} started with config {}", Thread.currentThread().getId(), config);
     this.configProvider = new ConfigProvider();
     final String topics = config.get(BigtableSinkConfig.TOPICS);
-    continueAfterWriteError = Boolean.valueOf(
-        Objects.toString(config.get(BigtableSinkConfig.CONTINUE_AFTER_WRITE_ERROR), "false"));
     final String configFileLocation = config.get(BigtableSinkConfig.CONFIG_FILE_LOCATION);
     Preconditions.checkNotNull(topics,
         "topics is a mandatory config in the bigtable-sink.properties");

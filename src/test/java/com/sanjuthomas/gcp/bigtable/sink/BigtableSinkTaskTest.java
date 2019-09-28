@@ -74,7 +74,6 @@ public class BigtableSinkTaskTest {
   @ExtendWith(SinkRecordResolver.class)
   public void putShouldFailDueToWriteError(final SinkRecord record) {
     task.writerProvider = writerProvider;
-    task.continueAfterWriteError = false;
     when(writerProvider.writer("demo-topic")).thenReturn(writer);
     when(writer.buffer(any(WritableRow.class))).thenReturn(1);
     when(writer.bufferSize()).thenReturn(1);

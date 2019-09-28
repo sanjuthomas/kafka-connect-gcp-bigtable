@@ -121,7 +121,6 @@ public class BigtableWriter implements Writer<WritableRow, Boolean> {
     return this.rows.size();
   }
 
-
   @Override
   public void close() {
     try {

@@ -18,6 +18,8 @@ import com.sanjuthomas.gcp.bigtable.config.WriterConfig.ErrorHandlerConfig;
  * project: name-of-the-gcp-project
  * instance: name-of-the-bigtable-instance
  * table: name-of-the-bigtable-table
+ * continueAfterWriteError: true
+ * bulkMutateRowsMaxSize: 1024
  * transformer: canonical-name-of-the-transformer-class
  * errorHandler:
  *  maxRetryCount: count-in-integer
@@ -58,6 +60,7 @@ public class Config {
   private Integer maxRetryCount;
   private Integer retryBackoffSeconds;
   private Boolean exponentialBackoff;
+  private Boolean continueAfterWriteError;
 
   public Map<String, List<String>> familyQualifiersMappings() {
     final Map<String, List<String>> familyQualifiersMappings = new HashMap<>();
@@ -68,7 +71,7 @@ public class Config {
   }
 
   public WriterConfig getWriterConfig() {
-    final WriterConfig writerConfg = new WriterConfig(keyFile, project, instance, table, bulkMutateRowsMaxSize);
+    final WriterConfig writerConfg = new WriterConfig(keyFile, project, instance, table, bulkMutateRowsMaxSize, continueAfterWriteError);
     writerConfg.setErrorHandlerConfig(
         new ErrorHandlerConfig(maxRetryCount, retryBackoffSeconds, exponentialBackoff));
     return writerConfg;
@@ -146,6 +149,10 @@ public class Config {
   
   public void setBulkMutateRowsMaxSize(final Integer bulkMutateRowsMaxSize) {
     this.bulkMutateRowsMaxSize = MoreObjects.firstNonNull(bulkMutateRowsMaxSize, 1024);
+  }
+  
+  public void setContinueAfterWriteError(final Boolean continueAfterWriteError) {
+    this.continueAfterWriteError = MoreObjects.firstNonNull(continueAfterWriteError, false);
   }
 
 }

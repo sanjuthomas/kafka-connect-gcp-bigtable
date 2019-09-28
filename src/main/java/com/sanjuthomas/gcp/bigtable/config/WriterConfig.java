@@ -19,14 +19,16 @@ public class WriterConfig {
   private final String instance;
   private ErrorHandlerConfig errorHandlerConfig;
   private Integer bulkMutateRowsMaxSize;
+  private Boolean continueAfterWriteError;
 
   public WriterConfig(final String keyFile, final String project, final String instance,
-      final String table, final int bulkMutateRowsMaxSize) {
+      final String table, final int bulkMutateRowsMaxSize, final Boolean continueAfterWriteError) {
     this.keyFile = keyFile;
     this.project = project;
     this.instance = instance;
     this.table = table;
     this.bulkMutateRowsMaxSize = bulkMutateRowsMaxSize;
+    this.continueAfterWriteError = continueAfterWriteError;
   }
 
   public String table() {
@@ -51,6 +53,10 @@ public class WriterConfig {
 
   public int bulkMutateRowsMaxSize() {
     return bulkMutateRowsMaxSize;
+  }
+  
+  public boolean continueAfterWriteError() {
+    return continueAfterWriteError;
   }
 
   public WriterConfig setErrorHandlerConfig(ErrorHandlerConfig errorHandlerConfig) {

@@ -49,17 +49,17 @@ This project leverage [bigtable-client-core](https://mvnrepository.com/artifact/
 | tasks.max        				  | 1 							| Number 	   | Numbers of tasks.				|
 | topics						  | demo-topic					| String	   | Comma separated list of topics. 	|
 | config.files.location           | kafka_home/config    		| String	   | There should be one yml file per topic. |
-| continue.after.write.error      | false                       | Boolean      | Continue the task after a batch resulted write error. |
 
 ### demo-topic.yml (one yml file per topic)
 
 | Property      					| Value  			| Data Type |					   Description       				   		  | 
 |-------------------------------|--------------------|--------------|------------------------------------------------------------------|
 | keyFile	   				    |	 /home/keys/demo-instance-key.json | String	 | GCP Connect Key File. This is a topic level configuration because you could subscribe from multiple topics and messages from one topic may go to a table in instance A and messages from another topic may go to a table in instance B |		
-| project 					    | demo-project	| String |					    Name of the GCP Project | 
-| instance 					    | demo-instance	 | String |				    Name of GCP Bigtable instance | 
-| table  						| demo-table | 	 String |				     Name of GCP Bigtable table | 
+| project 					    | demo-project	 | String |	Name of the GCP Project | 
+| instance 					    | demo-instance	 | String |	 Name of GCP Bigtable instance | 
+| table  						| demo-table     | String |	Name of GCP Bigtable table | 
 | bulkMutateRowsMaxSize         | 1024 (Optional, default is 1024)     |  Number | Maximum number of rows in a bulk mutation request | 
+| continueAfterWriteError       | false (Optional, default is false)   | Boolean | Continue the write after a batch is error-ed out. |
 | transformer 					| com.sanjuthomas.gcp.transform.JsonEventTransformer | String |	  Transformer class to transform the message to Bigtable writable row. You may provide your own implementation. | 
 | keyQualifiers					| 		 - exchange	<br/> - symbol| Array (Optional, default is message key.) | Bigtable row key qualifier. Configured element names would be used to construct the row keys. | 
 | keyDelimiter					| - | String (Optional, default is empty.) | Delimiter to use if there are more than one element to construct row key. |
