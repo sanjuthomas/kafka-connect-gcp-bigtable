@@ -79,7 +79,7 @@ public class BigtableWriter implements Writer<WritableRow, Boolean> {
     }
     try {
       this.execute(batch);
-    } catch (BigtableWriteFailedException e) {
+    } catch (final BigtableWriteFailedException e) {
       if (!continueAfterWriteError) {
         throw e;
       }
@@ -118,7 +118,7 @@ public class BigtableWriter implements Writer<WritableRow, Boolean> {
         TimeUnit.SECONDS.sleep(result.secondsToSleep());
         this.client.bulkMutateRows(bulkMutation);
         return true;
-      } catch (Exception e) {
+      } catch (final Exception e) {
         logger.error("Write failed due to {}. retry attemps {}", e.getMessage(), result.attempt(),
             e);
         result = errorHandler.handle(exception);
