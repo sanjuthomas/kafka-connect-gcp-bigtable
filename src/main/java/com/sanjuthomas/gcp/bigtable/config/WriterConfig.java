@@ -22,7 +22,7 @@ public class WriterConfig {
   private Boolean continueAfterWriteError;
 
   public WriterConfig(final String keyFile, final String project, final String instance,
-      final String table, final int bulkMutateRowsMaxSize, final Boolean continueAfterWriteError) {
+      final String table, final Integer bulkMutateRowsMaxSize, final Boolean continueAfterWriteError) {
     this.keyFile = keyFile;
     this.project = project;
     this.instance = instance;

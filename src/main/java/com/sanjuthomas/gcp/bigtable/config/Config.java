@@ -71,9 +71,9 @@ public class Config {
   }
 
   public WriterConfig getWriterConfig() {
-    final WriterConfig writerConfg = new WriterConfig(keyFile, project, instance, table, bulkMutateRowsMaxSize, continueAfterWriteError);
+    final WriterConfig writerConfg = new WriterConfig(keyFile, project, instance, table, bulkMutateRowsMaxSize(), continueAfterWriteError());
     writerConfg.setErrorHandlerConfig(
-        new ErrorHandlerConfig(maxRetryCount, retryBackoffSeconds, exponentialBackoff));
+        new ErrorHandlerConfig(maxRetryCount(), retryBackoffSeconds(), exponentialBackoff()));
     return writerConfg;
   }
 
@@ -147,12 +147,32 @@ public class Config {
     this.exponentialBackoff = Boolean.valueOf(Objects.toString(errorHandler.get("exponentialBackoff"), "true"));
   }
   
+  Integer maxRetryCount() {
+    return Integer.valueOf(Objects.toString(maxRetryCount, "3"));
+  }
+  
+  Integer retryBackoffSeconds() {
+    return Integer.valueOf(Objects.toString(retryBackoffSeconds, "3"));
+  }
+  
+  Boolean exponentialBackoff() {
+    return Boolean.valueOf(Objects.toString(exponentialBackoff, "true"));
+  }
+  
   public void setBulkMutateRowsMaxSize(final Integer bulkMutateRowsMaxSize) {
-    this.bulkMutateRowsMaxSize = MoreObjects.firstNonNull(bulkMutateRowsMaxSize, 1024);
+    this.bulkMutateRowsMaxSize = bulkMutateRowsMaxSize;
+  }
+  
+  Integer bulkMutateRowsMaxSize() {
+    return Integer.valueOf(Objects.toString(bulkMutateRowsMaxSize, "3"));
   }
   
   public void setContinueAfterWriteError(final Boolean continueAfterWriteError) {
-    this.continueAfterWriteError = MoreObjects.firstNonNull(continueAfterWriteError, false);
+    this.continueAfterWriteError = continueAfterWriteError;
+  }
+
+  Boolean continueAfterWriteError() {
+    return Boolean.valueOf(Objects.toString(continueAfterWriteError, "false"));
   }
 
 }
