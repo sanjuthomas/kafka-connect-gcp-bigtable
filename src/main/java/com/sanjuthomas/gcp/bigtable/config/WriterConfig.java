@@ -18,13 +18,15 @@ public class WriterConfig {
   private final String project;
   private final String instance;
   private ErrorHandlerConfig errorHandlerConfig;
+  private Integer bulkMutateRowsMaxSize;
 
   public WriterConfig(final String keyFile, final String project, final String instance,
-      final String table) {
+      final String table, final int bulkMutateRowsMaxSize) {
     this.keyFile = keyFile;
     this.project = project;
     this.instance = instance;
     this.table = table;
+    this.bulkMutateRowsMaxSize = bulkMutateRowsMaxSize;
   }
 
   public String table() {
@@ -47,6 +49,10 @@ public class WriterConfig {
     return errorHandlerConfig;
   }
 
+  public int bulkMutateRowsMaxSize() {
+    return bulkMutateRowsMaxSize;
+  }
+
   public WriterConfig setErrorHandlerConfig(ErrorHandlerConfig errorHandlerConfig) {
     this.errorHandlerConfig = errorHandlerConfig;
     return this;
@@ -57,7 +63,7 @@ public class WriterConfig {
     private int maxRetryCount;
     private int retryBackoffSeconds;
     private boolean exponentialBackoff;
-    
+
     public ErrorHandlerConfig(final int maxRetryCount, final int retryBackoffSeconds,
         final boolean exponentialBackoff) {
       this.maxRetryCount = maxRetryCount;

@@ -27,7 +27,7 @@ public class TransformerConfig {
   
   public TransformerConfig(final List<String> keyQualifiers, final String keyDelimiter,
       final List<String> families, final Map<String, List<String>> familyToQualifierMapping) {
-    logger.info("TransformerConfig is created by thread id {}.", Thread.currentThread().getId());
+    logger.info("TransformerConfig is created by task id {}", Thread.currentThread().getId());
     this.keyQualifiers = keyQualifiers;
     this.keyDelimiter = keyDelimiter;
     this.families = families;

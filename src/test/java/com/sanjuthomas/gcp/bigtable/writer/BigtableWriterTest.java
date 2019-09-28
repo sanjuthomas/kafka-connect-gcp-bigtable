@@ -52,7 +52,7 @@ public class BigtableWriterTest {
         new TransformerConfig(this.keyQualifiers, "_", this.families, familyToQualifierMapping);
     this.transformer = new JsonEventTransformer(config);
     final WriterConfig writerConfig = new WriterConfig("/Users/sathomas/keys/demo-key.json",
-        "demo-project", "demo-instance", "demo-table");
+        "demo-project", "demo-instance", "demo-table", 1024);
     writerConfig.setErrorHandlerConfig(new ErrorHandlerConfig(3, 1, true));
     this.writer = new BigtableWriter(writerConfig, client);
   }

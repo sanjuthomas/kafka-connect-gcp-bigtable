@@ -24,10 +24,10 @@ import com.sanjuthomas.gcp.bigtable.exception.BigtableWriteFailedException;
 import com.sanjuthomas.gcp.bigtable.writer.BigtableWriter;
 
 /**
- * Refer to super class documentation for general information about the {@link SinkTask}. This
- * class is responsible for taking a batch of SinkRecord(s), call the given {@link Transformer}
- * to transform SinkRecord(s) to Bigtable writable rows, and call the {@link BigtableWriter} to
- * buffer and flush the rows to Bigtable.
+ * Refer to super class documentation for general information about the {@link SinkTask}. This class
+ * is responsible for taking a batch of SinkRecord(s), call the given {@link Transformer} to
+ * transform SinkRecord(s) to Bigtable writable rows, and call the {@link BigtableWriter} to buffer
+ * and flush the rows to Bigtable.
  *
  * @author Sanju Thomas
  * @since 1.0.3
@@ -76,6 +76,11 @@ public class BigtableSinkTask extends SinkTask {
     });
   }
 
+  /**
+   * Every task would have it's on ConfigProvider and WriterProvider - so nothing shared among the
+   * tasks.
+   * 
+   */
   @Override
   public void start(final Map<String, String> config) {
     logger.info("task {} started with config {}", Thread.currentThread().getId(), config);
@@ -89,6 +94,8 @@ public class BigtableSinkTask extends SinkTask {
     Preconditions.checkNotNull(configFileLocation,
         "topics.config.files.location is a mandatory config in the bigtable-sink.properties");
     for (final String topic : topics.split(",")) {
+      logger.info("task {} loading configuration for topic {}", Thread.currentThread().getId(),
+          topic);
       configProvider.load(configFileLocation, StringUtils.trim(topic));
     }
     this.writerProvider = new WriterProvider(configProvider);

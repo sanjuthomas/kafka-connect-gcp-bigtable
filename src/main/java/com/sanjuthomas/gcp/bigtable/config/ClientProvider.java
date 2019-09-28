@@ -31,7 +31,7 @@ public class ClientProvider {
   private WriterConfig writerConfig;
 
   public ClientProvider(final WriterConfig writerConfig) {
-    logger.info("ClientProvider is created by thread id {}.", Thread.currentThread().getId());
+    logger.info("ClientProvider is created by task id {}", Thread.currentThread().getId());
     this.writerConfig = writerConfig;
   }
 
@@ -42,7 +42,7 @@ public class ClientProvider {
    * @throws IOException
    */
   public BigtableDataClient client() throws IOException {
-    logger.info("BigtableDataClient is created for thread id {}", Thread.currentThread().getId());
+    logger.info("BigtableDataClient is created for task {}", Thread.currentThread().getId());
     final BigtableDataSettings settings = BigtableDataSettings.newBuilder()
         .setProjectId(this.writerConfig.project()).setInstanceId(this.writerConfig.instance())
         .setCredentialsProvider(FixedCredentialsProvider.create(credential())).build();

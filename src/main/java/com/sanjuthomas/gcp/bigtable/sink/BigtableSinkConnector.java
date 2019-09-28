@@ -35,7 +35,7 @@ public class BigtableSinkConnector extends SinkConnector {
 
   @Override
   public void stop() {
-    logger.info("stop called");
+    logger.info("BigtableSinkConnector stop is called");
   }
 
   @Override

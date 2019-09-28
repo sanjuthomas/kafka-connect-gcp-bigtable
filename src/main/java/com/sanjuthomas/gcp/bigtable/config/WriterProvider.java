@@ -30,7 +30,7 @@ public class WriterProvider {
   private ConfigProvider configProvider;
 
   public WriterProvider(final ConfigProvider configProvider) {
-    logger.info("WriterProvider is created by thread id {}.", Thread.currentThread().getId());
+    logger.info("WriterProvider is created by task id {}", Thread.currentThread().getId());
     this.configProvider = configProvider;
   }
 

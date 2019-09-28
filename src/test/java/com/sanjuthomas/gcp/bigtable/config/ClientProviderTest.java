@@ -20,7 +20,7 @@ public class ClientProviderTest {
   public void setUp() {
     clientProvider = new ClientProvider(
         new WriterConfig("/Users/sanjuthomas/keys/civic-athlete-251623-e16dce095204.json",
-            "demo-project", "demo-instance", "demo-table"));
+            "demo-project", "demo-instance", "demo-table", 1024));
   }
 
   @Test

@@ -55,15 +55,16 @@ This project leverage [bigtable-client-core](https://mvnrepository.com/artifact/
 
 | Property      					| Value  			| Data Type |					   Description       				   		  | 
 |-------------------------------|--------------------|--------------|------------------------------------------------------------------|
-| keyFile:	   				    |	 /home/keys/demo-instance-key.json | String	 | GCP Connect Key File. This is a topic level configuration because you could subscribe from multiple topics and messages from one topic may go to a table in instance A and messages from another topic may go to a table in instance B |		
-| project: 					    | demo-project	| String |					    Name of the GCP Project | 
-| instance: 					    | demo-instance	 | String |				    Name of GCP Bigtable instance | 
-| table: 							| demo-table | 	 String |				     Name of GCP Bigtable table | 
-| transformer: 					| com.sanjuthomas.gcp.transform.JsonEventTransformer | String |	  Transformer class to transform the message to Bigtable writable row. You may provide your own implementation. | 
-| keyQualifiers: | 		 - exchange	<br/> - symbol| Array (Optional, Default is message key.) | Bigtable row key qualifier. Configured element names would be used to construct the row keys. | 
-| keyDelimiter: | - | String (Optional, Default is empty.) | Delimiter to use if there are more than one element to construct row key. |
-| families:  	| - data	 <br/> - metadata | Array | Column families in the Bigtable table. This configuration will be used by the transformer. | 
-| familyQualifiers: | - data:	 <br> &nbsp;- client <br> &nbsp;- exchange <br> &nbsp;- symbol <br> &nbsp;- price <br> &nbsp;- quantity	 <br/> - metadata:	 <br> &nbsp;- created_at <br> &nbsp;- processed_at <br> &nbsp;- topic <br> &nbsp;- partition | Array | Column family to columns mapping. | 
+| keyFile	   				    |	 /home/keys/demo-instance-key.json | String	 | GCP Connect Key File. This is a topic level configuration because you could subscribe from multiple topics and messages from one topic may go to a table in instance A and messages from another topic may go to a table in instance B |		
+| project 					    | demo-project	| String |					    Name of the GCP Project | 
+| instance 					    | demo-instance	 | String |				    Name of GCP Bigtable instance | 
+| table  						| demo-table | 	 String |				     Name of GCP Bigtable table | 
+| bulkMutateRowsMaxSize         | 1024 (Optional, default is 1024)     |  Number | Maximum number of rows in a bulk mutation request | 
+| transformer 					| com.sanjuthomas.gcp.transform.JsonEventTransformer | String |	  Transformer class to transform the message to Bigtable writable row. You may provide your own implementation. | 
+| keyQualifiers					| 		 - exchange	<br/> - symbol| Array (Optional, default is message key.) | Bigtable row key qualifier. Configured element names would be used to construct the row keys. | 
+| keyDelimiter					| - | String (Optional, default is empty.) | Delimiter to use if there are more than one element to construct row key. |
+| families  					  	| - data	 <br/> - metadata | Array | Column families in the Bigtable table. This configuration will be used by the transformer. | 
+| familyQualifiers				| - data:	 <br> &nbsp;- client <br> &nbsp;- exchange <br> &nbsp;- symbol <br> &nbsp;- price <br> &nbsp;- quantity	 <br/> - metadata:	 <br> &nbsp;- created_at <br> &nbsp;- processed_at <br> &nbsp;- topic <br> &nbsp;- partition | Array | Column family to columns mapping. | 
 						 	 
 ### Constraints
 

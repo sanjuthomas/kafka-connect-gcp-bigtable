@@ -3,6 +3,7 @@ keyFile: /user/home/bigtable/demo-instance-key.json
 project: civic-athlete-251623
 instance: demo-instance
 table: demo-table
+bulkMutateRowsMaxSize: 1024
 transformer: com.sanjuthomas.gcp.bigtable.transform.JsonEventTransformer
 errorHandler:
   maxRetryCount: 3

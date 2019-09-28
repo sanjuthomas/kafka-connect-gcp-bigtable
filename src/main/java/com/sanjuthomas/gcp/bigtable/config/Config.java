@@ -49,14 +49,15 @@ public class Config {
   private String project;
   private String instance;
   private String table;
+  private Integer bulkMutateRowsMaxSize;
   private String transformer;
   private List<String> keyQualifiers;
   private String keyDelimiter;
   private List<String> families;
   private List<Map<String, List<String>>> familyQualifiers;
-  private int maxRetryCount;
-  private int retryBackoffSeconds;
-  private boolean exponentialBackoff;
+  private Integer maxRetryCount;
+  private Integer retryBackoffSeconds;
+  private Boolean exponentialBackoff;
 
   public Map<String, List<String>> familyQualifiersMappings() {
     final Map<String, List<String>> familyQualifiersMappings = new HashMap<>();
@@ -67,7 +68,7 @@ public class Config {
   }
 
   public WriterConfig getWriterConfig() {
-    final WriterConfig writerConfg = new WriterConfig(keyFile, project, instance, table);
+    final WriterConfig writerConfg = new WriterConfig(keyFile, project, instance, table, bulkMutateRowsMaxSize);
     writerConfg.setErrorHandlerConfig(
         new ErrorHandlerConfig(maxRetryCount, retryBackoffSeconds, exponentialBackoff));
     return writerConfg;
@@ -137,10 +138,14 @@ public class Config {
     this.familyQualifiers = familyQualifiers;
   }
 
-  public void setErrorHandler(Map<String, Object> errorHandler) {
+  public void setErrorHandler(final Map<String, Object> errorHandler) {
     this.maxRetryCount = Integer.valueOf(Objects.toString(errorHandler.get("maxRetryCount"), "3"));
     this.retryBackoffSeconds = Integer.valueOf(Objects.toString(errorHandler.get("retryBackoffSeconds"), "3"));
     this.exponentialBackoff = Boolean.valueOf(Objects.toString(errorHandler.get("exponentialBackoff"), "true"));
+  }
+  
+  public void setBulkMutateRowsMaxSize(final Integer bulkMutateRowsMaxSize) {
+    this.bulkMutateRowsMaxSize = MoreObjects.firstNonNull(bulkMutateRowsMaxSize, 1024);
   }
 
 }

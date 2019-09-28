@@ -3,6 +3,7 @@ keyFile: /Users/sanjuthomas/keys/civic-athlete-251623-e16dce095204.json
 project: demo-project
 instance: demo-instance
 table: demo-table
+bulkMutateRowsMaxSize: 1024
 transformer: com.sanjuthomas.gcp.bigtable.transform.JsonEventTransformer
 errorHandler:
   maxRetryCount: 3

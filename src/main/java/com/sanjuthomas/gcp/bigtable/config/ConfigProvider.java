@@ -38,7 +38,7 @@ public class ConfigProvider {
   private final Map<String, Transformer<SinkRecord, WritableRow>> transformerMap = new HashMap<>();
 
   public ConfigProvider() {
-    logger.info("ConfigProvider is created by thread id {}.", Thread.currentThread().getId());
+    logger.info("ConfigProvider is created for task {}", Thread.currentThread().getId());
   }
 
   /**
@@ -103,7 +103,7 @@ public class ConfigProvider {
     final Transformer<SinkRecord, WritableRow> jsonEventTransformer =
         (Transformer<SinkRecord, WritableRow>) constructor.newInstance(transformerConfig);
     transformerMap.put(topic, jsonEventTransformer);
-    logger.info("Transformer is created by thread id {}.", Thread.currentThread().getId());
+    logger.info("Transformer is created by task id {} and topic {}", Thread.currentThread().getId(), topic);
     return jsonEventTransformer;
   }
 }
