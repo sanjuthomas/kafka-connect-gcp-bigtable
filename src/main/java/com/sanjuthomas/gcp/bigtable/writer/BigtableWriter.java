@@ -25,8 +25,7 @@ import com.sanjuthomas.gcp.bigtable.writer.ErrorHandler.Result;
  * Default Bigtable writer implementation and this class is not thread safe. As per the design,
  * there would be one writer per topic and every task thread will get it's own writer instance.
  * 
- * a Task -> a Topic -> a Writer is the cardinality per design. So nothing is shared among task
- * threads.
+ * a Task -> a Topic -> a Writer is the cardinality per design. So nothing is shared among tasks.
  * 
  * This implementation write rows using bulkMutateRows.
  * 
@@ -45,6 +44,8 @@ public class BigtableWriter implements Writer<WritableRow, Boolean> {
   private final BigtableDataClient client;
   private final WriterConfig config;
   private final ErrorHandler errorHandler;
+  private final Partitioner partitioner;
+  private final boolean continueAfterWriteError;
 
   public BigtableWriter(final WriterConfig config, final BigtableDataClient client)
       throws FileNotFoundException, IOException {
@@ -52,22 +53,40 @@ public class BigtableWriter implements Writer<WritableRow, Boolean> {
     this.rows = new ArrayList<>();
     this.client = client;
     this.errorHandler = new ErrorHandler(config.getErrorHandlerConfig());
+    this.partitioner = new Partitioner(config.bulkMutateRowsMaxSize());
+    this.continueAfterWriteError = config.continueAfterWriteError();
   }
 
   @Override
   public void flush() {
+    final List<List<WritableRow>> partitions = partitioner.partitions(this.rows);
+    try {
+      for(final List<WritableRow> partition : partitions) {
+        flush(partition);
+      }
+    }finally {
+      this.rows.clear();
+    }
+  }
+
+  @VisibleForTesting
+  void flush(final List<WritableRow> rows) {
     final BulkMutation batch = BulkMutation.create(this.config.table());
-    for (final WritableRow row : this.rows) {
+    for (final WritableRow row : rows) {
       for (final WritableFamilyCells familyCells : row.familyCells()) {
         this.addMutation(batch, row.rowKey(), familyCells.family(), familyCells.cells());
       }
     }
     try {
       this.execute(batch);
-    } catch (Exception e) {
-      throw e;
+    } catch (BigtableWriteFailedException e) {
+      if (!continueAfterWriteError) {
+        throw e;
+      }
+      logger.error("continueAfterWriteError is configured as {} so continuing to next batch.",
+          continueAfterWriteError);
+      logger.info("batch write failed. batch count was {}", rows.size());
     } finally {
-      this.rows.clear();
       errorHandler.reset();
     }
   }

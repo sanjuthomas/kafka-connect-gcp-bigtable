@@ -29,10 +29,10 @@ public class PartitionerTest {
   @Test
   public void testPreconditions() {
     Assertions.assertThrows(IllegalArgumentException.class, () -> {
-      partitioner.batches(null);
+      partitioner.partitions(null);
     });
     Assertions.assertThrows(IllegalArgumentException.class, () -> {
-      partitioner.batches(new ArrayList<>());
+      partitioner.partitions(new ArrayList<>());
     });
   }
   
@@ -48,7 +48,7 @@ public class PartitionerTest {
   @ExtendWith(WritableRowResolver.class)
   public void shouldGetBatches(final List<WritableRow> rows) {
     assertEquals(2, rows.size());
-    final List<List<WritableRow>> batches = smallPartitioner.batches(rows);
-    assertEquals(2, batches.size());
+    assertEquals(2, smallPartitioner.partitions(rows).size());
+    assertEquals(1, partitioner.partitions(rows).size());
   }
 }
