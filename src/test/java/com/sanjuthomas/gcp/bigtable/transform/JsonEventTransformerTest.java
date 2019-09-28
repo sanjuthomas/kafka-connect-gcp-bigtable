@@ -97,7 +97,7 @@ public class JsonEventTransformerTest {
     final RowKeyNotFoundException exception = assertThrows(RowKeyNotFoundException.class, () -> {
       this.transformerWithoutKeyQualifier.rowKey(record, mapEvent);
     });
-    assertEquals("keyQualifiers are not configured and there is not key found in the SinkRecord!",
+    assertEquals("keyQualifiers are not configured and there is no key found in the SinkRecord!",
         exception.getMessage());
   }
 
