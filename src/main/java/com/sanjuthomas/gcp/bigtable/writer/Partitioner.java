@@ -1,6 +1,7 @@
 package com.sanjuthomas.gcp.bigtable.writer;
 
 import java.util.List;
+import com.google.common.annotations.VisibleForTesting;
 import com.google.common.base.Preconditions;
 import com.google.common.collect.Lists;
 import com.sanjuthomas.gcp.bigtable.bean.WritableRow;
@@ -26,6 +27,7 @@ public class Partitioner {
     return Lists.partition(rows, partitionsCount(rows.size()));
   }
 
+  @VisibleForTesting
   int partitionsCount(final int totalRows) {
    if (totalRows > bulkMutateRowsMaxSize) {
       return bulkMutateRowsMaxSize;

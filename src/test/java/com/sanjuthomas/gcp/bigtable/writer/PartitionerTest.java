@@ -34,6 +34,7 @@ public class PartitionerTest {
     Assertions.assertThrows(IllegalArgumentException.class, () -> {
       partitioner.partitions(new ArrayList<>());
     });
+    assertEquals(1, 1);
   }
   
   @Test
