@@ -48,7 +48,7 @@ The current configuration system supports streaming messages from a given topic 
 
 As of today, we have transformer support for JSON Messages. I'm planning to add the Avro Messages transformer in the next version.
 
-## How to build the artifcat
+## How to build the artifact
 
 Refer to project [Wiki](https://github.com/sanjuthomas/kafka-connect-gcp-bigtable/wiki/How-to-build-the-Kafka-Connect-GCP-Bigtable%3F)
 
