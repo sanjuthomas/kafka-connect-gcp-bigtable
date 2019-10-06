@@ -48,17 +48,19 @@ The current configuration system supports streaming messages from a given topic 
 
 As of today, we have transformer support for JSON Messages. I'm planning to add the Avro Messages transformer in the next version.
 
+## How to build the artifcat
+
+Refer to project [Wiki](https://github.com/sanjuthomas/kafka-connect-gcp-bigtable/wiki/How-to-build-the-Kafka-Connect-GCP-Bigtable%3F)
+
 ## How to deploy the connector
 
-This is maven project. To create an [uber](https://maven.apache.org/plugins/maven-shade-plugin/index.html) jar, execute the following maven goals.
+Either [build](https://github.com/sanjuthomas/kafka-connect-gcp-bigtable/wiki/How-to-build-the-Kafka-Connect-GCP-Bigtable%3F) the project or download the artifact from the [Confluent Connector Hub.](https://www.confluent.io/hub/sanjuthomas/kafka-connect-gcp-bigtable)
 
-```mvn clean compile package shade:shade install```
+Copy the artifact ```kafka-connect-gcp-bigtable-version.jar``` to kakfa_home/lib folder.
 
-Copy the artifact ```kafka-connect-gcp-bigtable-1.0.0.jar``` to kakfa_home/lib folder.
+Copy the [bigtable-sink.properties](https://github.com/sanjuthomas/kafka-connect-gcp-bigtable/blob/master/etc/bigtable-sink.properties) file into kafka_home/config folder. Update the content of the property file according to your environment.
 
-Copy the [bigtable-sink.properties](https://github.com/sanjuthomas/kafka-connect-gcp-bigtable/blob/master/src/main/resources/configs/bigtable-sink.properties) file into kafka_home/config folder. Update the content of the property file according to your environment.
-
-Alternatively, you may keep the ```kafka-connect-gcp-bigtable-1.0.jar``` in another directory and export that directory into Kafka class path before starting the connector.
+Copy the topic config file(s) to kafka_home/config folder. Example topic config file can be found [here.](https://github.com/sanjuthomas/kafka-connect-gcp-bigtable/blob/master/etc/demo-topic.yml)
 
 ## How to start connector in stand-alone mode
 
