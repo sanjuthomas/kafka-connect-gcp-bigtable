@@ -40,7 +40,7 @@ This project leverage [bigtable-client-core](https://mvnrepository.com/artifact/
 
 ## Configurations
 
-Please refer the project [Wiki](https://github.com/sanjuthomas/kafka-connect-gcp-bigtable/wiki/Kafka-Connect-GCP-Bigtable-sink-configurations)
+Please refer to project [Wiki](https://github.com/sanjuthomas/kafka-connect-gcp-bigtable/wiki/Kafka-Connect-GCP-Bigtable-sink-configurations)
 						 	 
 ### Constraints
 
