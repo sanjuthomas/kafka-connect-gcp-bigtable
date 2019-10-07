@@ -54,13 +54,7 @@ Please refer to project [Wiki](https://github.com/sanjuthomas/kafka-connect-gcp-
 
 ## How to deploy the connector
 
-Either [build](https://github.com/sanjuthomas/kafka-connect-gcp-bigtable/wiki/How-to-build-the-Kafka-Connect-GCP-Bigtable%3F) the project or download the artifact from the [Confluent Connector Hub.](https://www.confluent.io/hub/sanjuthomas/kafka-connect-gcp-bigtable)
-
-Copy the artifact ```kafka-connect-gcp-bigtable-version.jar``` to kakfa_home/lib folder.
-
-Copy the [bigtable-sink.properties](https://github.com/sanjuthomas/kafka-connect-gcp-bigtable/blob/master/etc/bigtable-sink.properties) file into kafka_home/config folder. Update the content of the property file according to your environment.
-
-Copy the topic config file(s) to kafka_home/config folder. Example topic config file can be found [here.](https://github.com/sanjuthomas/kafka-connect-gcp-bigtable/blob/master/etc/demo-topic.yml)
+Please refer to project [Wiki](https://github.com/sanjuthomas/kafka-connect-gcp-bigtable/wiki/How-to-deploy-the-Kafka-Connect-GCP-Bigtable-and-verify-the-deployment%3F)
 
 ## How to start connector in stand-alone mode
 
