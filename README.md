@@ -64,19 +64,7 @@ Copy the topic config file(s) to kafka_home/config folder. Example topic config 
 
 ## How to start connector in stand-alone mode
 
-Open a shell prompt, move to kafka_home and execute the following.
-
-```
-bin/connect-standalone.sh config/connect-bigtable-standalone.properties config/bigtable-sink.properties
-```
-
-## How to start connector in distributed mode
-
-Open a shell prompt, change your working directory to kafka_home and execute the following.
-
-```
-bin/connect-distributed.sh config/connect-bigtable-distributed.properties config/bigtable-sink.properties
-```
+Please refer to project [Wiki](https://github.com/sanjuthomas/kafka-connect-gcp-bigtable/wiki/How-to-start-the-Kafka-Sink-Connect-GCP-Bigtable%3F)
 
 ## Questions
 
