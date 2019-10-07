@@ -70,7 +70,7 @@ Open a shell prompt, move to kafka_home and execute the following.
 bin/connect-standalone.sh config/connect-bigtable-standalone.properties config/bigtable-sink.properties
 ```
 
-## How to start connector in distribute mode
+## How to start connector in distributed mode
 
 Open a shell prompt, change your working directory to kafka_home and execute the following.
 
