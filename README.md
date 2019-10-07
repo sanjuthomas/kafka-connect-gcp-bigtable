@@ -50,7 +50,7 @@ As of today, we have transformer support for JSON Messages. I'm planning to add 
 
 ## How to build the artifact
 
-Refer to project [Wiki](https://github.com/sanjuthomas/kafka-connect-gcp-bigtable/wiki/How-to-build-the-Kafka-Connect-GCP-Bigtable%3F)
+Please refer to project [Wiki](https://github.com/sanjuthomas/kafka-connect-gcp-bigtable/wiki/How-to-build-the-Kafka-Connect-GCP-Bigtable%3F)
 
 ## How to deploy the connector
 
