@@ -15,12 +15,11 @@ import com.google.auth.oauth2.ServiceAccountCredentials;
 import com.google.cloud.bigtable.data.v2.BigtableDataClient;
 import com.google.cloud.bigtable.data.v2.BigtableDataSettings;
 import com.google.cloud.bigtable.data.v2.models.BulkMutation;
-import com.google.cloud.bigtable.data.v2.models.BulkMutationBatcher.BulkMutationFailure;
 import com.google.cloud.bigtable.data.v2.models.Mutation;
 import com.google.common.util.concurrent.MoreExecutors;
 
 /**
- * 
+ *
  * @author Sanju Thomas
  *
  */
@@ -55,11 +54,7 @@ public class UpsertData {
 
       ApiFutures.addCallback(result, new ApiFutureCallback<Void>() {
         public void onFailure(Throwable t) {
-          if (t instanceof BulkMutationFailure) {
-            System.out.println("Some entries failed to apply");
-          } else {
             t.printStackTrace();
-          }
         }
 
         public void onSuccess(Void ignored) {

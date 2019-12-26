@@ -6,7 +6,7 @@
 	<version>1.0.8-SNAPSHOT</version>
 	<packaging>jar</packaging>
 	<description>Kafka Sink Connect GCP Bigtable</description>
-	
+
 	<developers>
 		<developer>
 			<id>sanjuthomas</id>
@@ -29,7 +29,7 @@
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<jackson-databind.version>2.9.10.1</jackson-databind.version>
 		<jackson-dataformat-yaml.version>2.9.10</jackson-dataformat-yaml.version>
-		<bigtable-client-core.version>1.12.1</bigtable-client-core.version>
+		<google-cloud-bigtable.version>1.8.0</google-cloud-bigtable.version>
 		<grpc-netty-shaded.version>1.23.0</grpc-netty-shaded.version>
 		<connect-api.version>2.3.0</connect-api.version>
 		<slf4j-api.version>1.7.21</slf4j-api.version>
@@ -68,9 +68,9 @@
 			<version>${jackson-dataformat-yaml.version}</version>
 		</dependency>
 		<dependency>
-			<groupId>com.google.cloud.bigtable</groupId>
-			<artifactId>bigtable-client-core</artifactId>
-			<version>${bigtable-client-core.version}</version>
+			<groupId>com.google.cloud</groupId>
+			<artifactId>google-cloud-bigtable</artifactId>
+			<version>${google-cloud-bigtable.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>io.grpc</groupId>
