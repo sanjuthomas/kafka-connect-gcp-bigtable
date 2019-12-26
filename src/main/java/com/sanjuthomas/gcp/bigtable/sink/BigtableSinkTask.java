@@ -29,13 +29,13 @@ import com.sanjuthomas.gcp.bigtable.writer.BigtableWriter;
  *
  * @author Sanju Thomas
  * @since 1.0.3
- * 
+ *
  */
 @Evolving
 public class BigtableSinkTask extends SinkTask {
 
   private static final Logger logger = LoggerFactory.getLogger(BigtableSinkTask.class);
-  private static final Set<String> assingedTopics = new LinkedHashSet<>();
+  private static final Set<String> assignedTopics = new LinkedHashSet<>();
   private ConfigProvider configProvider;
   @VisibleForTesting
   WriterProvider writerProvider;
@@ -53,7 +53,7 @@ public class BigtableSinkTask extends SinkTask {
       logger.debug("transformed row {}", row);
       writerProvider.writer(sr.topic()).buffer(row);
     }
-    assingedTopics.forEach(topic -> {
+      assignedTopics.forEach(topic -> {
       final Writer<WritableRow, Boolean> writer = writerProvider.writer(topic);
       if (writer.bufferSize() > 0) {
         try {
@@ -70,7 +70,7 @@ public class BigtableSinkTask extends SinkTask {
   /**
    * Every task would have it's on ConfigProvider and WriterProvider - so nothing shared among the
    * tasks.
-   * 
+   *
    */
   @Override
   public void start(final Map<String, String> config) {
@@ -92,7 +92,7 @@ public class BigtableSinkTask extends SinkTask {
 
   @Override
   public void open(Collection<TopicPartition> topicPartitions) {
-    topicPartitions.forEach(tp -> assingedTopics.add(tp.topic()));
+    topicPartitions.forEach(tp -> assignedTopics.add(tp.topic()));
   }
 
   @Override
@@ -103,7 +103,7 @@ public class BigtableSinkTask extends SinkTask {
 
   @Override
   public void stop() {
-    assingedTopics.forEach(at -> writerProvider.writer(at).close());
+      assignedTopics.forEach(at -> writerProvider.writer(at).close());
     logger.info("task {} stopped", Thread.currentThread().getId());
   }
 

@@ -31,6 +31,10 @@ import com.sanjuthomas.gcp.bigtable.exception.BigtableWriteFailedException;
 import com.sanjuthomas.gcp.bigtable.transform.JsonEventTransformer;
 import com.sanjuthomas.gcp.resolvers.SinkRecordResolver;
 
+/**
+ * @author Sanju Thomas
+ */
+
 @ExtendWith(MockitoExtension.class)
 public class BigtableWriterTest {
 
@@ -56,7 +60,7 @@ public class BigtableWriterTest {
         "demo-project", "demo-instance", "demo-table", 1024, false);
     writerConfig.setErrorHandlerConfig(new ErrorHandlerConfig(3, 1, true));
     this.writer = new BigtableWriter(writerConfig, client);
-    
+
     final WriterConfig writerConfigIgnoreError = new WriterConfig("/Users/sathomas/keys/demo-key.json",
         "demo-project", "demo-instance", "demo-table", 1024, true);
     writerConfigIgnoreError.setErrorHandlerConfig(new ErrorHandlerConfig(0, 0, false));

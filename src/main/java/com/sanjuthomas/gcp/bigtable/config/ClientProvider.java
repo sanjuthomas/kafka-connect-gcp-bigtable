@@ -13,11 +13,11 @@ import com.google.cloud.bigtable.data.v2.BigtableDataClient;
 import com.google.cloud.bigtable.data.v2.BigtableDataSettings;
 
 /**
- * 
- * The class responsible for creating the connection/bigtable client. Creation of the client is an
+ *
+ * The class responsible for creating the connection/Bigtable client. Creation of the client is an
  * expensive process so we cache the client. Upon a write error the client is closed and removed
  * from the cache.
- * 
+ *
  * Refer {@link WriterProvider} to know how it is cached.
  *
  * @author Sanju Thomas
@@ -37,7 +37,7 @@ public class ClientProvider {
 
   /**
    * Create a BigtableDataClient using the given WriterConfig.
-   * 
+   *
    * @return BigtableDataClient
    * @throws IOException
    */
