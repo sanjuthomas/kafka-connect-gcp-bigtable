@@ -1,3 +1,19 @@
+/*
+ * Copyright (c) 2019 Sanju Thomas
+ *
+ * Licensed under the MIT License (the "License");
+ * you may not use this file except in compliance with the License.
+ *
+ * You may obtain a copy of the License at https://en.wikipedia.org/wiki/MIT_License
+ *
+ * Unless required by applicable law or agreed to in writing,
+ * software distributed under the License is distributed on an
+ * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND,
+ * either express or implied.  See the License for the specific language governing
+ * permissions and limitations under the License.
+ *
+ */
+
 package com.sanjuthomas.gcp.bigtable.writer;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -10,7 +26,7 @@ import com.sanjuthomas.gcp.bigtable.config.WriterConfig.ErrorHandlerConfig;
 import com.sanjuthomas.gcp.bigtable.writer.ErrorHandler.Result;
 
 /**
- * 
+ *
  * @author Sanju Thomas
  *
  */
@@ -48,7 +64,7 @@ public class ErrorHandlerTest {
     assertEquals(0, result.secondsToSleep());
     handlerExponentialBackoff.reset();
   }
-  
+
   @Test
   public void shouldHandle() {
     final ApiException exception = new ApiException(new Exception(), StatusCodeUtil.LOCAL_STATUS, true);
@@ -69,7 +85,7 @@ public class ErrorHandlerTest {
     assertEquals(4, result.attempt());
     assertEquals(0, result.secondsToSleep());
   }
-  
+
   @Test
   public void shouldRestHandler() {
     final ApiException exception = new ApiException(new Exception(), StatusCodeUtil.LOCAL_STATUS, true);
@@ -87,13 +103,13 @@ public class ErrorHandlerTest {
     result = handlerSingleBackoff.handle(exception);
     assertFalse(result.retry());
   }
-  
+
   @Test
   public void shouldNotRetry() {
     final ApiException exception = new ApiException(new Exception(), StatusCodeUtil.LOCAL_STATUS, false);
     Result result = handler.handle(exception);
     assertFalse(result.retry());
-    
+
     final Exception ex = new Exception();
     result = handler.handle(ex);
     assertFalse(result.retry());

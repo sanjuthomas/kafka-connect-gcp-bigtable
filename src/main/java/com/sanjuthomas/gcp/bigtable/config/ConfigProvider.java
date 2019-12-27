@@ -1,3 +1,19 @@
+/*
+ * Copyright (c) 2019 Sanju Thomas
+ *
+ * Licensed under the MIT License (the "License");
+ * you may not use this file except in compliance with the License.
+ *
+ * You may obtain a copy of the License at https://en.wikipedia.org/wiki/MIT_License
+ *
+ * Unless required by applicable law or agreed to in writing,
+ * software distributed under the License is distributed on an
+ * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND,
+ * either express or implied.  See the License for the specific language governing
+ * permissions and limitations under the License.
+ *
+ */
+
 package com.sanjuthomas.gcp.bigtable.config;
 
 import java.io.File;
@@ -18,13 +34,13 @@ import com.sanjuthomas.gcp.bigtable.exception.BigtableSinkInitializationExceptio
 import com.sanjuthomas.gcp.bigtable.exception.TransformInitializationException;
 
 /**
- * 
+ *
  * Class responsible for creating and caching the configuration(s) for task(s). Every task instance
  * would create an instance of the ConfigProvider during the start up and provide the
  * configuration(s) during the life of the task. Per design, there would be one configuration file
  * per topic and the configuration file is written in a .yml file. Please refer {@link Config} to
  * understand an example configuration.
- * 
+ *
  * @author Sanju Thomas
  * @since 1.0.3
  *
@@ -44,7 +60,7 @@ public class ConfigProvider {
   /**
    * Load configuration for a given topic from the given configFileLocation. There should be one
    * configuration file per topic in the configFileLocation.
-   * 
+   *
    * @param configFileLocation
    * @param topic
    */
@@ -60,7 +76,7 @@ public class ConfigProvider {
 
   /**
    * Return the Configuration for given topic.
-   * 
+   *
    * @param topic
    * @return
    */
@@ -70,7 +86,7 @@ public class ConfigProvider {
 
   /**
    * Return the Transformer for given a topic.
-   * 
+   *
    * @param topic
    * @return Transformer
    */

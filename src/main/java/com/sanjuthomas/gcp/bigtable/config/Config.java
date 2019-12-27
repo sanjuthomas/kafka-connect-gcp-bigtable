@@ -1,3 +1,19 @@
+/*
+ * Copyright (c) 2019 Sanju Thomas
+ *
+ * Licensed under the MIT License (the "License");
+ * you may not use this file except in compliance with the License.
+ *
+ * You may obtain a copy of the License at https://en.wikipedia.org/wiki/MIT_License
+ *
+ * Unless required by applicable law or agreed to in writing,
+ * software distributed under the License is distributed on an
+ * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND,
+ * either express or implied.  See the License for the specific language governing
+ * permissions and limitations under the License.
+ *
+ */
+
 package com.sanjuthomas.gcp.bigtable.config;
 
 import java.util.ArrayList;
@@ -11,9 +27,9 @@ import com.google.common.base.Preconditions;
 import com.sanjuthomas.gcp.bigtable.config.WriterConfig.ErrorHandlerConfig;
 
 /**
- * 
+ *
  * An in memory copy of the configuration. An example configuration is given below.
- * 
+ *
  * keyFile: secret-key-file-to-connect-to-gcp
  * project: name-of-the-gcp-project
  * instance: name-of-the-bigtable-instance
@@ -145,27 +161,27 @@ public class Config {
     this.retryBackoffSeconds = Integer.valueOf(Objects.toString(errorHandler.get("retryBackoffSeconds"), "3"));
     this.exponentialBackoff = Boolean.valueOf(Objects.toString(errorHandler.get("exponentialBackoff"), "true"));
   }
-  
+
   private Integer maxRetryCount() {
     return Integer.valueOf(Objects.toString(maxRetryCount, "3"));
   }
-  
+
   private Integer retryBackoffSeconds() {
     return Integer.valueOf(Objects.toString(retryBackoffSeconds, "3"));
   }
-  
+
   private Boolean exponentialBackoff() {
     return Boolean.valueOf(Objects.toString(exponentialBackoff, "true"));
   }
-  
+
   public void setBulkMutateRowsMaxSize(final Integer bulkMutateRowsMaxSize) {
     this.bulkMutateRowsMaxSize = bulkMutateRowsMaxSize;
   }
-  
+
   private Integer bulkMutateRowsMaxSize() {
     return Integer.valueOf(Objects.toString(bulkMutateRowsMaxSize, "3"));
   }
-  
+
   public void setContinueAfterWriteError(final Boolean continueAfterWriteError) {
     this.continueAfterWriteError = continueAfterWriteError;
   }

@@ -1,3 +1,19 @@
+/*
+ * Copyright (c) 2019 Sanju Thomas
+ *
+ * Licensed under the MIT License (the "License");
+ * you may not use this file except in compliance with the License.
+ *
+ * You may obtain a copy of the License at https://en.wikipedia.org/wiki/MIT_License
+ *
+ * Unless required by applicable law or agreed to in writing,
+ * software distributed under the License is distributed on an
+ * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND,
+ * either express or implied.  See the License for the specific language governing
+ * permissions and limitations under the License.
+ *
+ */
+
 package com.sanjuthomas.gcp.bigtable.transform;
 
 import java.util.List;
@@ -18,7 +34,7 @@ import com.sanjuthomas.gcp.bigtable.exception.RowKeyNotFoundException;
 import com.sanjuthomas.gcp.bigtable.transform.key.DefaultKeyParser;
 
 /**
- * 
+ *
  * This default transformer assumes that the values in the sink records are Maps. If your data is in
  * different format, please write another transformer implementation and change the configuration.
  *
@@ -77,7 +93,7 @@ public class JsonEventTransformer implements Transformer<SinkRecord, WritableRow
   /**
    * Compute the row key - if a key qualifier is given then compute row key using the record. if
    * not, consider SinkRecord key as the row key. Refer {@link DefaultKeyParser} for more details.
-   * 
+   *
    * @param record
    * @param row
    * @return
