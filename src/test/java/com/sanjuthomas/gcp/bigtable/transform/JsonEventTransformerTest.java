@@ -1,16 +1,15 @@
 /*
  * Copyright (c) 2019 Sanju Thomas
  *
- * Licensed under the MIT License (the "License");
- * you may not use this file except in compliance with the License.
+ * Licensed under the MIT License (the "License"); you may not use this file except in compliance
+ * with the License.
  *
  * You may obtain a copy of the License at https://en.wikipedia.org/wiki/MIT_License
  *
- * Unless required by applicable law or agreed to in writing,
- * software distributed under the License is distributed on an
- * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND,
- * either express or implied.  See the License for the specific language governing
- * permissions and limitations under the License.
+ * Unless required by applicable law or agreed to in writing, software distributed under the License
+ * is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express
+ * or implied. See the License for the specific language governing permissions and limitations under
+ * the License.
  *
  */
 
@@ -86,22 +85,22 @@ public class JsonEventTransformerTest {
   @Test
   @ExtendWith(TombstoneSinkRecordResolver.class)
   public void shouldTransformTombstoneSinkRecord(final SinkRecord record) {
-      final WritableRow row = this.transformer.transform(record);
-      assertEquals("MMM", row.rowKey());
-      final WritableFamilyCells dataFamily = row.familyCells().get(0);
-      assertNull(dataFamily.cells().get(0).value());
-      assertEquals(TypeUtils.toByteString("symbol"), dataFamily.cells().get(0).qualifier());
-      assertNull(dataFamily.cells().get(1).value());
-      assertEquals(TypeUtils.toByteString("name"), dataFamily.cells().get(1).qualifier());
-      assertNull(dataFamily.cells().get(2).value());
-      assertEquals(TypeUtils.toByteString("sector"), dataFamily.cells().get(2).qualifier());
-      final WritableFamilyCells metadataFamily = row.familyCells().get(1);
-      assertNull(metadataFamily.cells().get(0).value());
-      assertEquals(TypeUtils.toByteString("created_at"), metadataFamily.cells().get(0).qualifier());
-      assertNull(metadataFamily.cells().get(1).value());
-      assertEquals(TypeUtils.toByteString("processed_at"), metadataFamily.cells().get(1).qualifier());
-      assertNull(metadataFamily.cells().get(2).value());
-      assertEquals(TypeUtils.toByteString("topic"), metadataFamily.cells().get(2).qualifier());
+    final WritableRow row = this.transformer.transform(record);
+    assertEquals("MMM", row.rowKey());
+    final WritableFamilyCells dataFamily = row.familyCells().get(0);
+    assertNull(dataFamily.cells().get(0).value());
+    assertEquals(TypeUtils.toByteString("symbol"), dataFamily.cells().get(0).qualifier());
+    assertNull(dataFamily.cells().get(1).value());
+    assertEquals(TypeUtils.toByteString("name"), dataFamily.cells().get(1).qualifier());
+    assertNull(dataFamily.cells().get(2).value());
+    assertEquals(TypeUtils.toByteString("sector"), dataFamily.cells().get(2).qualifier());
+    final WritableFamilyCells metadataFamily = row.familyCells().get(1);
+    assertNull(metadataFamily.cells().get(0).value());
+    assertEquals(TypeUtils.toByteString("created_at"), metadataFamily.cells().get(0).qualifier());
+    assertNull(metadataFamily.cells().get(1).value());
+    assertEquals(TypeUtils.toByteString("processed_at"), metadataFamily.cells().get(1).qualifier());
+    assertNull(metadataFamily.cells().get(2).value());
+    assertEquals(TypeUtils.toByteString("topic"), metadataFamily.cells().get(2).qualifier());
   }
 
   @Test
