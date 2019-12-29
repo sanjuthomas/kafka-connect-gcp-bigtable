@@ -68,7 +68,6 @@ public class JsonEventTransformer implements Transformer<SinkRecord, WritableRow
     return createTombstoneWritableRow(record);
   }
 
-  @VisibleForTesting
   WritableRow createTombstoneWritableRow(final SinkRecord record) {
     final WritableRow row = new WritableRow(keyParser.parse(record));
     for (final String family : this.config.families()) {
