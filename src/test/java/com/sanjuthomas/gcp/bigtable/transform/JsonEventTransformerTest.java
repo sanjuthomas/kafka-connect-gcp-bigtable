@@ -19,6 +19,8 @@ package com.sanjuthomas.gcp.bigtable.transform;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
+
+import com.sanjuthomas.gcp.resolvers.TombstoneSinkRecordResolver;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashMap;
@@ -65,9 +67,9 @@ public class JsonEventTransformerTest {
   @Test
   @ExtendWith(SinkRecordResolver.class)
   public void shouldTransformToWritableRowsWhenKeyQualifiersIsGiven(final SinkRecord record) {
-    final WritableRow rows = this.transformer.transform(record);
-    assertEquals("MMM", rows.rowKey());
-    final List<WritableFamilyCells> cells = rows.familyCells();
+    final WritableRow row = this.transformer.transform(record);
+    assertEquals("MMM", row.rowKey());
+    final List<WritableFamilyCells> cells = row.familyCells();
     final WritableFamilyCells data = cells.get(0);
     assertEquals("data", data.family());
     final WritableFamilyCells metadata = cells.get(1);
@@ -80,6 +82,14 @@ public class JsonEventTransformerTest {
     assertEquals("sector", data.cells().get(2).qualifier().toStringUtf8());
     assertEquals("Industrials", data.cells().get(2).value().toStringUtf8());
     assertEquals(3, metadata.cells().size());
+  }
+
+  @Test
+  @ExtendWith(TombstoneSinkRecordResolver.class)
+  public void shouldTransformTombstoneSinkRecord(final SinkRecord record) {
+      final WritableRow row = this.transformer.transform(record);
+      assertEquals("MMM", row.rowKey());
+      assertNull(row.familyCells());
   }
 
   @Test

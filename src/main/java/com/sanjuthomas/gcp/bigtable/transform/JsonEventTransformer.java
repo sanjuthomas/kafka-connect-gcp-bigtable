@@ -1,16 +1,15 @@
 /*
  * Copyright (c) 2019 Sanju Thomas
  *
- * Licensed under the MIT License (the "License");
- * you may not use this file except in compliance with the License.
+ * Licensed under the MIT License (the "License"); you may not use this file except in compliance
+ * with the License.
  *
  * You may obtain a copy of the License at https://en.wikipedia.org/wiki/MIT_License
  *
- * Unless required by applicable law or agreed to in writing,
- * software distributed under the License is distributed on an
- * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND,
- * either express or implied.  See the License for the specific language governing
- * permissions and limitations under the License.
+ * Unless required by applicable law or agreed to in writing, software distributed under the License
+ * is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express
+ * or implied. See the License for the specific language governing permissions and limitations under
+ * the License.
  *
  */
 
@@ -56,14 +55,32 @@ public class JsonEventTransformer implements Transformer<SinkRecord, WritableRow
 
   @Override
   public WritableRow transform(final SinkRecord record) {
-    final Map<String, Object> payload =
-        OBJECT_MAPPER.convertValue(record.value(), new TypeReference<Map<String, Object>>() {});
-    this.addMetadata(record, payload);
-    final WritableRow row = new WritableRow(this.rowKey(record, payload));
+    if (record.value() != null) {
+      final Map<String, Object> payload =
+          OBJECT_MAPPER.convertValue(record.value(), new TypeReference<Map<String, Object>>() {});
+      this.addMetadata(record, payload);
+      final WritableRow row = new WritableRow(this.rowKey(record, payload));
+      for (final String family : this.config.families()) {
+        row.addCell(this.createCells(family, payload));
+      }
+      return row;
+    }
+    return createTombstoneWritableRow(record);
+  }
+
+  @VisibleForTesting
+  WritableRow createTombstoneWritableRow(final SinkRecord record) {
+    final WritableRow row = new WritableRow(keyParser.parse(record));
     for (final String family : this.config.families()) {
-      row.addCell(this.createCells(family, payload));
+      row.addCell(createTombstoneCells(family));
     }
     return row;
+  }
+
+  private WritableFamilyCells createTombstoneCells(final String family) {
+    final List<WritableCell> cells = config.familyQualifiers(family).stream()
+        .map(e -> new WritableCell(TypeUtils.toByteString(e), null)).collect(Collectors.toList());
+    return new WritableFamilyCells(family, cells);
   }
 
   private void addMetadata(final SinkRecord record, final Map<String, Object> payload) {

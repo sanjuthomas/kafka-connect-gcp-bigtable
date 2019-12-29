@@ -32,14 +32,16 @@ import org.apache.kafka.common.annotation.InterfaceStability.Stable;
 public class WritableRow {
 
   private final String rowKey;
-  private final List<WritableFamilyCells> familyCells;
+  private List<WritableFamilyCells> familyCells;
 
   public WritableRow(final String rowKey) {
     this.rowKey = rowKey;
-    this.familyCells = new ArrayList<>();
   }
 
   public void addCell(final WritableFamilyCells cell) {
+    if(null == familyCells) {
+      familyCells = new ArrayList<>();
+    }
     this.familyCells.add(cell);
   }
 

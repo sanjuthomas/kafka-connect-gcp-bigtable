@@ -46,7 +46,7 @@ public class DefaultKeyParser implements Parser<Object, String> {
   @Override
   public String parse(final Object record) {
     if (record instanceof SinkRecord) {
-      return this.getKeyFromSinkRecrod(record);
+      return this.getKeyFromSinkRecord(record);
     } else if (record instanceof Map) {
       return this.getKeyFromMapEvent(record);
     }
@@ -59,7 +59,7 @@ public class DefaultKeyParser implements Parser<Object, String> {
         .collect(Collectors.joining(this.keyDelimiter));
   }
 
-  private String getKeyFromSinkRecrod(final Object record) {
+  private String getKeyFromSinkRecord(final Object record) {
     final SinkRecord sinkRecord = (SinkRecord) record;
     return (String) sinkRecord.key();
   }

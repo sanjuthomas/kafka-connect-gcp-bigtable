@@ -89,8 +89,14 @@ public class BigtableWriter implements Writer<WritableRow, Boolean> {
   void flush(final List<WritableRow> rows) {
     final BulkMutation batch = BulkMutation.create(this.config.table());
     for (final WritableRow row : rows) {
-      for (final WritableFamilyCells familyCells : row.familyCells()) {
-        this.addMutation(batch, row.rowKey(), familyCells.family(), familyCells.cells());
+      if(row.familyCells() != null) {
+        for (final WritableFamilyCells familyCells : row.familyCells()) {
+          this.addMutation(batch, row.rowKey(), familyCells.family(), familyCells.cells());
+        }
+      } else {
+        for (final WritableFamilyCells familyCells : row.familyCells()) {
+          this.addDeleteMutation(batch, row.rowKey(), familyCells.family(), familyCells.cells());
+        }
       }
     }
     try {
@@ -141,6 +147,13 @@ public class BigtableWriter implements Writer<WritableRow, Boolean> {
       }
     }
     return false;
+  }
+
+  private void addDeleteMutation(final BulkMutation batch, final String rowKey, final String family,
+    final List<WritableCell> cells) {
+    for (final WritableCell cell : cells) {
+      batch.add(rowKey, Mutation.create().deleteCells(family, cell.qualifier()));
+    }
   }
 
   private void addMutation(final BulkMutation batch, final String rowKey, final String family,
