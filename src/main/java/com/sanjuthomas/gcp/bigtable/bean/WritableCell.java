@@ -49,7 +49,7 @@ public class WritableCell {
   @Override
   public String toString() {
     return "WritableCell [qualifier=" + this.qualifier.toStringUtf8() + ", value="
-        + this.value.toStringUtf8() + "]";
+        + this.value + "]";
   }
 
 }

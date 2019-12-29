@@ -19,8 +19,6 @@ package com.sanjuthomas.gcp.bigtable.transform;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
-
-import com.sanjuthomas.gcp.resolvers.TombstoneSinkRecordResolver;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashMap;
@@ -37,6 +35,7 @@ import com.sanjuthomas.gcp.bigtable.exception.RowKeyNotFoundException;
 import com.sanjuthomas.gcp.resolvers.KeylessSinkRecordResolver;
 import com.sanjuthomas.gcp.resolvers.MapEventResolver;
 import com.sanjuthomas.gcp.resolvers.SinkRecordResolver;
+import com.sanjuthomas.gcp.resolvers.TombstoneSinkRecordResolver;
 
 /**
  *
@@ -89,7 +88,20 @@ public class JsonEventTransformerTest {
   public void shouldTransformTombstoneSinkRecord(final SinkRecord record) {
       final WritableRow row = this.transformer.transform(record);
       assertEquals("MMM", row.rowKey());
-      assertNull(row.familyCells());
+      final WritableFamilyCells dataFamily = row.familyCells().get(0);
+      assertNull(dataFamily.cells().get(0).value());
+      assertEquals(TypeUtils.toByteString("symbol"), dataFamily.cells().get(0).qualifier());
+      assertNull(dataFamily.cells().get(1).value());
+      assertEquals(TypeUtils.toByteString("name"), dataFamily.cells().get(1).qualifier());
+      assertNull(dataFamily.cells().get(2).value());
+      assertEquals(TypeUtils.toByteString("sector"), dataFamily.cells().get(2).qualifier());
+      final WritableFamilyCells metadataFamily = row.familyCells().get(1);
+      assertNull(metadataFamily.cells().get(0).value());
+      assertEquals(TypeUtils.toByteString("created_at"), metadataFamily.cells().get(0).qualifier());
+      assertNull(metadataFamily.cells().get(1).value());
+      assertEquals(TypeUtils.toByteString("processed_at"), metadataFamily.cells().get(1).qualifier());
+      assertNull(metadataFamily.cells().get(2).value());
+      assertEquals(TypeUtils.toByteString("topic"), metadataFamily.cells().get(2).qualifier());
   }
 
   @Test

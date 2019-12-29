@@ -16,7 +16,6 @@
 
 package com.sanjuthomas.gcp.resolvers;
 
-import java.util.Map;
 import org.apache.kafka.common.record.TimestampType;
 import org.apache.kafka.connect.sink.SinkRecord;
 import org.junit.jupiter.api.extension.ExtensionContext;
