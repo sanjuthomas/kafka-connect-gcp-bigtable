@@ -34,6 +34,7 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.ArgumentCaptor;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import com.google.api.gax.rpc.ApiException;
@@ -46,6 +47,7 @@ import com.sanjuthomas.gcp.bigtable.config.WriterConfig.ErrorHandlerConfig;
 import com.sanjuthomas.gcp.bigtable.exception.BigtableWriteFailedException;
 import com.sanjuthomas.gcp.bigtable.transform.JsonEventTransformer;
 import com.sanjuthomas.gcp.resolvers.SinkRecordResolver;
+import com.sanjuthomas.gcp.resolvers.TombstoneSinkRecordResolver;
 
 /**
  * @author Sanju Thomas
@@ -93,6 +95,20 @@ public class BigtableWriterTest {
     writer.flush();
     assertEquals(0, writer.bufferSize());
     verify(client, times(1)).bulkMutateRows(any(BulkMutation.class));
+  }
+  
+  @Test
+  @ExtendWith(TombstoneSinkRecordResolver.class)
+  public void shouldWriteTombstoneSinkRecord(final SinkRecord record) throws InterruptedException, ExecutionException {
+    doNothing().when(client).bulkMutateRows(any(BulkMutation.class));
+    final WritableRow row = this.transformer.transform(record);
+    assertEquals(1, writer.buffer(row));
+    assertEquals(1, writer.bufferSize());
+    writer.flush();
+    assertEquals(0, writer.bufferSize());
+    final ArgumentCaptor<BulkMutation> argument = ArgumentCaptor.forClass(BulkMutation.class);
+    verify(client, times(1)).bulkMutateRows(argument.capture());
+    assertEquals(6, argument.getValue().getEntryCount());
   }
 
   @Test

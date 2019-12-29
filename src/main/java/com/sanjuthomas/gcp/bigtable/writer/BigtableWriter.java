@@ -89,13 +89,13 @@ public class BigtableWriter implements Writer<WritableRow, Boolean> {
   void flush(final List<WritableRow> rows) {
     final BulkMutation batch = BulkMutation.create(this.config.table());
     for (final WritableRow row : rows) {
-      if(row.familyCells() != null) {
+      if(row.isTombstone()) {
         for (final WritableFamilyCells familyCells : row.familyCells()) {
-          this.addMutation(batch, row.rowKey(), familyCells.family(), familyCells.cells());
+          this.addDeleteMutation(batch, row.rowKey(), familyCells.family(), familyCells.cells());
         }
       } else {
         for (final WritableFamilyCells familyCells : row.familyCells()) {
-          this.addDeleteMutation(batch, row.rowKey(), familyCells.family(), familyCells.cells());
+          this.addMutation(batch, row.rowKey(), familyCells.family(), familyCells.cells());
         }
       }
     }

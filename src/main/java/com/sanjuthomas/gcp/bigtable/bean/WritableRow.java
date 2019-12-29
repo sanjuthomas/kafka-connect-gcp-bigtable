@@ -33,11 +33,22 @@ public class WritableRow {
 
   private final String rowKey;
   private List<WritableFamilyCells> familyCells;
+  private final boolean tombstone;
 
   public WritableRow(final String rowKey) {
     this.rowKey = rowKey;
+    this.tombstone = false;
+  }
+  
+  public WritableRow(final String rowKey, final boolean tombstone) {
+    this.rowKey = rowKey;
+    this.tombstone = tombstone;
   }
 
+  public boolean isTombstone() {
+    return this.tombstone;
+  }
+  
   public void addCell(final WritableFamilyCells cell) {
     if(null == familyCells) {
       familyCells = new ArrayList<>();
