@@ -8,8 +8,8 @@ jdk:
     #token:
       #secure: "8a0b735a0417db0399d2e2620b7cc1d2703b7c49"
       
-#script:
-  #- mvn -DexcludeTag=integration clean org.jacoco:jacoco-maven-plugin:prepare-agent install sonar:sonar package
+script:
+  - mvn -DexcludeTag=integration clean package
 
 #after_success:
   #- bash <(curl -s https://codecov.io/bash)
