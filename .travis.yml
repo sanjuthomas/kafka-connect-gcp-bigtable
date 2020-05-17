@@ -9,7 +9,7 @@ jdk:
       #secure: "8a0b735a0417db0399d2e2620b7cc1d2703b7c49"
       
 script:
-  - mvn -DexcludeTag=integration clean package
+  - mvn -DexcludeTag=integration -Dmaven.javadoc.skip=true clean package
 
-#after_success:
+  #after_success:
   #- bash <(curl -s https://codecov.io/bash)
