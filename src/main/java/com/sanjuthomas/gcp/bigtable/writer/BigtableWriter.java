@@ -25,7 +25,7 @@ import com.sanjuthomas.gcp.bigtable.writer.ErrorHandler.Result;
  * Default Bigtable writer implementation and this class is not thread safe. As per the design,
  * there would be one writer per topic and every task thread will get it's own writer instance.
  * 
- * a Task -> a Topic -> a Writer is the cardinality per design. So nothing is shared among tasks.
+ * Nothing is shared among tasks. A task gets a topic to read from and a writer to flush the messages out.
  * 
  * This implementation write rows using bulkMutateRows.
  * 
