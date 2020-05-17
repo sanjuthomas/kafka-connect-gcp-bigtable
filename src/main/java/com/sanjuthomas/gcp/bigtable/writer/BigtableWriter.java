@@ -94,7 +94,7 @@ public class BigtableWriter implements Writer<WritableRow, Boolean> {
   /**
    * Execute the BulkMutation
    * 
-   * @param batchMutation
+   * @param bulkMutation
    * @throws InterruptedException
    */
   @VisibleForTesting
