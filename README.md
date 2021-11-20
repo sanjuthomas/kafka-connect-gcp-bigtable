@@ -4,6 +4,7 @@
 [![Maintainability](https://api.codeclimate.com/v1/badges/a1ebe21fb92d3e38d599/maintainability)](https://codeclimate.com/github/sanjuthomas/kafka-connect-gcp-bigtable/maintainability)
 [![codebeat badge](https://codebeat.co/badges/5f9a8323-7e30-48e4-8fee-c1ae4fd88331)](https://codebeat.co/projects/github-com-sanjuthomas-kafka-connect-gcp-bigtable-master)
 [![Maven Central](https://maven-badges.herokuapp.com/maven-central/com.sanjuthomas/kafka-connect-gcp-bigtable/badge.svg)](https://maven-badges.herokuapp.com/maven-central/com.sanjuthomas/kafka-connect-gcp-bigtable)
+[![BCH compliance](https://bettercodehub.com/edge/badge/sanjuthomas/kafka-connect-gcp-bigtable?branch=master)](https://bettercodehub.com/)
 
 # Kafka Sink Connect Google Cloud (GCP) Bigtable
 
