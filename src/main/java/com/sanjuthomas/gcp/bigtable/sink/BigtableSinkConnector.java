@@ -3,12 +3,11 @@ package com.sanjuthomas.gcp.bigtable.sink;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.kafka.common.annotation.InterfaceStability.Stable;
 import org.apache.kafka.common.config.ConfigDef;
 import org.apache.kafka.connect.connector.Task;
 import org.apache.kafka.connect.sink.SinkConnector;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 /**
  *
@@ -17,9 +16,9 @@ import org.slf4j.LoggerFactory;
  *
  */
 @Stable
+@Slf4j
 public class BigtableSinkConnector extends SinkConnector {
 
-  private static final Logger logger = LoggerFactory.getLogger(SinkConnector.class);
   private Map<String, String> config;
 
   @Override
@@ -29,13 +28,13 @@ public class BigtableSinkConnector extends SinkConnector {
 
   @Override
   public void start(final Map<String, String> config) {
-    logger.info("BigtableSinkConnector is started with config {}", config);
+    log.info("BigtableSinkConnector is started with config {}", config);
     this.config = config;
   }
 
   @Override
   public void stop() {
-    logger.info("BigtableSinkConnector stop is called");
+    log.info("BigtableSinkConnector stop is called");
   }
 
   @Override
@@ -56,5 +55,4 @@ public class BigtableSinkConnector extends SinkConnector {
   public String version() {
     return "1.0";
   }
-
 }

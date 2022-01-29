@@ -3,9 +3,8 @@ package com.sanjuthomas.gcp.bigtable.config;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.kafka.common.annotation.InterfaceStability.Stable;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import com.google.common.base.MoreObjects;
 
 /**
@@ -17,9 +16,9 @@ import com.google.common.base.MoreObjects;
  *
  */
 @Stable
+@Slf4j
 public class TransformerConfig {
 
-  private static final Logger logger = LoggerFactory.getLogger(TransformerConfig.class);
   private final List<String> keyQualifiers;
   private final String keyDelimiter;
   private final List<String> families;
@@ -27,7 +26,7 @@ public class TransformerConfig {
   
   public TransformerConfig(final List<String> keyQualifiers, final String keyDelimiter,
       final List<String> families, final Map<String, List<String>> familyToQualifierMapping) {
-    logger.info("TransformerConfig is created by task id {}", Thread.currentThread().getId());
+    log.info("TransformerConfig is created by task id {}", Thread.currentThread().getId());
     this.keyQualifiers = keyQualifiers;
     this.keyDelimiter = keyDelimiter;
     this.families = families;

@@ -4,14 +4,13 @@ import java.util.Collection;
 import java.util.LinkedHashSet;
 import java.util.Map;
 import java.util.Set;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.kafka.clients.consumer.OffsetAndMetadata;
 import org.apache.kafka.common.TopicPartition;
 import org.apache.kafka.common.annotation.InterfaceStability.Evolving;
 import org.apache.kafka.connect.sink.SinkRecord;
 import org.apache.kafka.connect.sink.SinkTask;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import com.google.api.client.util.Preconditions;
 import com.google.common.annotations.VisibleForTesting;
 import com.sanjuthomas.gcp.bigtable.Transformer;
@@ -32,10 +31,10 @@ import com.sanjuthomas.gcp.bigtable.writer.BigtableWriter;
  * 
  */
 @Evolving
+@Slf4j
 public class BigtableSinkTask extends SinkTask {
 
-  private static final Logger logger = LoggerFactory.getLogger(BigtableSinkTask.class);
-  private static final Set<String> assingedTopics = new LinkedHashSet<>();
+  private static final Set<String> assignedTopics = new LinkedHashSet<>();
   private ConfigProvider configProvider;
   @VisibleForTesting
   WriterProvider writerProvider;
@@ -47,20 +46,20 @@ public class BigtableSinkTask extends SinkTask {
 
   @Override
   public void put(final Collection<SinkRecord> sinkRecords) {
-    logger.debug("data arrived in the Bigtable sink task, record count was {}", sinkRecords.size());
+    log.debug("data arrived in the Bigtable sink task, record count was {}", sinkRecords.size());
     for (final SinkRecord sr : sinkRecords) {
       final WritableRow row = configProvider.transformer(sr.topic()).transform(sr);
-      logger.debug("transformed row {}", row);
+      log.debug("transformed row {}", row);
       writerProvider.writer(sr.topic()).buffer(row);
     }
-    assingedTopics.forEach(topic -> {
+    assignedTopics.forEach(topic -> {
       final Writer<WritableRow, Boolean> writer = writerProvider.writer(topic);
       if (writer.bufferSize() > 0) {
         try {
           writer.flush();
         } catch (Exception e) {
           writerProvider.remove(topic);
-          logger.error(e.getMessage(), e);
+          log.error(e.getMessage(), e);
           throw e;
         }
       }
@@ -68,23 +67,18 @@ public class BigtableSinkTask extends SinkTask {
   }
 
   /**
-   * Every task would have it's on ConfigProvider and WriterProvider - so nothing shared among the
-   * tasks.
-   * 
+   * Every task would have it's on ConfigProvider and WriterProvider - so nothing shared among the tasks.
    */
   @Override
   public void start(final Map<String, String> config) {
-    logger.info("task {} started with config {}", Thread.currentThread().getId(), config);
+    log.info("task {} started with config {}", Thread.currentThread().getId(), config);
     this.configProvider = new ConfigProvider();
     final String topics = config.get(BigtableSinkConfig.TOPICS);
     final String configFileLocation = config.get(BigtableSinkConfig.CONFIG_FILE_LOCATION);
-    Preconditions.checkNotNull(topics,
-        "topics is a mandatory config in the bigtable-sink.properties");
-    Preconditions.checkNotNull(configFileLocation,
-        "topics.config.files.location is a mandatory config in the bigtable-sink.properties");
+    Preconditions.checkNotNull(topics, "topics is a mandatory config in the bigtable-sink.properties");
+    Preconditions.checkNotNull(configFileLocation, "topics.config.files.location is a mandatory config in the bigtable-sink.properties");
     for (final String topic : topics.split(",")) {
-      logger.info("task {} loading configuration for topic {}", Thread.currentThread().getId(),
-          topic);
+      log.info("task {} loading configuration for topic {}", Thread.currentThread().getId(), topic);
       configProvider.load(configFileLocation, StringUtils.trim(topic));
     }
     this.writerProvider = new WriterProvider(configProvider);
@@ -92,19 +86,18 @@ public class BigtableSinkTask extends SinkTask {
 
   @Override
   public void open(Collection<TopicPartition> topicPartitions) {
-    topicPartitions.forEach(tp -> assingedTopics.add(tp.topic()));
+    topicPartitions.forEach(tp -> assignedTopics.add(tp.topic()));
   }
 
   @Override
   public void flush(final Map<TopicPartition, OffsetAndMetadata> currentOffsets) {
-    logger.debug("flush is called for {} in task {}", currentOffsets.keySet(),
+    log.debug("flush is called for {} in task {}", currentOffsets.keySet(),
         Thread.currentThread().getId());
   }
 
   @Override
   public void stop() {
-    assingedTopics.forEach(at -> writerProvider.writer(at).close());
-    logger.info("task {} stopped", Thread.currentThread().getId());
+    assignedTopics.forEach(at -> writerProvider.writer(at).close());
+    log.info("task {} stopped", Thread.currentThread().getId());
   }
-
 }

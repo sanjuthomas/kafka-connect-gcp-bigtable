@@ -40,8 +40,7 @@ public class JsonEventTransformer implements Transformer<SinkRecord, WritableRow
 
   @Override
   public WritableRow transform(final SinkRecord record) {
-    final Map<String, Object> payload =
-        OBJECT_MAPPER.convertValue(record.value(), new TypeReference<Map<String, Object>>() {});
+    final Map<String, Object> payload = OBJECT_MAPPER.convertValue(record.value(), new TypeReference<>() {});
     this.addMetadata(record, payload);
     final WritableRow row = new WritableRow(this.rowKey(record, payload));
     for (final String family : this.config.families()) {
