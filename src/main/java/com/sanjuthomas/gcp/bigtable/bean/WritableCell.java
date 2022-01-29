@@ -25,15 +25,7 @@ public class WritableCell {
   public ByteString qualifier() {
     return this.qualifier;
   }
-
   public ByteString value() {
     return this.value;
   }
-
-  @Override
-  public String toString() {
-    return "WritableCell [qualifier=" + this.qualifier.toStringUtf8() + ", value="
-        + this.value.toStringUtf8() + "]";
-  }
-
 }

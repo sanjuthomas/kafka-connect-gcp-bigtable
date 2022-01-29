@@ -34,9 +34,4 @@ public class WritableRow {
   public List<WritableFamilyCells> familyCells() {
     return this.familyCells;
   }
-
-  @Override
-  public String toString() {
-    return "WritableRow [rowKey=" + this.rowKey + ", familyCells=" + this.familyCells + "]";
-  }
 }

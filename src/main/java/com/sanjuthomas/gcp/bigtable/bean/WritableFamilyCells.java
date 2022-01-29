@@ -29,9 +29,4 @@ public class WritableFamilyCells {
   public String family() {
     return this.family;
   }
-
-  @Override
-  public String toString() {
-    return "WritableCells [family=" + this.family + ", cells=" + this.cells + "]";
-  }
 }

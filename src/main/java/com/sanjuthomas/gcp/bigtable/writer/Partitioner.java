@@ -22,8 +22,7 @@ public class Partitioner {
   }
 
   public List<List<WritableRow>> partitions(final List<WritableRow> rows) {
-    Preconditions.checkArgument(!(rows == null || rows.size() == 0),
-        "argument rows can't be null or empty");
+    Preconditions.checkArgument(!(rows == null || rows.size() == 0), "argument rows can't be null or empty");
     return Lists.partition(rows, partitionsCount(rows.size()));
   }
 
@@ -34,5 +33,4 @@ public class Partitioner {
     }
     return totalRows;
   }
-
 }

@@ -6,10 +6,9 @@ import java.lang.reflect.InvocationTargetException;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.kafka.common.annotation.InterfaceStability.Stable;
 import org.apache.kafka.connect.sink.SinkRecord;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.dataformat.yaml.YAMLFactory;
 import com.sanjuthomas.gcp.bigtable.Transformer;
@@ -30,15 +29,15 @@ import com.sanjuthomas.gcp.bigtable.exception.TransformInitializationException;
  *
  */
 @Stable
+@Slf4j
 public class ConfigProvider {
 
-  private static final Logger logger = LoggerFactory.getLogger(ConfigProvider.class);
   private static final ObjectMapper MAPPER = new ObjectMapper(new YAMLFactory());
   private final Map<String, Config> configs = new ConcurrentHashMap<>();
   private final Map<String, Transformer<SinkRecord, WritableRow>> transformerMap = new HashMap<>();
 
   public ConfigProvider() {
-    logger.info("ConfigProvider is created for task {}", Thread.currentThread().getId());
+    log.info("ConfigProvider is created for task {}", Thread.currentThread().getId());
   }
 
   /**
@@ -103,7 +102,7 @@ public class ConfigProvider {
     final Transformer<SinkRecord, WritableRow> jsonEventTransformer =
         (Transformer<SinkRecord, WritableRow>) constructor.newInstance(transformerConfig);
     transformerMap.put(topic, jsonEventTransformer);
-    logger.info("Transformer is created by task id {} and topic {}", Thread.currentThread().getId(), topic);
+    log.info("Transformer is created by task id {} and topic {}", Thread.currentThread().getId(), topic);
     return jsonEventTransformer;
   }
 }

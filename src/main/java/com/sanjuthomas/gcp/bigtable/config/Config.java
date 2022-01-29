@@ -95,7 +95,7 @@ public class Config {
 
   private List<Map<String, List<String>>> familyQualifiers() {
     return MoreObjects.firstNonNull(this.familyQualifiers,
-        new ArrayList<Map<String, List<String>>>(0));
+        new ArrayList<>(0));
   }
 
   public void setKeyFile(final String keyFile) {
@@ -173,5 +173,4 @@ public class Config {
   private Boolean continueAfterWriteError() {
     return Boolean.valueOf(Objects.toString(continueAfterWriteError, "false"));
   }
-
 }

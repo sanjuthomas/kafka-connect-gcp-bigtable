@@ -1,13 +1,10 @@
 package com.sanjuthomas.gcp.bigtable.writer;
 
-import java.io.FileNotFoundException;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.kafka.common.annotation.InterfaceStability.Evolving;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import com.google.cloud.bigtable.data.v2.BigtableDataClient;
 import com.google.cloud.bigtable.data.v2.models.BulkMutation;
 import com.google.cloud.bigtable.data.v2.models.Mutation;
@@ -36,9 +33,8 @@ import com.sanjuthomas.gcp.bigtable.writer.ErrorHandler.Result;
  *
  */
 @Evolving
+@Slf4j
 public class BigtableWriter implements Writer<WritableRow, Boolean> {
-
-  private static final Logger logger = LoggerFactory.getLogger(BigtableWriter.class);
 
   private final List<WritableRow> rows;
   private final BigtableDataClient client;
@@ -47,8 +43,7 @@ public class BigtableWriter implements Writer<WritableRow, Boolean> {
   private final Partitioner partitioner;
   private final boolean continueAfterWriteError;
 
-  public BigtableWriter(final WriterConfig config, final BigtableDataClient client)
-      throws FileNotFoundException, IOException {
+  public BigtableWriter(final WriterConfig config, final BigtableDataClient client) {
     this.config = config;
     this.rows = new ArrayList<>();
     this.client = client;
@@ -83,9 +78,8 @@ public class BigtableWriter implements Writer<WritableRow, Boolean> {
       if (!continueAfterWriteError) {
         throw e;
       }
-      logger.error("continueAfterWriteError is configured as {} so continuing to next batch.",
-          continueAfterWriteError);
-      logger.info("batch write failed. batch count was {}", rows.size());
+      log.error("continueAfterWriteError is configured as {} so continuing to next batch.", continueAfterWriteError);
+      log.info("batch write failed. batch count was {}", rows.size());
     } finally {
       errorHandler.reset();
     }
@@ -102,10 +96,9 @@ public class BigtableWriter implements Writer<WritableRow, Boolean> {
     try {
       this.client.bulkMutateRows(bulkMutation);
     } catch (Exception e) {
-      logger.error(e.getMessage(), e);
+      log.error(e.getMessage(), e);
       if (!execute(bulkMutation, e)) {
-        throw new BigtableWriteFailedException(String
-            .format("Failed to save the batch to Bigtable and batch size was %s", rows.size()));
+        throw new BigtableWriteFailedException(String.format("Failed to save the batch to Bigtable and batch size was %s", rows.size()));
       }
     }
   }
@@ -119,7 +112,7 @@ public class BigtableWriter implements Writer<WritableRow, Boolean> {
         this.client.bulkMutateRows(bulkMutation);
         return true;
       } catch (final Exception e) {
-        logger.error("Write failed due to {}. retry attemps {}", e.getMessage(), result.attempt(),
+        log.error("Write failed due to {}. retry attempts {}", e.getMessage(), result.attempt(),
             e);
         result = errorHandler.handle(exception);
       }
@@ -127,8 +120,7 @@ public class BigtableWriter implements Writer<WritableRow, Boolean> {
     return false;
   }
 
-  private void addMutation(final BulkMutation batch, final String rowKey, final String family,
-      final List<WritableCell> cells) {
+  private void addMutation(final BulkMutation batch, final String rowKey, final String family, final List<WritableCell> cells) {
     for (final WritableCell cell : cells) {
       batch.add(rowKey, Mutation.create().setCell(family, cell.qualifier(), cell.value()));
     }
@@ -145,7 +137,7 @@ public class BigtableWriter implements Writer<WritableRow, Boolean> {
     try {
       this.client.close();
     } catch (final Exception e) {
-      logger.error(e.getMessage(), e);
+      log.error(e.getMessage(), e);
     }
   }
 

@@ -32,7 +32,7 @@ This project leverage [bigtable-client-core](https://mvnrepository.com/artifact/
 
 | Software      | Version       |  Note                                 |         
 | ------------- |---------------| --------------------------------------- |
-| Java          | 1.8.0_161     | You may use java 8 or above. Tested using Java 8. |
+| Java          | 11     | You may use java 8 or above. Tested using Java 8. |
 | Kafka         | >= 2.11-1.1.1    | Please [refer](https://kafka.apache.org/downloads). Tested using kafka_2.11-1.1.1, may work with older versions. | 
 | Zookeeper     | >= 3.4.13        | Please [refer](https://zookeeper.apache.org/releases.html). Tested using zookeeper-3.4.13.  |
 | bigtable-client-core | 1.12.1  | Please [refer](https://mvnrepository.com/artifact/com.google.cloud.bigtable/bigtable-client-core/1.12.1).                 |
