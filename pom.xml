@@ -3,7 +3,7 @@
 
 	<groupId>com.sanjuthomas</groupId>
 	<artifactId>kafka-connect-gcp-bigtable</artifactId>
-	<version>1.0.8-SNAPSHOT</version>
+	<version>1.0.8</version>
 	<packaging>jar</packaging>
 	<description>Kafka Sink Connect GCP Bigtable</description>
 	
@@ -53,7 +53,7 @@
 		<connection>scm:git:git://github.com/sanjuthomas/kafka-connect-gcp-bigtable.git</connection>
 		<developerConnection>scm:git:git@github.com:sanjuthomas/kafka-connect-gcp-bigtable.git</developerConnection>
 		<url>https://github.com/sanjuthomas/kafka-connect-gcp-bigtable</url>
-	  	<tag>HEAD</tag>
+	  	<tag>kafka-connect-gcp-bigtable-1.0.8</tag>
  	</scm>
 
 	<dependencies>
