@@ -20,6 +20,9 @@ public class TypeUtils {
    * @return ByteString
    */
   public static ByteString toByteString(final Object value) {
+    if(null == value) {
+      return ByteString.EMPTY;
+    }
     if (value instanceof ByteBuffer) {
       return ByteString.copyFrom((ByteBuffer) value);
     }
