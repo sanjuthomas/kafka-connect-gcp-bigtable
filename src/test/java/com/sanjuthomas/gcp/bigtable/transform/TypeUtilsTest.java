@@ -21,4 +21,9 @@ public class TypeUtilsTest {
     assertEquals(ByteString.copyFrom("data".getBytes()), TypeUtils.toByteString("data"));
   }
 
+  @Test
+  public void shouldHandleNullValue(){
+    assertEquals("", TypeUtils.toByteString(null).toStringUtf8());
+  }
+
 }
