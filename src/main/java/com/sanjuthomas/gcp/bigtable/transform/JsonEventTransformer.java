@@ -1,3 +1,20 @@
+/*
+ *
+ *  Copyright (c) 2023 Sanju Thomas
+ *
+ *  Licensed under the MIT License (the "License");
+ *  you may not use this file except in compliance with the License.
+ *
+ *  You may obtain a copy of the License at https://en.wikipedia.org/wiki/MIT_License
+ *
+ *  Unless required by applicable law or agreed to in writing,
+ *  software distributed under the License is distributed on an
+ *  "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND,
+ *  either express or implied.  See the License for the specific language governing
+ *  permissions and limitations under the License.
+ *
+ */
+
 package com.sanjuthomas.gcp.bigtable.transform;
 
 import java.util.List;
@@ -18,13 +35,11 @@ import com.sanjuthomas.gcp.bigtable.exception.RowKeyNotFoundException;
 import com.sanjuthomas.gcp.bigtable.transform.key.DefaultKeyParser;
 
 /**
- * 
  * This default transformer assumes that the values in the sink records are Maps. If your data is in
  * different format, please write another transformer implementation and change the configuration.
  *
  * @author Sanju Thomas
  * @since 1.0.3
- *
  */
 @Stable
 public class JsonEventTransformer implements Transformer<SinkRecord, WritableRow> {
@@ -40,7 +55,9 @@ public class JsonEventTransformer implements Transformer<SinkRecord, WritableRow
 
   @Override
   public WritableRow transform(final SinkRecord record) {
-    final Map<String, Object> payload = OBJECT_MAPPER.convertValue(record.value(), new TypeReference<>() {});
+    final Map<String, Object> payload = OBJECT_MAPPER.convertValue(record.value(),
+      new TypeReference<>() {
+      });
     this.addMetadata(record, payload);
     final WritableRow row = new WritableRow(this.rowKey(record, payload));
     for (final String family : this.config.families()) {
@@ -60,23 +77,23 @@ public class JsonEventTransformer implements Transformer<SinkRecord, WritableRow
   WritableFamilyCells createCells(final String family, final Map<String, ? extends Object> row) {
     final Map<String, Object> filteredRow = this.filterRow(family, row);
     final List<WritableCell> cells = filteredRow.entrySet().stream()
-        .map(e -> new WritableCell(TypeUtils.toByteString(e.getKey()),
-            TypeUtils.toByteString(e.getValue())))
-        .collect(Collectors.toList());
+      .map(e -> new WritableCell(TypeUtils.toByteString(e.getKey()),
+        TypeUtils.toByteString(e.getValue())))
+      .collect(Collectors.toList());
     return new WritableFamilyCells(family, cells);
   }
 
   @VisibleForTesting
   Map<String, Object> filterRow(final String family, final Map<String, ? extends Object> row) {
     return row.entrySet().stream()
-        .filter((e) -> this.config.familyQualifiers(family).contains(e.getKey()))
-        .collect(Collectors.toMap(e -> e.getKey(), e -> e.getValue()));
+      .filter((e) -> this.config.familyQualifiers(family).contains(e.getKey()))
+      .collect(Collectors.toMap(e -> e.getKey(), e -> e.getValue()));
   }
 
   /**
    * Compute the row key - if a key qualifier is given then compute row key using the record. if
    * not, consider SinkRecord key as the row key. Refer {@link DefaultKeyParser} for more details.
-   * 
+   *
    * @param record
    * @param row
    * @return
@@ -91,7 +108,7 @@ public class JsonEventTransformer implements Transformer<SinkRecord, WritableRow
     }
     if (rowKey == null) {
       throw new RowKeyNotFoundException(
-          "keyQualifiers are not configured and there is no key found in the SinkRecord!");
+        "keyQualifiers are not configured and there is no key found in the SinkRecord!");
     }
     return rowKey;
   }

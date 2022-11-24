@@ -1,3 +1,20 @@
+/*
+ *
+ *  Copyright (c) 2023 Sanju Thomas
+ *
+ *  Licensed under the MIT License (the "License");
+ *  you may not use this file except in compliance with the License.
+ *
+ *  You may obtain a copy of the License at https://en.wikipedia.org/wiki/MIT_License
+ *
+ *  Unless required by applicable law or agreed to in writing,
+ *  software distributed under the License is distributed on an
+ *  "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND,
+ *  either express or implied.  See the License for the specific language governing
+ *  permissions and limitations under the License.
+ *
+ */
+
 package com.sanjuthomas.gcp.bigtable.config;
 
 import java.io.File;
@@ -12,16 +29,14 @@ import com.google.cloud.bigtable.data.v2.BigtableDataClient;
 import com.google.cloud.bigtable.data.v2.BigtableDataSettings;
 
 /**
- * 
  * The class responsible for creating the connection/bigtable client. Creation of the client is an
  * expensive process so we cache the client. Upon a write error the client is closed and removed
  * from the cache.
- * 
+ * <p>
  * Refer {@link WriterProvider} to know how it is cached.
  *
  * @author Sanju Thomas
  * @since 1.0.3
- *
  */
 @Stable
 @Slf4j
@@ -36,15 +51,15 @@ public class ClientProvider {
 
   /**
    * Create a BigtableDataClient using the given WriterConfig.
-   * 
+   *
    * @return BigtableDataClient
    * @throws IOException
    */
   public BigtableDataClient client() throws IOException {
     log.info("BigtableDataClient is created for task {}", Thread.currentThread().getId());
     final BigtableDataSettings settings = BigtableDataSettings.newBuilder()
-        .setProjectId(this.writerConfig.project()).setInstanceId(this.writerConfig.instance())
-        .setCredentialsProvider(FixedCredentialsProvider.create(credential())).build();
+      .setProjectId(this.writerConfig.project()).setInstanceId(this.writerConfig.instance())
+      .setCredentialsProvider(FixedCredentialsProvider.create(credential())).build();
     return BigtableDataClient.create(settings);
   }
 

@@ -1,6 +1,24 @@
+/*
+ *
+ *  Copyright (c) 2023 Sanju Thomas
+ *
+ *  Licensed under the MIT License (the "License");
+ *  you may not use this file except in compliance with the License.
+ *
+ *  You may obtain a copy of the License at https://en.wikipedia.org/wiki/MIT_License
+ *
+ *  Unless required by applicable law or agreed to in writing,
+ *  software distributed under the License is distributed on an
+ *  "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND,
+ *  either express or implied.  See the License for the specific language governing
+ *  permissions and limitations under the License.
+ *
+ */
+
 package com.sanjuthomas.gcp.bigtable.config;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+
 import java.io.IOException;
 import java.util.List;
 import org.apache.kafka.connect.sink.SinkRecord;
@@ -17,9 +35,7 @@ import com.sanjuthomas.gcp.bigtable.exception.TransformInitializationException;
 import com.sanjuthomas.gcp.resolvers.SinkRecordResolver;
 
 /**
- * 
  * @author Sanju Thomas
- *
  */
 public class ConfigProviderTest {
 
@@ -38,7 +54,7 @@ public class ConfigProviderTest {
   @ExtendWith(SinkRecordResolver.class)
   public void shouldGetTransformerForGivenTopic(final SinkRecord record) {
     final Transformer<SinkRecord, WritableRow> transformer =
-        configProvider.transformer("demo-topic");
+      configProvider.transformer("demo-topic");
     final WritableRow row = transformer.transform(record);
     assertEquals("NYQ_MMM", row.rowKey());
     final List<WritableFamilyCells> cells = row.familyCells();
@@ -46,10 +62,10 @@ public class ConfigProviderTest {
     assertEquals("data", cells.get(0).family());
     assertEquals("metadata", cells.get(1).family());
     final Transformer<SinkRecord, WritableRow> transformer1 =
-        configProvider.transformer("demo-topic");
+      configProvider.transformer("demo-topic");
     assertEquals(transformer1.hashCode(), transformer.hashCode());
     assertEquals(configProvider.config("demo-topic").hashCode(),
-        configProvider.config("demo-topic").hashCode());
+      configProvider.config("demo-topic").hashCode());
   }
 
   @Test
@@ -64,7 +80,7 @@ public class ConfigProviderTest {
   public void shouldGetWriterConfig() {
     assertEquals("demo-table", configProvider.config("demo-topic").getWriterConfig().table());
     assertEquals("/Users/sanjuthomas/keys/civic-athlete-251623-e16dce095204.json",
-        configProvider.config("demo-topic").getWriterConfig().keyFile());
+      configProvider.config("demo-topic").getWriterConfig().keyFile());
     assertEquals("demo-project", configProvider.config("demo-topic").getWriterConfig().project());
     assertEquals("demo-instance", configProvider.config("demo-topic").getWriterConfig().instance());
   }
@@ -72,11 +88,11 @@ public class ConfigProviderTest {
   @Test
   public void shouldGetErrorHandlerConfig() {
     assertEquals(3, configProvider.config("demo-topic").getWriterConfig().getErrorHandlerConfig()
-        .maxRetryCount());
+      .maxRetryCount());
     assertEquals(3, configProvider.config("demo-topic").getWriterConfig().getErrorHandlerConfig()
-        .retryBackoffSeconds());
+      .retryBackoffSeconds());
     assertEquals(true, configProvider.config("demo-topic").getWriterConfig().getErrorHandlerConfig()
-        .exponentialBackoff());
+      .exponentialBackoff());
   }
 
 }

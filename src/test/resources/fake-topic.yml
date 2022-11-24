@@ -11,20 +11,20 @@ errorHandler:
   retryBackoffSeconds: 3
   exponentialBackoff: true
 keyQualifiers:
-- exchange
-- symbol
-keyDelimiter: _
-families:
-- data
-- metadata
-familyQualifiers:
-- data:
   - exchange
   - symbol
-  - name
-  - sector
-- metadata:
-  - created_at
-  - processed_at
-  - topic
-  - partition
+keyDelimiter: _
+families:
+  - data
+  - metadata
+familyQualifiers:
+  - data:
+      - exchange
+      - symbol
+      - name
+      - sector
+  - metadata:
+      - created_at
+      - processed_at
+      - topic
+      - partition

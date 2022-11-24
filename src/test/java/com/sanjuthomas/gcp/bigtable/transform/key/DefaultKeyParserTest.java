@@ -1,8 +1,26 @@
+/*
+ *
+ *  Copyright (c) 2023 Sanju Thomas
+ *
+ *  Licensed under the MIT License (the "License");
+ *  you may not use this file except in compliance with the License.
+ *
+ *  You may obtain a copy of the License at https://en.wikipedia.org/wiki/MIT_License
+ *
+ *  Unless required by applicable law or agreed to in writing,
+ *  software distributed under the License is distributed on an
+ *  "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND,
+ *  either express or implied.  See the License for the specific language governing
+ *  permissions and limitations under the License.
+ *
+ */
+
 package com.sanjuthomas.gcp.bigtable.transform.key;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
+
 import java.util.Arrays;
 import java.util.Map;
 import org.apache.kafka.connect.sink.SinkRecord;
@@ -15,9 +33,7 @@ import com.sanjuthomas.gcp.resolvers.KeylessSinkRecordResolver;
 import com.sanjuthomas.gcp.resolvers.SinkRecordResolver;
 
 /**
- * 
  * @author Sanju Thomas
- *
  */
 public class DefaultKeyParserTest {
 
@@ -26,7 +42,7 @@ public class DefaultKeyParserTest {
 
   @BeforeEach
   public void setUp() {
-    this.keyParser = new DefaultKeyParser(Arrays.asList(new String[] {"symbol"}), "_");
+    this.keyParser = new DefaultKeyParser(Arrays.asList(new String[]{"symbol"}), "_");
   }
 
   @Test
@@ -46,7 +62,8 @@ public class DefaultKeyParserTest {
   @ExtendWith(KeylessSinkRecordResolver.class)
   public void shouldGetKey(final SinkRecord record) {
     assertEquals("MMM", this.keyParser.parse(
-        OBJECT_MAPPER.convertValue(record.value(), new TypeReference<Map<String, Object>>() {})));
+      OBJECT_MAPPER.convertValue(record.value(), new TypeReference<Map<String, Object>>() {
+      })));
   }
 
   @Test

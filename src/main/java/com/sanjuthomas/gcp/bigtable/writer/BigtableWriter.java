@@ -1,3 +1,20 @@
+/*
+ *
+ *  Copyright (c) 2023 Sanju Thomas
+ *
+ *  Licensed under the MIT License (the "License");
+ *  you may not use this file except in compliance with the License.
+ *
+ *  You may obtain a copy of the License at https://en.wikipedia.org/wiki/MIT_License
+ *
+ *  Unless required by applicable law or agreed to in writing,
+ *  software distributed under the License is distributed on an
+ *  "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND,
+ *  either express or implied.  See the License for the specific language governing
+ *  permissions and limitations under the License.
+ *
+ */
+
 package com.sanjuthomas.gcp.bigtable.writer;
 
 import java.util.ArrayList;
@@ -18,19 +35,18 @@ import com.sanjuthomas.gcp.bigtable.exception.BigtableWriteFailedException;
 import com.sanjuthomas.gcp.bigtable.writer.ErrorHandler.Result;
 
 /**
- * 
  * Default Bigtable writer implementation and this class is not thread safe. As per the design,
  * there would be one writer per topic and every task thread will get it's own writer instance.
- * 
- * Nothing is shared among tasks. A task gets a topic to read from and a writer to flush the messages out.
- * 
+ * <p>
+ * Nothing is shared among tasks. A task gets a topic to read from and a writer to flush the
+ * messages out.
+ * <p>
  * This implementation write rows using bulkMutateRows.
- * 
+ * <p>
  * Refer {@link ErrorHandler} for more details about error handling and retry logic.
  *
  * @author Sanju Thomas
  * @since 1.0.3
- *
  */
 @Evolving
 @Slf4j
@@ -56,16 +72,17 @@ public class BigtableWriter implements Writer<WritableRow, Boolean> {
   public void flush() {
     final List<List<WritableRow>> partitions = partitioner.partitions(this.rows);
     try {
-      for(final List<WritableRow> partition : partitions) {
+      for (final List<WritableRow> partition : partitions) {
         flush(partition);
       }
-    }finally {
+    } finally {
       this.rows.clear();
     }
   }
 
   @VisibleForTesting
   void flush(final List<WritableRow> rows) {
+    log.debug("Flushing {} rows", rows.size());
     final BulkMutation batch = BulkMutation.create(this.config.table());
     for (final WritableRow row : rows) {
       for (final WritableFamilyCells familyCells : row.familyCells()) {
@@ -74,11 +91,13 @@ public class BigtableWriter implements Writer<WritableRow, Boolean> {
     }
     try {
       this.execute(batch);
+      log.debug("{} rows written to Bigtable", rows.size());
     } catch (final BigtableWriteFailedException e) {
       if (!continueAfterWriteError) {
         throw e;
       }
-      log.error("continueAfterWriteError is configured as {} so continuing to next batch.", continueAfterWriteError);
+      log.error("continueAfterWriteError is configured as {} so continuing to next batch.",
+        continueAfterWriteError);
       log.info("batch write failed. batch count was {}", rows.size());
     } finally {
       errorHandler.reset();
@@ -87,7 +106,7 @@ public class BigtableWriter implements Writer<WritableRow, Boolean> {
 
   /**
    * Execute the BulkMutation
-   * 
+   *
    * @param bulkMutation
    * @throws InterruptedException
    */
@@ -98,7 +117,8 @@ public class BigtableWriter implements Writer<WritableRow, Boolean> {
     } catch (Exception e) {
       log.error(e.getMessage(), e);
       if (!execute(bulkMutation, e)) {
-        throw new BigtableWriteFailedException(String.format("Failed to save the batch to Bigtable and batch size was %s", rows.size()));
+        throw new BigtableWriteFailedException(
+          String.format("Failed to save the batch to Bigtable and batch size was %s", rows.size()));
       }
     }
   }
@@ -113,21 +133,25 @@ public class BigtableWriter implements Writer<WritableRow, Boolean> {
         return true;
       } catch (final Exception e) {
         log.error("Write failed due to {}. retry attempts {}", e.getMessage(), result.attempt(),
-            e);
+          e);
         result = errorHandler.handle(exception);
       }
     }
     return false;
   }
 
-  private void addMutation(final BulkMutation batch, final String rowKey, final String family, final List<WritableCell> cells) {
+  private void addMutation(final BulkMutation batch, final String rowKey, final String family,
+    final List<WritableCell> cells) {
     for (final WritableCell cell : cells) {
+      log.debug("Adding cell for row key {}. family {}, cell qualifier {}, cell value {}", rowKey,
+        family, cell.qualifier(), cell.value());
       batch.add(rowKey, Mutation.create().setCell(family, cell.qualifier(), cell.value()));
     }
   }
 
   @Override
   public int buffer(final WritableRow row) {
+    log.debug("Buffering {}", row);
     this.rows.add(row);
     return this.rows.size();
   }
