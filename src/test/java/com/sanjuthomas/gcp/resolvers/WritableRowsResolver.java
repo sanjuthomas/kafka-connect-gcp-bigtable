@@ -26,21 +26,19 @@ import org.junit.jupiter.api.extension.ParameterResolver;
 import com.sanjuthomas.gcp.bigtable.bean.WritableRow;
 
 /**
- * 
  * @author Sanju Thomas
- *
  */
 public class WritableRowsResolver implements ParameterResolver {
 
   @Override
   public boolean supportsParameter(ParameterContext parameterContext,
-      ExtensionContext extensionContext) throws ParameterResolutionException {
+    ExtensionContext extensionContext) throws ParameterResolutionException {
     return parameterContext.getParameter().getType() == List.class;
   }
 
   @Override
   public Object resolveParameter(ParameterContext parameterContext,
-      ExtensionContext extensionContext) throws ParameterResolutionException {
+    ExtensionContext extensionContext) throws ParameterResolutionException {
     return Arrays.asList(new WritableRow("one"), new WritableRow("two"));
   }
 

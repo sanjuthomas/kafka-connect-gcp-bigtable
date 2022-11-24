@@ -18,6 +18,7 @@
 package com.sanjuthomas.gcp.bigtable.writer;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+
 import java.util.ArrayList;
 import java.util.List;
 import org.junit.jupiter.api.Assertions;
@@ -28,21 +29,19 @@ import com.sanjuthomas.gcp.bigtable.bean.WritableRow;
 import com.sanjuthomas.gcp.resolvers.WritableRowsResolver;
 
 /**
- * 
  * @author Sanju Thomas
- *
  */
 public class PartitionerTest {
-  
+
   private Partitioner partitioner;
   private Partitioner smallPartitioner;
-  
+
   @BeforeEach
   public void setUp() {
     partitioner = new Partitioner(10);
     smallPartitioner = new Partitioner(1);
   }
-  
+
   @Test
   public void testPreconditions() {
     Assertions.assertThrows(IllegalArgumentException.class, () -> {
@@ -53,7 +52,7 @@ public class PartitionerTest {
     });
     assertEquals(1, 1);
   }
-  
+
   @Test
   public void shouldReturnSizeOfPartition() {
     assertEquals(10, partitioner.partitionsCount(11));
@@ -61,7 +60,7 @@ public class PartitionerTest {
     assertEquals(8, partitioner.partitionsCount(8));
     assertEquals(1, partitioner.partitionsCount(1));
   }
-  
+
   @Test
   @ExtendWith(WritableRowsResolver.class)
   public void shouldGetBatches(final List<WritableRow> rows) {

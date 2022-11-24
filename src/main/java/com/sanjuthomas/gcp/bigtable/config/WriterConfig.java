@@ -20,12 +20,10 @@ package com.sanjuthomas.gcp.bigtable.config;
 import org.apache.kafka.common.annotation.InterfaceStability.Stable;
 
 /**
- * 
  * In memory representation of Writer configuration.
  *
  * @author Sanju Thomas
  * @since 1.0.3
- *
  */
 @Stable
 public class WriterConfig {
@@ -39,7 +37,8 @@ public class WriterConfig {
   private Boolean continueAfterWriteError;
 
   public WriterConfig(final String keyFile, final String project, final String instance,
-      final String table, final Integer bulkMutateRowsMaxSize, final Boolean continueAfterWriteError) {
+    final String table, final Integer bulkMutateRowsMaxSize,
+    final Boolean continueAfterWriteError) {
     this.keyFile = keyFile;
     this.project = project;
     this.instance = instance;
@@ -71,7 +70,7 @@ public class WriterConfig {
   public int bulkMutateRowsMaxSize() {
     return bulkMutateRowsMaxSize;
   }
-  
+
   public boolean continueAfterWriteError() {
     return continueAfterWriteError;
   }
@@ -88,7 +87,7 @@ public class WriterConfig {
     private boolean exponentialBackoff;
 
     public ErrorHandlerConfig(final int maxRetryCount, final int retryBackoffSeconds,
-        final boolean exponentialBackoff) {
+      final boolean exponentialBackoff) {
       this.maxRetryCount = maxRetryCount;
       this.retryBackoffSeconds = retryBackoffSeconds;
       this.exponentialBackoff = exponentialBackoff;

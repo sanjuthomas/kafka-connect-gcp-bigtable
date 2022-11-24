@@ -24,11 +24,9 @@ import com.google.common.collect.Lists;
 import com.sanjuthomas.gcp.bigtable.bean.WritableRow;
 
 /**
- * 
  * Construct micro batches as per the configured size.
- * 
- * @author Sanju Thomas
  *
+ * @author Sanju Thomas
  */
 public class Partitioner {
 
@@ -39,13 +37,14 @@ public class Partitioner {
   }
 
   public List<List<WritableRow>> partitions(final List<WritableRow> rows) {
-    Preconditions.checkArgument(!(rows == null || rows.size() == 0), "argument rows can't be null or empty");
+    Preconditions.checkArgument(!(rows == null || rows.size() == 0),
+      "argument rows can't be null or empty");
     return Lists.partition(rows, partitionsCount(rows.size()));
   }
 
   @VisibleForTesting
   int partitionsCount(final int totalRows) {
-   if (totalRows > bulkMutateRowsMaxSize) {
+    if (totalRows > bulkMutateRowsMaxSize) {
       return bulkMutateRowsMaxSize;
     }
     return totalRows;

@@ -20,12 +20,10 @@ package com.sanjuthomas.gcp.bigtable;
 import org.apache.kafka.common.annotation.InterfaceStability.Stable;
 
 /**
- * 
  * A writer that can buffer the transformed messages and flush to the storage.
  *
  * @author Sanju Thomas
  * @since 1.0.3
- *
  */
 @Stable
 public interface Writer<T, R> {
@@ -46,9 +44,10 @@ public interface Writer<T, R> {
    * Close any resources open.
    */
   void close();
-  
+
   /**
    * Return the current size of the buffer.
+   *
    * @return
    */
   int bufferSize();

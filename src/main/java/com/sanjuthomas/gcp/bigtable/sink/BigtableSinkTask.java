@@ -22,7 +22,6 @@ import java.util.LinkedHashSet;
 import java.util.Map;
 import java.util.Set;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.commons.lang3.StringUtils;
 import org.apache.kafka.clients.consumer.OffsetAndMetadata;
 import org.apache.kafka.common.TopicPartition;
 import org.apache.kafka.common.annotation.InterfaceStability.Evolving;
@@ -45,7 +44,6 @@ import com.sanjuthomas.gcp.bigtable.writer.BigtableWriter;
  *
  * @author Sanju Thomas
  * @since 1.0.3
- * 
  */
 @Evolving
 @Slf4j
@@ -84,7 +82,8 @@ public class BigtableSinkTask extends SinkTask {
   }
 
   /**
-   * Every task would have it's on ConfigProvider and WriterProvider - so nothing shared among the tasks.
+   * Every task would have it's on ConfigProvider and WriterProvider - so nothing shared among the
+   * tasks.
    */
   @Override
   public void start(final Map<String, String> config) {
@@ -92,11 +91,13 @@ public class BigtableSinkTask extends SinkTask {
     this.configProvider = new ConfigProvider();
     final String topics = config.get(BigtableSinkConfig.TOPICS);
     final String configFileLocation = config.get(BigtableSinkConfig.CONFIG_FILE_LOCATION);
-    Preconditions.checkNotNull(topics, "topics is a mandatory config in the bigtable-sink.properties");
-    Preconditions.checkNotNull(configFileLocation, "topics.config.files.location is a mandatory config in the bigtable-sink.properties");
+    Preconditions.checkNotNull(topics,
+      "topics is a mandatory config in the bigtable-sink.properties");
+    Preconditions.checkNotNull(configFileLocation,
+      "topics.config.files.location is a mandatory config in the bigtable-sink.properties");
     for (final String topic : topics.split(",")) {
       log.info("task {} loading configuration for topic {}", Thread.currentThread().getId(), topic);
-      configProvider.load(configFileLocation, StringUtils.trim(topic));
+      configProvider.load(configFileLocation, topic.trim());
     }
     this.writerProvider = new WriterProvider(configProvider);
   }
@@ -109,7 +110,7 @@ public class BigtableSinkTask extends SinkTask {
   @Override
   public void flush(final Map<TopicPartition, OffsetAndMetadata> currentOffsets) {
     log.debug("flush is called for {} in task {}", currentOffsets.keySet(),
-        Thread.currentThread().getId());
+      Thread.currentThread().getId());
   }
 
   @Override

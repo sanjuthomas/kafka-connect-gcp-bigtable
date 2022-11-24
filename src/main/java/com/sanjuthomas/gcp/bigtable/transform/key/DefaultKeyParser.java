@@ -25,10 +25,8 @@ import org.apache.kafka.connect.sink.SinkRecord;
 import com.sanjuthomas.gcp.bigtable.Parser;
 
 /**
- *
  * @author Sanju Thomas
  * @since 1.0.3
- *
  */
 @Stable
 public class DefaultKeyParser implements Parser<Object, String> {
@@ -41,9 +39,9 @@ public class DefaultKeyParser implements Parser<Object, String> {
     this.keyDelimiter = keyDelimiter;
   }
 
- /**
-  * Extract key from the record.
-  */
+  /**
+   * Extract key from the record.
+   */
   @Override
   public String parse(final Object record) {
     if (record instanceof SinkRecord) {
@@ -57,7 +55,7 @@ public class DefaultKeyParser implements Parser<Object, String> {
   private String getKeyFromMapEvent(final Object record) {
     final Map<?, ?> row = (Map<?, ?>) record;
     return this.keyQualifies.stream().map(kq -> String.valueOf(row.get(kq)))
-        .collect(Collectors.joining(this.keyDelimiter));
+      .collect(Collectors.joining(this.keyDelimiter));
   }
 
   private String getKeyFromSinkRecrod(final Object record) {

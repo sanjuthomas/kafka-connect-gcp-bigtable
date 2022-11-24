@@ -22,6 +22,7 @@ import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 import static org.mockito.Mockito.doThrow;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
@@ -42,9 +43,7 @@ import com.sanjuthomas.gcp.bigtable.exception.BigtableWriteFailedException;
 import com.sanjuthomas.gcp.resolvers.SinkRecordResolver;
 
 /**
- * 
  * @author Sanju Thomas
- *
  */
 
 @ExtendWith(MockitoExtension.class)
@@ -55,9 +54,9 @@ public class BigtableSinkTaskTest {
 
   @Mock
   private Writer<WritableRow, Boolean> writer;
-  
+
   private BigtableSinkTask task;
-  
+
   private Collection<TopicPartition> topicPartitions;
 
 
@@ -86,7 +85,7 @@ public class BigtableSinkTaskTest {
     verify(writer, times(1)).bufferSize();
     verify(writer, times(1)).flush();
   }
-  
+
   @Test
   @ExtendWith(SinkRecordResolver.class)
   public void putShouldFailDueToWriteError(final SinkRecord record) {
@@ -105,5 +104,5 @@ public class BigtableSinkTaskTest {
     verify(writer, times(1)).flush();
     verify(writerProvider, times(1)).remove("demo-topic");
   }
-  
+
 }

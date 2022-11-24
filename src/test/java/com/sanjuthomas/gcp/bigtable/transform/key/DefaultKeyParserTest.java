@@ -20,6 +20,7 @@ package com.sanjuthomas.gcp.bigtable.transform.key;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
+
 import java.util.Arrays;
 import java.util.Map;
 import org.apache.kafka.connect.sink.SinkRecord;
@@ -32,9 +33,7 @@ import com.sanjuthomas.gcp.resolvers.KeylessSinkRecordResolver;
 import com.sanjuthomas.gcp.resolvers.SinkRecordResolver;
 
 /**
- * 
  * @author Sanju Thomas
- *
  */
 public class DefaultKeyParserTest {
 
@@ -43,7 +42,7 @@ public class DefaultKeyParserTest {
 
   @BeforeEach
   public void setUp() {
-    this.keyParser = new DefaultKeyParser(Arrays.asList(new String[] {"symbol"}), "_");
+    this.keyParser = new DefaultKeyParser(Arrays.asList(new String[]{"symbol"}), "_");
   }
 
   @Test
@@ -63,7 +62,8 @@ public class DefaultKeyParserTest {
   @ExtendWith(KeylessSinkRecordResolver.class)
   public void shouldGetKey(final SinkRecord record) {
     assertEquals("MMM", this.keyParser.parse(
-        OBJECT_MAPPER.convertValue(record.value(), new TypeReference<Map<String, Object>>() {})));
+      OBJECT_MAPPER.convertValue(record.value(), new TypeReference<Map<String, Object>>() {
+      })));
   }
 
   @Test

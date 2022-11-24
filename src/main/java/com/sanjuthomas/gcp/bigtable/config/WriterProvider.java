@@ -28,12 +28,11 @@ import com.sanjuthomas.gcp.bigtable.exception.BigtableSinkInitializationExceptio
 import com.sanjuthomas.gcp.bigtable.writer.BigtableWriter;
 
 /**
- * 
- * Class responsible for creating and caching writer objects. There will be one instance of this class per Task thread.
- * 
+ * Class responsible for creating and caching writer objects. There will be one instance of this
+ * class per Task thread.
+ *
  * @author Sanju Thomas
  * @since 1.0.3
- *
  */
 @Evolving
 @Slf4j
@@ -50,7 +49,7 @@ public class WriterProvider {
 
   /**
    * Return the writer for the given topic.
-   * 
+   *
    * @param topic
    * @return
    */
@@ -67,15 +66,17 @@ public class WriterProvider {
 
   private Writer<WritableRow, Boolean> createAndCacheWriter(final String topic) throws IOException {
     final WriterConfig writerConfig = configProvider.config(topic).getWriterConfig();
-    final BigtableWriter bigtableWriter = new BigtableWriter(writerConfig, new ClientProvider(writerConfig).client());
+    final BigtableWriter bigtableWriter = new BigtableWriter(writerConfig,
+      new ClientProvider(writerConfig).client());
     writerMap.put(topic, bigtableWriter);
-    log.info("Writer created for topic {} and cached for task id {}", topic, Thread.currentThread().getId());
+    log.info("Writer created for topic {} and cached for task id {}", topic,
+      Thread.currentThread().getId());
     return bigtableWriter;
   }
 
   /**
    * Remove the writer upon write error so that the next client get a new one.
-   * 
+   *
    * @param topic
    */
   public void remove(final String topic) {

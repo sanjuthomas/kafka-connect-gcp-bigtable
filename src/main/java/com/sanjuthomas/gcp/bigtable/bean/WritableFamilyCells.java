@@ -22,12 +22,10 @@ import lombok.ToString;
 import org.apache.kafka.common.annotation.InterfaceStability.Stable;
 
 /**
- * 
  * Represent all the cells belongs to a column family in Bigtable.
  *
  * @author Sanju Thomas
  * @since 1.0.3
- *
  */
 @Stable
 @ToString

@@ -23,20 +23,18 @@ import com.google.cloud.bigtable.admin.v2.BigtableTableAdminSettings;
 import com.google.cloud.bigtable.admin.v2.models.CreateTableRequest;
 
 /**
- * 
  * @author Sanju Thomas
- *
  */
 public class CreateTable {
 
   public void execute(final String project, final String instance, final String table)
-      throws IOException {
+    throws IOException {
     final BigtableTableAdminSettings adminSettings = BigtableTableAdminSettings.newBuilder()
-        .setProjectId(project).setInstanceId(instance).build();
+      .setProjectId(project).setInstanceId(instance).build();
     try (BigtableTableAdminClient bigtableDataClient =
-        BigtableTableAdminClient.create(adminSettings)) {
+      BigtableTableAdminClient.create(adminSettings)) {
       final CreateTableRequest request =
-          CreateTableRequest.of(table).addFamily("data").addFamily("metadata");
+        CreateTableRequest.of(table).addFamily("data").addFamily("metadata");
       bigtableDataClient.createTable(request);
     }
   }

@@ -27,10 +27,8 @@ import org.apache.kafka.connect.connector.Task;
 import org.apache.kafka.connect.sink.SinkConnector;
 
 /**
- *
  * @author Sanju Thomas
  * @since 1.0.3
- *
  */
 @Stable
 @Slf4j

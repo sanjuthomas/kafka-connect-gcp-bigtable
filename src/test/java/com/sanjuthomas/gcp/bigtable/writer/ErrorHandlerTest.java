@@ -20,6 +20,7 @@ package com.sanjuthomas.gcp.bigtable.writer;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import com.google.api.gax.rpc.ApiException;
@@ -27,9 +28,7 @@ import com.sanjuthomas.gcp.bigtable.config.WriterConfig.ErrorHandlerConfig;
 import com.sanjuthomas.gcp.bigtable.writer.ErrorHandler.Result;
 
 /**
- * 
  * @author Sanju Thomas
- *
  */
 public class ErrorHandlerTest {
 
@@ -46,7 +45,8 @@ public class ErrorHandlerTest {
 
   @Test
   public void shouldHandleExponentialBackOff() {
-    final ApiException exception = new ApiException(new Exception(), StatusCodeUtil.LOCAL_STATUS, true);
+    final ApiException exception = new ApiException(new Exception(), StatusCodeUtil.LOCAL_STATUS,
+      true);
     Result result = handlerExponentialBackoff.handle(exception);
     assertTrue(result.retry());
     assertEquals(3, result.secondsToSleep());
@@ -65,10 +65,11 @@ public class ErrorHandlerTest {
     assertEquals(0, result.secondsToSleep());
     handlerExponentialBackoff.reset();
   }
-  
+
   @Test
   public void shouldHandle() {
-    final ApiException exception = new ApiException(new Exception(), StatusCodeUtil.LOCAL_STATUS, true);
+    final ApiException exception = new ApiException(new Exception(), StatusCodeUtil.LOCAL_STATUS,
+      true);
     Result result = handler.handle(exception);
     assertTrue(result.retry());
     assertEquals(1, result.attempt());
@@ -86,10 +87,11 @@ public class ErrorHandlerTest {
     assertEquals(4, result.attempt());
     assertEquals(0, result.secondsToSleep());
   }
-  
+
   @Test
   public void shouldRestHandler() {
-    final ApiException exception = new ApiException(new Exception(), StatusCodeUtil.LOCAL_STATUS, true);
+    final ApiException exception = new ApiException(new Exception(), StatusCodeUtil.LOCAL_STATUS,
+      true);
     Result result = handlerSingleBackoff.handle(exception);
     assertTrue(result.retry());
     assertEquals(1, result.attempt());
@@ -104,13 +106,14 @@ public class ErrorHandlerTest {
     result = handlerSingleBackoff.handle(exception);
     assertFalse(result.retry());
   }
-  
+
   @Test
   public void shouldNotRetry() {
-    final ApiException exception = new ApiException(new Exception(), StatusCodeUtil.LOCAL_STATUS, false);
+    final ApiException exception = new ApiException(new Exception(), StatusCodeUtil.LOCAL_STATUS,
+      false);
     Result result = handler.handle(exception);
     assertFalse(result.retry());
-    
+
     final Exception ex = new Exception();
     result = handler.handle(ex);
     assertFalse(result.retry());

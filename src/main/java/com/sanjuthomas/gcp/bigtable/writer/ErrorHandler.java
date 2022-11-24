@@ -23,10 +23,8 @@ import com.google.api.gax.rpc.ApiException;
 import com.sanjuthomas.gcp.bigtable.config.WriterConfig.ErrorHandlerConfig;
 
 /**
- * 
  * @author Sanju Thomas
  * @since 1.0.3
- *
  */
 @Evolving
 public class ErrorHandler {
@@ -40,7 +38,7 @@ public class ErrorHandler {
 
   public Result handle(Throwable exception) {
     if (exception instanceof ApiException && ((ApiException) exception).isRetryable()
-        && counter.incrementAndGet() <= config.maxRetryCount()) {
+      && counter.incrementAndGet() <= config.maxRetryCount()) {
       return new Result(true, retryBackOffSeconds(), counter.get());
     }
     return new Result(false, 0, counter.get());

@@ -29,24 +29,22 @@ import com.google.cloud.bigtable.data.v2.models.Query;
 import com.google.cloud.bigtable.data.v2.models.Row;
 
 /**
- * 
  * @author Sanju Thomas
- *
  */
 public class QueryTable {
 
   private static final String KEY_FILE = "/Users/sanjuthomas/keys/demo-instance-key.json";
 
   public void execute(final String project, final String instance, final String table)
-      throws Exception {
+    throws Exception {
     final GoogleCredentials credentials;
     final File credentialsPath = new File(KEY_FILE);
     try (FileInputStream serviceAccountStream = new FileInputStream(credentialsPath)) {
       credentials = ServiceAccountCredentials.fromStream(serviceAccountStream);
     }
     final BigtableDataSettings bigtableDataSettings =
-        BigtableDataSettings.newBuilder().setProjectId(project).setInstanceId(instance)
-            .setCredentialsProvider(FixedCredentialsProvider.create(credentials)).build();
+      BigtableDataSettings.newBuilder().setProjectId(project).setInstanceId(instance)
+        .setCredentialsProvider(FixedCredentialsProvider.create(credentials)).build();
     try (BigtableDataClient bigtableDataClient = BigtableDataClient.create(bigtableDataSettings)) {
 
       final Query query = Query.create(table);

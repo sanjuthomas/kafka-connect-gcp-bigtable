@@ -23,12 +23,10 @@ import lombok.ToString;
 import org.apache.kafka.common.annotation.InterfaceStability.Stable;
 
 /**
- * 
  * Represent a row in the Bigtable.
  *
  * @author Sanju Thomas
  * @since 1.0.3
- *
  */
 @Stable
 @ToString

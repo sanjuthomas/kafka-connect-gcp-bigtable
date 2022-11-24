@@ -20,6 +20,7 @@ package com.sanjuthomas.gcp.bigtable.transform;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
+
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashMap;
@@ -38,28 +39,26 @@ import com.sanjuthomas.gcp.resolvers.MapEventResolver;
 import com.sanjuthomas.gcp.resolvers.SinkRecordResolver;
 
 /**
- * 
  * @author Sanju Thomas
- *
  */
 public class JsonEventTransformerTest {
 
   private JsonEventTransformer transformer;
   private JsonEventTransformer transformerWithoutKeyQualifier;
-  private final List<String> keyQualifiers = Arrays.asList(new String[] {"symbol"});
-  private final List<String> families = Arrays.asList(new String[] {"data", "metadata"});
+  private final List<String> keyQualifiers = Arrays.asList(new String[]{"symbol"});
+  private final List<String> families = Arrays.asList(new String[]{"data", "metadata"});
 
   @BeforeEach
   public void setUp() {
     final Map<String, List<String>> familyToQualifierMapping = new HashMap<>();
-    familyToQualifierMapping.put("data", Arrays.asList(new String[] {"symbol", "name", "sector"}));
+    familyToQualifierMapping.put("data", Arrays.asList(new String[]{"symbol", "name", "sector"}));
     familyToQualifierMapping.put("metadata",
-        Arrays.asList(new String[] {"created_at", "processed_at", "topic"}));
+      Arrays.asList(new String[]{"created_at", "processed_at", "topic"}));
     final TransformerConfig config =
-        new TransformerConfig(this.keyQualifiers, "_", this.families, familyToQualifierMapping);
+      new TransformerConfig(this.keyQualifiers, "_", this.families, familyToQualifierMapping);
     this.transformer = new JsonEventTransformer(config);
     final TransformerConfig noKeyQualifiersConfig = new TransformerConfig(Collections.emptyList(),
-        "_", this.families, familyToQualifierMapping);
+      "_", this.families, familyToQualifierMapping);
     this.transformerWithoutKeyQualifier = new JsonEventTransformer(noKeyQualifiersConfig);
   }
 
@@ -96,26 +95,26 @@ public class JsonEventTransformerTest {
   @Test
   @ExtendWith({SinkRecordResolver.class, MapEventResolver.class})
   public void shouldGetRowKeyWhenKeyQualifierIsEmptyAndKeyIsGivenInSinkRecord(
-      final SinkRecord record, final Map<String, String> mapEvent) {
+    final SinkRecord record, final Map<String, String> mapEvent) {
     assertEquals("MMM", this.transformerWithoutKeyQualifier.rowKey(record, mapEvent));
   }
 
   @Test
   @ExtendWith({KeylessSinkRecordResolver.class, MapEventResolver.class})
   public void shouldGetRowKeyWhenKeyQualifierIsNotEmptyAndKeyIsNotGivenInSinkRecord(
-      final SinkRecord record, final Map<String, String> mapEvent) {
+    final SinkRecord record, final Map<String, String> mapEvent) {
     assertEquals("MMM", this.transformer.rowKey(record, mapEvent));
   }
 
   @Test
   @ExtendWith({KeylessSinkRecordResolver.class, MapEventResolver.class})
   public void shouldNotGetRowKeyWhenKeyQualifierIsEmptyAndKeyIsNotGivenInSinkRecord(
-      final SinkRecord record, final Map<String, String> mapEvent) {
+    final SinkRecord record, final Map<String, String> mapEvent) {
     final RowKeyNotFoundException exception = assertThrows(RowKeyNotFoundException.class, () -> {
       this.transformerWithoutKeyQualifier.rowKey(record, mapEvent);
     });
     assertEquals("keyQualifiers are not configured and there is no key found in the SinkRecord!",
-        exception.getMessage());
+      exception.getMessage());
   }
 
   @Test
