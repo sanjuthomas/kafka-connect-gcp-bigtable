@@ -40,7 +40,7 @@ import com.google.common.util.concurrent.MoreExecutors;
  */
 public class UpsertData {
 
-  private static final String KEY_FILE = "/Users/sanjuthomas/keys/demo-instance-key.json";
+  private static final String KEY_FILE = "/Users/sanjuthomas/key.json";
 
   public void execute(final String project, final String instance, final String table,
     final Map<String, Object> data) throws Exception {
@@ -54,19 +54,18 @@ public class UpsertData {
         .setCredentialsProvider(FixedCredentialsProvider.create(credentials)).build();
     try (BigtableDataClient bigtableDataClient = BigtableDataClient.create(bigtableDataSettings)) {
       final BulkMutation batch = BulkMutation.create(table);
+      final String rowKey = String.format("%s-%s", data.get("exchange"), data.get("symbol"));
       data.entrySet().forEach(e -> {
-        batch.add("NYSE-APPL",
+        batch.add(rowKey,
           Mutation.create().setCell("data", e.getKey(), Objects.toString(e.getValue())));
       });
-      batch.add("metadata",
+      batch.add(rowKey,
         Mutation.create().setCell("metadata", "created_at", Objects.toString(new Date())));
-      batch.add("metadata",
+      batch.add(rowKey,
         Mutation.create().setCell("metadata", "processed_at", Objects.toString(new Date())));
-      batch.add("metadata", Mutation.create().setCell("metadata", "topic", "demo-topic"));
-      batch.add("metadata", Mutation.create().setCell("metadata", "partition", "0"));
-
+      batch.add(rowKey, Mutation.create().setCell("metadata", "topic", "demo-topic"));
+      batch.add(rowKey, Mutation.create().setCell("metadata", "partition", "0"));
       final ApiFuture<Void> result = bigtableDataClient.bulkMutateRowsAsync(batch);
-
       ApiFutures.addCallback(result, new ApiFutureCallback<Void>() {
         public void onFailure(Throwable t) {
           t.printStackTrace();
@@ -86,8 +85,8 @@ public class UpsertData {
     data.put("client", "c-100");
     data.put("exchange", "NYSE");
     data.put("symbol", "AAPL");
-    data.put("price", 201.12);
+    data.put("price", 201.16);
     data.put("quantity", 1200);
-    new UpsertData().execute("civic-athlete-251623", "demo-instance", "demo-table", data);
+    new UpsertData().execute("{project_id NOT project name}", "demo-instance", "test-table", data);
   }
 }

@@ -33,7 +33,7 @@ import com.google.cloud.bigtable.data.v2.models.Row;
  */
 public class QueryTable {
 
-  private static final String KEY_FILE = "/Users/sanjuthomas/keys/demo-instance-key.json";
+  private static final String KEY_FILE = "/Users/sanjuthomas/key.json";
 
   public void execute(final String project, final String instance, final String table)
     throws Exception {
@@ -55,9 +55,12 @@ public class QueryTable {
         System.out.println(new String(r.getKey().toByteArray()));
         System.out.println("------------");
         r.getCells().forEach(c -> {
-          System.out.println(c.getFamily());
-          System.out.println(new String(c.getQualifier().toByteArray()));
-          System.out.println(new String(c.getValue().toByteArray()));
+          System.out.print(c.getFamily());
+          System.out.print("|");
+          System.out.print(new String(c.getQualifier().toByteArray()));
+          System.out.print("|");
+          System.out.print(new String(c.getValue().toByteArray()));
+          System.out.print("|");
           System.out.println(c.getTimestamp());
         });
         System.out.println("------------------------------------------------");
@@ -66,7 +69,7 @@ public class QueryTable {
   }
 
   public static void main(final String[] args) throws Exception {
-    new QueryTable().execute("civic-athlete-251623", "demo-instance", "demo-table");
+    new QueryTable().execute("{project_id NOT project name}", "demo-instance", "test-table");
   }
 }
 
