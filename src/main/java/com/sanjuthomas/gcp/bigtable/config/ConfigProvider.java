@@ -51,6 +51,7 @@ public class ConfigProvider {
     try {
       final String configFile = String.format("%s/%s.%s", configFileLocation, topic, "yml");
       final Config config = MAPPER.readValue(new File(configFile), Config.class);
+      log.debug("Config for topic {} was {}", topic, config);
       configs.put(topic, config);
     } catch (final Exception e) {
       throw new BigtableSinkInitializationException(e.getMessage(), e);

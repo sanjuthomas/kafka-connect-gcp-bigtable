@@ -1,5 +1,6 @@
 package com.sanjuthomas.gcp.bigtable.bean;
 
+import lombok.ToString;
 import org.apache.kafka.common.annotation.InterfaceStability.Stable;
 import com.google.protobuf.ByteString;
 
@@ -12,6 +13,7 @@ import com.google.protobuf.ByteString;
  *
  */
 @Stable
+@ToString
 public class WritableCell {
 
   private final ByteString qualifier;

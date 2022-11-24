@@ -66,6 +66,7 @@ public class BigtableWriter implements Writer<WritableRow, Boolean> {
 
   @VisibleForTesting
   void flush(final List<WritableRow> rows) {
+    log.debug("Flushing {} rows", rows.size());
     final BulkMutation batch = BulkMutation.create(this.config.table());
     for (final WritableRow row : rows) {
       for (final WritableFamilyCells familyCells : row.familyCells()) {
@@ -74,6 +75,7 @@ public class BigtableWriter implements Writer<WritableRow, Boolean> {
     }
     try {
       this.execute(batch);
+      log.debug("{} rows written to Bigtable", rows.size());
     } catch (final BigtableWriteFailedException e) {
       if (!continueAfterWriteError) {
         throw e;
@@ -122,12 +124,14 @@ public class BigtableWriter implements Writer<WritableRow, Boolean> {
 
   private void addMutation(final BulkMutation batch, final String rowKey, final String family, final List<WritableCell> cells) {
     for (final WritableCell cell : cells) {
+      log.debug("Adding cell for row key {}. family {}, cell qualifier {}, cell value {}", rowKey, family, cell.qualifier(), cell.value());
       batch.add(rowKey, Mutation.create().setCell(family, cell.qualifier(), cell.value()));
     }
   }
 
   @Override
   public int buffer(final WritableRow row) {
+    log.debug("Buffering {}", row);
     this.rows.add(row);
     return this.rows.size();
   }

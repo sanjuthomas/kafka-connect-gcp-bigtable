@@ -2,6 +2,7 @@ package com.sanjuthomas.gcp.bigtable.bean;
 
 import java.util.ArrayList;
 import java.util.List;
+import lombok.ToString;
 import org.apache.kafka.common.annotation.InterfaceStability.Stable;
 
 /**
@@ -13,6 +14,7 @@ import org.apache.kafka.common.annotation.InterfaceStability.Stable;
  *
  */
 @Stable
+@ToString
 public class WritableRow {
 
   private final String rowKey;

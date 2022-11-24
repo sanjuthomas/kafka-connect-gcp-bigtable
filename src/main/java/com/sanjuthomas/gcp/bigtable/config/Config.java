@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
+import lombok.ToString;
 import org.apache.kafka.common.annotation.InterfaceStability.Stable;
 import com.google.common.base.MoreObjects;
 import com.google.common.base.Preconditions;
@@ -45,6 +46,7 @@ import com.sanjuthomas.gcp.bigtable.config.WriterConfig.ErrorHandlerConfig;
  *
  */
 @Stable
+@ToString
 public class Config {
 
   private String keyFile;
