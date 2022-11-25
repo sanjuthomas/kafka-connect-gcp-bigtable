@@ -30,11 +30,10 @@ This project leverage [bigtable-client-core](https://mvnrepository.com/artifact/
 ### Tested Software Versions
 
 | Software      | Version       |  Note                                 |         
-| ------------- |---------------| --------------------------------------- |
-| Java          | 11     | Tested using Java 11. |
-| Kafka         | >= 2.11-1.1.1    | Please [refer](https://kafka.apache.org/downloads). Tested using kafka_2.11-1.1.1, may work with older versions. | 
-| Zookeeper     | >= 3.4.13        | Please [refer](https://zookeeper.apache.org/releases.html). Tested using zookeeper-3.4.13.  |
-| bigtable-client-core | 1.27.1  | Please [refer](https://mvnrepository.com/artifact/com.google.cloud.bigtable/bigtable-client-core/1.27.1).                 |
+| ------------- |---------------| ------------------------------------- |
+| Java          | 11            | Tested using Java 11. |
+| Kafka         | 2.13-3.3.1    | Please [refer](https://kafka.apache.org/downloads). Tested using kafka_2.13-3.3.1, should work with older versions. | 
+| bigtable-client-core | 1.27.1 | Please [refer](https://mvnrepository.com/artifact/com.google.cloud.bigtable/bigtable-client-core/1.27.1). |
 | Kafka connect-api | 3.3.1     | Please [refer](https://mvnrepository.com/artifact/org.apache.kafka/connect-api/3.3.1). |
 | grpc-netty-shaded | 1.51.0    | Please [refer](https://mvnrepository.com/artifact/io.grpc/grpc-netty-shaded/1.51.0). |
 
@@ -45,8 +44,6 @@ Please refer to project [Wiki](https://github.com/sanjuthomas/kafka-connect-gcp-
 ### Constraints
 
 The current configuration system supports streaming messages from a given topic to a given table. You can subscribe any number of topics, but a topic can be pointed to one and only table. Say for example, if you subscribed from topic named demo-topic, you should have yml file named demo-topic.yml. That yml file contains all the configuration requires to transform and write data into Bigtable.										
-
-As of today, we have transformer support for JSON Messages. I'm planning to add the Avro Messages transformer in the next version.
 
 ## How to build the artifact
 
