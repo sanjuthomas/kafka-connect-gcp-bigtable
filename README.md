@@ -34,9 +34,9 @@ This project leverage [bigtable-client-core](https://mvnrepository.com/artifact/
 | Java          | 11     | Tested using Java 11. |
 | Kafka         | >= 2.11-1.1.1    | Please [refer](https://kafka.apache.org/downloads). Tested using kafka_2.11-1.1.1, may work with older versions. | 
 | Zookeeper     | >= 3.4.13        | Please [refer](https://zookeeper.apache.org/releases.html). Tested using zookeeper-3.4.13.  |
-| bigtable-client-core | 1.12.1  | Please [refer](https://mvnrepository.com/artifact/com.google.cloud.bigtable/bigtable-client-core/1.12.1).                 |
-| Kafka connect-api | 2.3.0     | Please [refer](https://mvnrepository.com/artifact/org.apache.kafka/connect-api/2.3.0). |
-| grpc-netty-shaded | 1.23.0    | Please [refer](https://mvnrepository.com/artifact/io.grpc/grpc-netty-shaded/1.23.0). |
+| bigtable-client-core | 1.27.1  | Please [refer](https://mvnrepository.com/artifact/com.google.cloud.bigtable/bigtable-client-core/1.27.1).                 |
+| Kafka connect-api | 3.3.1     | Please [refer](https://mvnrepository.com/artifact/org.apache.kafka/connect-api/3.3.1). |
+| grpc-netty-shaded | 1.51.0    | Please [refer](https://mvnrepository.com/artifact/io.grpc/grpc-netty-shaded/1.51.0). |
 
 ## Configurations
 
