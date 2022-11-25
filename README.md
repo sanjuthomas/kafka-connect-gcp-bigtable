@@ -32,7 +32,7 @@ This project leverage [bigtable-client-core](https://mvnrepository.com/artifact/
 | Software      | Version       |  Note                                 |         
 | ------------- |---------------| ------------------------------------- |
 | Java          | 11            | Tested using Java 11. |
-| Kafka         | 2.13-3.3.1    | Please [refer](https://kafka.apache.org/downloads). Tested using kafka_2.13-3.3.1, should work with older versions. | 
+| Kafka         | 3.3.1         | Please [refer](https://kafka.apache.org/downloads). Tested using kafka_2.13-3.3.1, should work with older versions. | 
 | bigtable-client-core | 1.27.1 | Please [refer](https://mvnrepository.com/artifact/com.google.cloud.bigtable/bigtable-client-core/1.27.1). |
 | Kafka connect-api | 3.3.1     | Please [refer](https://mvnrepository.com/artifact/org.apache.kafka/connect-api/3.3.1). |
 | grpc-netty-shaded | 1.51.0    | Please [refer](https://mvnrepository.com/artifact/io.grpc/grpc-netty-shaded/1.51.0). |
