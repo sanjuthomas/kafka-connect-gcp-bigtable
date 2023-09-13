@@ -86,7 +86,8 @@ public class JsonEventTransformer implements Transformer<SinkRecord, WritableRow
   @VisibleForTesting
   Map<String, Object> filterRow(final String family, final Map<String, ? extends Object> row) {
     return row.entrySet().stream()
-      .filter((e) -> this.config.familyQualifiers(family).contains(e.getKey()))
+      // TODO(@damon): prevent filtering to allow *all* features to be saved to BT
+      // .filter((e) -> this.config.familyQualifiers(family).contains(e.getKey()))
       .collect(Collectors.toMap(e -> e.getKey(), e -> e.getValue()));
   }
 

@@ -6,7 +6,7 @@
 	<version>1.0.14-SNAPSHOT</version>
 	<packaging>jar</packaging>
 	<description>Kafka Sink Connect GCP Bigtable</description>
-	
+
 	<developers>
 		<developer>
 			<id>sanjuthomas</id>
@@ -147,7 +147,7 @@
 			<plugin>
 				<groupId>org.jacoco</groupId>
 				<artifactId>jacoco-maven-plugin</artifactId>
-				<version>0.8.2</version>
+				<version>0.8.4</version>
 				<executions>
 					<execution>
 						<goals>

@@ -37,9 +37,12 @@ import com.sanjuthomas.gcp.bigtable.config.WriterProvider;
 import com.sanjuthomas.gcp.bigtable.writer.BigtableWriter;
 
 /**
- * Refer to super class documentation for general information about the {@link SinkTask}. This class
- * is responsible for taking a batch of SinkRecord(s), call the given {@link Transformer} to
- * transform SinkRecord(s) to Bigtable writable rows, and call the {@link BigtableWriter} to buffer
+ * Refer to super class documentation for general information about the
+ * {@link SinkTask}. This class
+ * is responsible for taking a batch of SinkRecord(s), call the given
+ * {@link Transformer} to
+ * transform SinkRecord(s) to Bigtable writable rows, and call the
+ * {@link BigtableWriter} to buffer
  * and flush the rows to Bigtable.
  *
  * @author Sanju Thomas
@@ -82,8 +85,8 @@ public class BigtableSinkTask extends SinkTask {
   }
 
   /**
-   * Every task would have it's on ConfigProvider and WriterProvider - so nothing shared among the
-   * tasks.
+   * Every task would have it's on ConfigProvider and WriterProvider - so
+   * nothing shared among the tasks.
    */
   @Override
   public void start(final Map<String, String> config) {
@@ -92,9 +95,9 @@ public class BigtableSinkTask extends SinkTask {
     final String topics = config.get(BigtableSinkConfig.TOPICS);
     final String configFileLocation = config.get(BigtableSinkConfig.CONFIG_FILE_LOCATION);
     Preconditions.checkNotNull(topics,
-      "topics is a mandatory config in the bigtable-sink.properties");
+        "topics is a mandatory config in the bigtable-sink.properties");
     Preconditions.checkNotNull(configFileLocation,
-      "topics.config.files.location is a mandatory config in the bigtable-sink.properties");
+        "topics.config.files.location is a mandatory config in the bigtable-sink.properties");
     for (final String topic : topics.split(",")) {
       log.info("task {} loading configuration for topic {}", Thread.currentThread().getId(), topic);
       configProvider.load(configFileLocation, topic.trim());
@@ -110,7 +113,7 @@ public class BigtableSinkTask extends SinkTask {
   @Override
   public void flush(final Map<TopicPartition, OffsetAndMetadata> currentOffsets) {
     log.debug("flush is called for {} in task {}", currentOffsets.keySet(),
-      Thread.currentThread().getId());
+        Thread.currentThread().getId());
   }
 
   @Override
