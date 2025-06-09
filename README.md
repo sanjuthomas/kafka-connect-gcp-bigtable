@@ -37,6 +37,13 @@ You have [Apache ZooKeeper](https://zookeeper.apache.org) and [Apache Kafka](htt
 | Kafka connect-api | 3.3.1     | Please [refer](https://mvnrepository.com/artifact/org.apache.kafka/connect-api/3.3.1). |
 | grpc-netty-shaded | 1.51.0    | Please [refer](https://mvnrepository.com/artifact/io.grpc/grpc-netty-shaded/1.51.0). |
 
+## Maven Central Coordinate
+`<dependency>
+    <groupId>com.sanjuthomas</groupId>
+    <artifactId>kafka-connect-gcp-bigtable</artifactId>
+    <version>1.0.13</version>
+</dependency>`
+
 ## Configurations
 
 Please refer to project [Wiki](https://github.com/sanjuthomas/kafka-connect-gcp-bigtable/wiki/Kafka-Connect-GCP-Bigtable-sink-configurations)
