@@ -11,11 +11,11 @@ Apache Kafka Sink Only Connect can stream messages from Apache Kafka to Google C
 
 ## What is Apache Kafka
 
-Apache Kafka is an open-source stream processing platform developed by the Apache Software Foundation and written in Scala and Java. The project aims to provide a unified, high-throughput, low-latency platform for real-time data feeds. Please look at [Apache Kafka home page](https://kafka.apache.org/).
+Apache Kafka is an open-source stream processing platform developed by the Apache Software Foundation and written in Scala and Java. The project aims to provide a unified, high-throughput, low-latency platform for real-time data feeds. Please refer to the [Apache Kafka home page](https://kafka.apache.org/).
 
 ## What is Google Cloud Bigtable
 
-Bigtable is a compressed, high performance, proprietary data storage system built on Google File System, Chubby Lock Service, SSTable and a few other Google technologies. On May 6, 2015, a public version of Bigtable was made available as a service in the Google Cloud Platform. For more details, please refer to [GCP Bigtable home page](https://cloud.google.com/bigtable/).
+Bigtable is a compressed, high-performance, proprietary data storage system built on Google File System, Chubby Lock Service, SSTable, and a few other Google technologies. On May 6, 2015, a public version of Bigtable was made available as a service in the Google Cloud Platform. For more details, please take a look at [GCP Bigtable home page](https://cloud.google.com/bigtable/).
 
 ## High Level Architecture
 
@@ -43,7 +43,7 @@ Please refer to project [Wiki](https://github.com/sanjuthomas/kafka-connect-gcp-
 						 	 
 ### Constraints
 
-The current configuration system supports streaming messages from a given topic to a table. You can subscribe to any number of topics, but a topic can be pointed to one and only one table. Say, for example, if you subscribed from a topic named demo-topic, you should have a yml file named demo-topic.yml. That yml file contains all the configuration required to transform and write data into Bigtable.										
+The current configuration system supports streaming messages from a given topic to a table. You can subscribe to any number of topics, but a topic can be pointed to one and only one table. Say, for example, if you subscribed from a topic named demo-topic, you should have a yml file named demo-topic.yml. That YML file contains all the configuration required to transform and write data into Bigtable.										
 
 ## How to build the artifact
 
