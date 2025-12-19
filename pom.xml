@@ -33,7 +33,7 @@
 		<grpc-netty-shaded.version>1.75.0</grpc-netty-shaded.version>
 		<connect-api.version>3.3.1</connect-api.version>
 		<slf4j-api.version>2.0.4</slf4j-api.version>
-		<log4j.version>2.19.0</log4j.version>
+		<log4j.version>2.25.3</log4j.version>
 		<mockito-junit-jupiter.version>4.8.0</mockito-junit-jupiter.version>
 		<junit-jupiter-api.version>5.9.0</junit-jupiter-api.version>
 		<junit-jupiter-engine.version>5.9.0</junit-jupiter-engine.version>
