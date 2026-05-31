@@ -49,7 +49,7 @@ import com.sanjuthomas.gcp.bigtable.writer.BigtableWriter;
 @Slf4j
 public class BigtableSinkTask extends SinkTask {
 
-  private static final Set<String> assignedTopics = new LinkedHashSet<>();
+  private final Set<String> assignedTopics = new LinkedHashSet<>();
   private ConfigProvider configProvider;
   @VisibleForTesting
   WriterProvider writerProvider;
