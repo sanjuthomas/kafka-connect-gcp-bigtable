@@ -27,20 +27,17 @@
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<jackson-databind.version>2.14.0</jackson-databind.version>
-		<jackson-dataformat-yaml.version>2.14.0</jackson-dataformat-yaml.version>
-		<bigtable-client-core.version>1.27.1</bigtable-client-core.version>
-		<grpc-netty-shaded.version>1.75.0</grpc-netty-shaded.version>
-		<connect-api.version>3.3.1</connect-api.version>
-		<slf4j-api.version>2.0.4</slf4j-api.version>
-		<log4j.version>2.19.0</log4j.version>
-		<mockito-junit-jupiter.version>4.8.0</mockito-junit-jupiter.version>
-		<junit-jupiter-api.version>5.9.0</junit-jupiter-api.version>
-		<junit-jupiter-engine.version>5.9.0</junit-jupiter-engine.version>
-		<junit-jupiter-params.version>5.9.0</junit-jupiter-params.version>
-		<connect-json.version>3.3.1</connect-json.version>
-		<projectlombok.version>1.18.24</projectlombok.version>
-		<maven-shade-plugin.version>3.2.4</maven-shade-plugin.version>
+		<jackson.version>2.21.4</jackson.version>
+		<bigtable-client-core.version>1.29.2</bigtable-client-core.version>
+		<grpc-netty-shaded.version>1.81.0</grpc-netty-shaded.version>
+		<connect-api.version>3.9.2</connect-api.version>
+		<slf4j-api.version>2.0.18</slf4j-api.version>
+		<log4j.version>2.26.0</log4j.version>
+		<mockito-junit-jupiter.version>5.23.0</mockito-junit-jupiter.version>
+		<junit-jupiter.version>5.14.4</junit-jupiter.version>
+		<connect-json.version>3.9.2</connect-json.version>
+		<projectlombok.version>1.18.46</projectlombok.version>
+		<maven-shade-plugin.version>3.6.2</maven-shade-plugin.version>
 	</properties>
 
 	<licenses>
@@ -62,12 +59,12 @@
 		<dependency>
 			<groupId>com.fasterxml.jackson.core</groupId>
 			<artifactId>jackson-databind</artifactId>
-			<version>${jackson-databind.version}</version>
+			<version>${jackson.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>com.fasterxml.jackson.dataformat</groupId>
 			<artifactId>jackson-dataformat-yaml</artifactId>
-			<version>${jackson-dataformat-yaml.version}</version>
+			<version>${jackson.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>com.google.cloud.bigtable</groupId>
@@ -97,6 +94,12 @@
 			<scope>test</scope>
 		</dependency>
 		<dependency>
+			<groupId>org.apache.logging.log4j</groupId>
+			<artifactId>log4j-slf4j2-impl</artifactId>
+			<version>${log4j.version}</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
 			<groupId>org.projectlombok</groupId>
 			<artifactId>lombok</artifactId>
 			<version>${projectlombok.version}</version>
@@ -111,19 +114,19 @@
 		<dependency>
 			<groupId>org.junit.jupiter</groupId>
 			<artifactId>junit-jupiter-api</artifactId>
-			<version>${junit-jupiter-api.version}</version>
+			<version>${junit-jupiter.version}</version>
 			<scope>test</scope>
 		</dependency>
 		<dependency>
 			<groupId>org.junit.jupiter</groupId>
 			<artifactId>junit-jupiter-engine</artifactId>
-			<version>${junit-jupiter-engine.version}</version>
+			<version>${junit-jupiter.version}</version>
 			<scope>test</scope>
 		</dependency>
 		<dependency>
 			<groupId>org.junit.jupiter</groupId>
 			<artifactId>junit-jupiter-params</artifactId>
-			<version>${junit-jupiter-params.version}</version>
+			<version>${junit-jupiter.version}</version>
 			<scope>test</scope>
 		</dependency>
 		<dependency>
@@ -139,15 +142,22 @@
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-compiler-plugin</artifactId>
-				<version>3.8.0</version>
+				<version>3.13.0</version>
 				<configuration>
 					<release>11</release>
+					<annotationProcessorPaths>
+						<path>
+							<groupId>org.projectlombok</groupId>
+							<artifactId>lombok</artifactId>
+							<version>${projectlombok.version}</version>
+						</path>
+					</annotationProcessorPaths>
 				</configuration>
 			</plugin>
 			<plugin>
 				<groupId>org.jacoco</groupId>
 				<artifactId>jacoco-maven-plugin</artifactId>
-				<version>0.8.2</version>
+				<version>0.8.12</version>
 				<executions>
 					<execution>
 						<goals>
@@ -186,24 +196,15 @@
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-surefire-plugin</artifactId>
-				<version>2.22.0</version>
+				<version>3.5.2</version>
 				<configuration>
-					<properties>
-						<excludeTags>${excludeTag}</excludeTags>
-					</properties>
+					<excludedGroups>${excludeTag}</excludedGroups>
 				</configuration>
-				<dependencies>
-					<dependency>
-						<groupId>org.junit.platform</groupId>
-						<artifactId>junit-platform-surefire-provider</artifactId>
-						<version>1.3.2</version>
-					</dependency>
-				</dependencies>
 			</plugin>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-failsafe-plugin</artifactId>
-				<version>2.22.0</version>
+				<version>3.5.2</version>
 			</plugin>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
