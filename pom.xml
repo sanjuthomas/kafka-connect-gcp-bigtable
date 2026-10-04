@@ -27,7 +27,7 @@
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<jackson.version>2.21.5</jackson.version>
+		<jackson.version>2.21.7</jackson.version>
 		<bigtable-client-core.version>1.29.2</bigtable-client-core.version>
 		<grpc-netty-shaded.version>1.81.0</grpc-netty-shaded.version>
 		<connect-api.version>3.9.2</connect-api.version>
